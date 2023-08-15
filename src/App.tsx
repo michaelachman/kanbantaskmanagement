@@ -74,14 +74,14 @@ function App() {
       {/* <BoardsNavbar name={name} initialBoards={initialBoards} activeBoard={activeBoard} selectBoard={selectBoard} /> */}
       {/* {windowWidth > 768 ? ( */}
     
+    <div>
     <BoardsNavbar
         boardsArray={boardsArray}
         activeBoard={activeBoard}
         selectBoard={selectBoard}
         mobile={false}
-      
-        // newBoardDialog={newBoardDialog}
       />
+      </div>
       {/* ) : ( */}
       {/* <BoardsNavbar
           name={name}
@@ -102,7 +102,6 @@ function App() {
       ) : (
         <div className="h-10 bg-red-500"></div>
       )}
-
 
       <EditBoardDialog
         editBoardIsOpen={editBoardIsOpen}
