@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import "./App.css";
 import BoardsNavbar from "./components/BoardsNavbar";
 import EditBoardDialog from "./components/EditBoardDialog";
@@ -58,15 +58,37 @@ function App() {
     setEditBoardIsOpen(false);
   }
 
-  function addNewColumn() {
-    setBoardsArray((prevV) => {
-      boardsArray[activeBoard].columns?.push({ ...prevV, columnName: "" });
-      console.log(boardsArray)
-      return boardsArray;
-      
-    });
+  function saveChanges(localBoardsArray: BoardType[]) {
+    setBoardsArray(localBoardsArray)
+    setEditBoardIsOpen(false)
   }
 
+  // function addNewColumn() {
+  //   setBoardsArray((prevV) => {
+  //     boardsArray[activeBoard].columns?.push({ ...prevV, columnName: "" });
+  //     console.log(boardsArray)
+  //     return boardsArray;
+      
+  //   });
+  // }
+
+  function addNewColumn() {
+    setBoardsArray((previousBoardsArray) => {
+      previousBoardsArray[activeBoard].columns?.push({columnName: "New Column"})
+      console.log(previousBoardsArray)
+      return previousBoardsArray
+    })
+  }
+
+  // useEffect(() => console.log(boardsArray), [boardsArray])
+
+  function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
+    setBoardsArray((previousBoardsArrayState) => {
+      previousBoardsArrayState[activeBoard].boardName = event.target.value
+      return boardsArray
+    })
+  }
+    // [...previousBoardsArrayState, previousBoardsArrayState[activeBoard].boardName = event.target.value]
   // window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
 
   return (
@@ -107,31 +129,15 @@ function App() {
         editBoardIsOpen={editBoardIsOpen}
         closeEditBoard={closeEditBoard}
         boardsArray={boardsArray}
+        boardColumnsArray={boardsArray[activeBoard].columns}
         activeBoard={activeBoard}
         addNewColumn={addNewColumn}
+        handleBoardNameInput={handleBoardNameInput}
+        saveChanges={saveChanges}
       />
 
-      {/* <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-        <Dialog.Panel>
-          <Dialog.Title>Deactivate account</Dialog.Title>
-          <Dialog.Description>
-            This will permanently deactivate your account
-          </Dialog.Description>
-
-          <p>
-            Are you sure you want to deactivate your account? All of your data
-            will be permanently removed. This action cannot be undone.
-          </p>
-
-          <button onClick={() => setIsOpen(false)}>Deactivate</button>
-          <button onClick={() => setIsOpen(false)}>Cancel</button>
-        </Dialog.Panel>
-      </Dialog> */}
     </div>
   );
 }
 
 export default App;
-
-// 1. jak kurwa mac ustawic obok siebie te trzy kropki z przyciskiem z plusem w boardsnavbarze
-// 2. czy to ze dalem w tym warunku ze length column jest undefined jest dobrze? bo tylko tak to chcialo zadzialac
