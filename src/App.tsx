@@ -2,21 +2,27 @@ import { useState, useEffect, ChangeEvent } from "react";
 import "./App.css";
 import BoardsNavbar from "./components/BoardsNavbar";
 import EditBoardDialog from "./components/EditBoardDialog";
+import { Columns } from "./components/Columns";
+
+
+export type Column = {
+  columnName: string,
+  tasks?: {
+    taskName: string,
+    subtasks?: {
+      subtaskName: string;
+      subtaskContent: string;
+    }[]
+  }[]
+}
 
 export type BoardType = {
   index: number;
   boardName: string;
-  columns?: {
-    columnName: string;
-    tasks?: {
-      taskName: string;
-      subtasks: {
-        subtaskName: string;
-        subtaskContent: string;
-      }[];
-    }[];
-  }[];
+  columns?: Column[];
 };
+
+
 
 function App() {
   const boards: BoardType[] = [
@@ -40,54 +46,48 @@ function App() {
         },
         {
           columnName: "DOING",
-        },
+        },{
+          columnName: "3"
+        }
       ],
     },
     { index: 1, boardName: "Marketing Plan" },
   ];
 
+
+ 
+
   const [activeBoard, setActiveBoard] = useState(0);
   const [boardsArray, setBoardsArray] = useState(boards);
-  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [editBoardIsOpen, setEditBoardIsOpen] = useState(true);
+  // const [boardColumnsArray, setBoardColumnsArray] = useState(boardsArray[activeBoard].columns)
+  const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
+  
 
 
-  function selectBoard() {}
+ 
 
   function closeEditBoard() {
     setEditBoardIsOpen(false);
   }
 
-  function saveChanges(localBoardsArray: BoardType[]) {
-    setBoardsArray(localBoardsArray)
-    setEditBoardIsOpen(false)
-  }
+  
 
-  // function addNewColumn() {
-  //   setBoardsArray((prevV) => {
-  //     boardsArray[activeBoard].columns?.push({ ...prevV, columnName: "" });
-  //     console.log(boardsArray)
-  //     return boardsArray;
-      
-  //   });
-  // }
-
-  function addNewColumn() {
-    setBoardsArray((previousBoardsArray) => {
-      previousBoardsArray[activeBoard].columns?.push({columnName: "New Column"})
-      console.log(previousBoardsArray)
-      return previousBoardsArray
-    })
-  }
-
-  // useEffect(() => console.log(boardsArray), [boardsArray])
-
-  function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
+  function saveChanges(columnsArray: Column[], boardName: string) {
     setBoardsArray((previousBoardsArrayState) => {
-      previousBoardsArrayState[activeBoard].boardName = event.target.value
-      return boardsArray
-    })
+      // return [...previousBoardsArrayState, columnsArray]
+    previousBoardsArrayState[activeBoard].boardName = boardName;
+    previousBoardsArrayState[activeBoard].columns = columnsArray
+    return previousBoardsArrayState
+    });
+    setEditBoardIsOpen(false)
+    console.log(boardsArray)
   }
+
+  function addNewTask() {
+
+  }
+
+  
     // [...previousBoardsArrayState, previousBoardsArrayState[activeBoard].boardName = event.target.value]
   // window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
 
@@ -96,14 +96,14 @@ function App() {
       {/* <BoardsNavbar name={name} initialBoards={initialBoards} activeBoard={activeBoard} selectBoard={selectBoard} /> */}
       {/* {windowWidth > 768 ? ( */}
     
-    <div>
+    
     <BoardsNavbar
         boardsArray={boardsArray}
         activeBoard={activeBoard}
-        selectBoard={selectBoard}
         mobile={false}
+        addNewTask={addNewTask}
       />
-      </div>
+      
       {/* ) : ( */}
       {/* <BoardsNavbar
           name={name}
@@ -115,24 +115,23 @@ function App() {
         /> */}
       {/* )} */}
       {boardsArray[activeBoard].columns?.length === undefined ? (
-        <div className="h-10 bg-green-500">
-          <p> This board is empty. Create a new column to get started. </p>
-          <button onClick={() => setEditBoardIsOpen(true)}>
-            Add New Column
+        <div className="h-full flex flex-col items-center justify-center pb-32 bg-[#F4F7FD]">
+          <p className="text-[#828FA3] font-bold"> This board is empty. Create a new column to get started. </p>
+          <button className="bg-[#635FC7] text-white mt-4 p-3 rounded-3xl text-sm" onClick={() => setEditBoardIsOpen(true)}>
+            +Add New Column
           </button>
         </div>
       ) : (
-        <div className="h-10 bg-red-500"></div>
+        <Columns boardDetails={boardsArray[activeBoard]} />
       )}
 
       <EditBoardDialog
         editBoardIsOpen={editBoardIsOpen}
         closeEditBoard={closeEditBoard}
         boardsArray={boardsArray}
-        boardColumnsArray={boardsArray[activeBoard].columns}
+        boardColumnsArray={boardsArray[activeBoard].columns || []}
         activeBoard={activeBoard}
-        addNewColumn={addNewColumn}
-        handleBoardNameInput={handleBoardNameInput}
+        boardName={boardsArray[activeBoard].boardName}
         saveChanges={saveChanges}
       />
 
