@@ -1,0 +1,125 @@
+// export type Column = {
+//   columnName: string;
+//   tasks?: {
+//     taskName: string;
+//     taskDescription?: string;
+//     subtasks?: {
+//       subtaskContent: string;
+//       subtaskStatus: boolean;
+//     }[];
+//   }[];
+// };
+
+
+
+// const boards: BoardType[] = [
+  //   {
+  //     index: 0,
+  //     boardName: "Platform Launch",
+  //     columns: [
+  //       {
+  //         columnName: "TODO",
+  //         tasks: [
+  //           {
+  //             taskName: "firstTask",
+  //             taskDescription: "content of the first task in TODO list",
+  //             subtasks: [
+  //               {
+              
+  //                 subtaskContent: "content of 1st subtask",
+  //                 subtaskStatus: true,
+  //               },
+  //               {
+                  
+  //                 subtaskContent: "content of 2nd subtask",
+  //                 subtaskStatus: false,
+  //               },
+  //               {
+                  
+  //                 subtaskContent: "content of 3rd subtask",
+  //                 subtaskStatus: true,
+  //               },
+  //             ],
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         columnName: "DOING",
+  //         tasks: [
+  //           {
+  //             taskName: "doingFirst",
+  //             taskDescription: "content of task dijofijosdfjioasdfijo",
+  //             subtasks: [
+  //               {
+  //                 subtaskContent: "contentttttttttt",
+  //                 subtaskStatus: false,
+  //               },
+  //             ],
+  //           },
+  //           {
+  //             taskName: "doingSecond",
+  //             taskDescription: "content of task dijofijosdfjioasdfijo",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         columnName: "THIRDBOARD",
+  //       },
+  //       {
+  //         columnName: "4",
+  //         tasks: [
+  //           {
+  //             taskName: "333",
+  //             taskDescription: "content of task dijofijosdfjioasdfijo",
+  //           },
+  //           {
+  //             taskName: "444",
+  //             taskDescription: "content of task dijofijosdfjioasdfijo",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   { index: 1, boardName: "Marketing Plan" },
+  // ];
+
+
+
+  // function saveChanges(columnsArray: Column[], boardName: string) {
+  //   setBoardsArray((previousBoardsArrayState) => {
+  //     // return [...previousBoardsArrayState, columnsArray]
+  //     previousBoardsArrayState[activeBoard].boardName = boardName;
+  //     previousBoardsArrayState[activeBoard].columns = columnsArray;
+  //     return previousBoardsArrayState;
+  //   });
+  //   setEditBoardIsOpen(false);
+  //   console.log(boardsArray);
+  // }
+
+
+
+
+  // function viewTask(
+  //   event: React.MouseEvent<HTMLElement>,
+  //   columnIndex: number,
+  //   taskIndex: number
+  // ) {
+  //   const clickedTask = boardsArray[activeBoard].columns?.[columnIndex].tasks?.[taskIndex];
+  //   // console.log(clickedTask)
+  //   if (clickedTask) {
+  //     setClickedTask(clickedTask);
+  //   }
+  //   setViewTaskIsOpen(true);
+  // }
+
+  // function closeViewTask() {
+  //   setViewTaskIsOpen(false);
+  // }
+
+  // function changeSubtaskStatus(index: number, columnIndex: number, taskIndex: number) {
+  //   index = 0, columnIndex = 0, taskIndex
+  //   }
+
+
+
+  

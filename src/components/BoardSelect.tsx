@@ -1,11 +1,11 @@
 import { Dialog } from "@headlessui/react";
-import { BoardType } from "../App"
+import { Board } from "../App"
 import { ReactComponent as IconBoard } from "../../assets/icon-board.svg";
 
 export type BoardSelectProps = {
+    boardsArray: Board[];
+    activeBoard: number | null;
     selectBoardIsOpen: boolean,
-    boardsArray: BoardType[]
-    activeBoard: number
     closeBoardSelect: () => void;
 }
 
@@ -20,9 +20,12 @@ export const BoardSelect = (props: BoardSelectProps) => {
         {props.boardsArray.map((boardname) => (
             <div className="bg-purple-500 mt-3 pl-4 flex items-center w-full text-white rounded-r-xl">
                 <IconBoard />
-                <p className="pl-2">{boardname.boardName}</p>
+                <p className="pl-2">{boardname?.boardName}</p>
+                
             </div>
         ))}
+
+<p>+ create new board</p>
         
        
       </Dialog.Panel>
