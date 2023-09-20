@@ -89,3 +89,12 @@ export  const subtasks: Subtask[] = [{
     statusName: "DONE",
     boardId: 0
   }]
+
+
+  export function getStatusesByBoardId(boardId: number): Status[] {
+    return statuses.filter((status) => status.boardId === boardId)
+  }
+
+  export function getTasksByStatusAndBoardId(boardId: number, statusId: number): Task[] {
+    return tasks.filter((task) => task.boardId === boardId && task.statusId === statusId)
+  }
