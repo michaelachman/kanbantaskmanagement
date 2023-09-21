@@ -34,10 +34,28 @@ export const tasks: Task[] = [{
   },
   {
     id: 3,
-  taskTitle: "4Task",
+  taskTitle: "lasttodotask",
   taskDescription: "4TaskContentdadsadasdasda",
   boardId: 0,
   statusId: 0
+  },{
+    id: 4,
+  taskTitle: "firstdoingtask",
+  taskDescription: "4TaskContentdadsadasdasda",
+  boardId: 0,
+  statusId: 1
+  },{
+    id: 5,
+  taskTitle: "seconddoingtask",
+  taskDescription: "4TaskContentdadsadasdasda",
+  boardId: 0,
+  statusId: 1
+  },{
+    id: 6,
+  taskTitle: "donetask",
+  taskDescription: "4TaskContentdadsadasdasda",
+  boardId: 0,
+  statusId: 2
   }]
 
 export  const subtasks: Subtask[] = [{
@@ -67,13 +85,13 @@ export  const subtasks: Subtask[] = [{
     id: 4,
     subtaskDescription: "d3333333333333333333333333fds",
     subtaskStatus: false,
-    taskId: 0
+    taskId: 1
   },
   {
     id: 5,
     subtaskDescription: "dzzzzzzzzzzzzzzzzzzzds",
     subtaskStatus: true,
-    taskId: 0
+    taskId: 1
   }]
 
  export const statuses: Status[] = [{
@@ -95,6 +113,10 @@ export  const subtasks: Subtask[] = [{
     return statuses.filter((status) => status.boardId === boardId)
   }
 
-  export function getTasksByStatusAndBoardId(boardId: number, statusId: number): Task[] {
-    return tasks.filter((task) => task.boardId === boardId && task.statusId === statusId)
+  export function getTasksByBoardId(boardId: number): Task[] {
+    return tasks.filter((task) => task.boardId === boardId)
+  }
+
+  export function getSubtasksByTaskId([{id}]: Task[]): Subtask[] {
+    return subtasks.filter((subtask) => subtask.taskId === id)
   }
