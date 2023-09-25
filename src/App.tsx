@@ -4,7 +4,7 @@ import BoardsNavbar from "./components/BoardsNavbar";
 import EditBoardDialog from "./components/EditBoardDialog";
 import { TaskDetails, ViewTaskDialog } from "./components/ViewTaskDialog";
 import { Statuses } from "./components/Statuses";
-import { Board, Status, Task } from "./crud";
+import { Board, Status, Subtask, Task } from "./crud";
 import { boards, getStatusesByBoardId, getSubtasksByTaskId, getTasksByBoardId } from "./db";
 
 
@@ -16,7 +16,7 @@ function App() {
   const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[0].id : null);
   const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[] | null>(null)
   const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null>(null)
-  const [subtasksArray, setSubtasksArray] = useState<Subtask[] | null>(null)
+  const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
   const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
@@ -42,10 +42,10 @@ function App() {
     if (activeBoard !== null) {
     const filteredStatuses = getStatusesByBoardId(activeBoard)
     const filteredTasks = getTasksByBoardId(activeBoard)
-    const filteredSubtasks = getSubtasksByTaskId(filteredTasks)
+    const filteredSubtasks = getSubtasksByTaskId(filteredTasks.map((task) => task.id))
     setActiveBoardStatusesArray(filteredStatuses)
     setActiveBoardTasksArray(filteredTasks)
-    setSubtasksArray(filteredSubtasks)
+    setSubtasksMap(filteredSubtasks)
   } }, [activeBoard])
 
   return (
@@ -60,7 +60,7 @@ function App() {
       />
 
     <div className="mt-16">
-    <Statuses activeBoardStatusesArray={activeBoardStatusesArray} activeBoardTasksArray={activeBoardTasksArray} subtasksArray={subtasksArray} openEditBoard={openEditBoard} />
+    <Statuses activeBoardStatusesArray={activeBoardStatusesArray} activeBoardTasksArray={activeBoardTasksArray} subtasksMap={subtasksMap} openEditBoard={openEditBoard} />
     </div>
 
      
