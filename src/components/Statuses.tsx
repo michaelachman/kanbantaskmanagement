@@ -5,6 +5,7 @@ export type StatusesProps = {
   activeBoardTasksArray: Task[] | null;
   subtasksMap: Map<number, Subtask[]> | null;
   openEditBoard: () => void;
+  viewTask: (task: Task) => void;
 };
 
 export const Statuses = (props: StatusesProps) => {
@@ -36,11 +37,11 @@ export const Statuses = (props: StatusesProps) => {
           {props.activeBoardTasksArray
             ?.filter((filteredTask) => filteredTask.statusId === status.id)
             .map((task) => (
-              <div className="taskdiv px-4 py-6 mb-5 bg-green-500 rounded-lg shadow-xl">
+              <div onClick={() => props.viewTask(task)} className="taskdiv px-4 py-6 mb-5 bg-green-500 rounded-lg shadow-xl">
                 <h2 className="bg-blue-500">
                   {task.statusId === status.id && task.taskTitle}
                 </h2>
-                <h3>
+                {props.subtasksMap?.has(task.id) && <h3>
                   {
                     props.subtasksMap?.get(task.id)?.filter(
                       (filteredSubtask) => filteredSubtask.subtaskStatus === true
@@ -49,8 +50,9 @@ export const Statuses = (props: StatusesProps) => {
                   of{" "}
                   {
                     props.subtasksMap?.get(task.id)?.length
-                  }
-                </h3>
+                  } {props.subtasksMap.get(task.id)?.length === 1 ? "subtask" : "subtasks"}
+                </h3>}
+                
               </div>
             ))}
         </div>
@@ -58,7 +60,3 @@ export const Statuses = (props: StatusesProps) => {
     </div>
   );
 };
-
-// {props.subtasksArray?.filter((filteredSubtask) => filteredSubtask.taskId === task.id).map((subtask) => (
-// <h3 className="bg-purple-500">{subtask.subtaskStatus}</h3>
-// ))}

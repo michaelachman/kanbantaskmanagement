@@ -79,7 +79,7 @@ export  const subtasks: Subtask[] = [{
     id: 3,
     subtaskDescription: "1111111111111111111111",
     subtaskStatus: true,
-    taskId: 0
+    taskId: 4
   },
   {
     id: 4,
@@ -133,4 +133,8 @@ export  const subtasks: Subtask[] = [{
     })
     return subtaskMap
     // return subtasks.filter((subtask) => subtask.taskId === id)
+  }
+  
+  export function getTaskById(taskId: number) {
+    return tasks.find((task) => task.id === taskId)
   }

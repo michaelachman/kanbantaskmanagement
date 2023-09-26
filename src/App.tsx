@@ -19,12 +19,13 @@ function App() {
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
-  const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
+  const [clickedTask, setClickedTask] = useState<Task | null>(null)
+  // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
 
 
-  function closeEditBoard() {
-    setEditBoardIsOpen(false);
-  }
+  // function closeEditBoard() {
+  //   setEditBoardIsOpen(false);
+  // }
 
   function openEditBoard(){
     setEditBoardIsOpen(true)
@@ -35,7 +36,14 @@ function App() {
   function createNewBoard(){}
  
 
-  
+  function viewTask(task: Task) {
+    setClickedTask(task);
+    setViewTaskIsOpen(true)
+  }
+
+  function closeViewTask() {
+    setViewTaskIsOpen(false)
+  }
 
 
   useEffect(() => {
@@ -60,7 +68,7 @@ function App() {
       />
 
     <div className="mt-16">
-    <Statuses activeBoardStatusesArray={activeBoardStatusesArray} activeBoardTasksArray={activeBoardTasksArray} subtasksMap={subtasksMap} openEditBoard={openEditBoard} />
+    <Statuses activeBoardStatusesArray={activeBoardStatusesArray} activeBoardTasksArray={activeBoardTasksArray} subtasksMap={subtasksMap} openEditBoard={openEditBoard} viewTask={viewTask} />
     </div>
 
      
@@ -75,12 +83,12 @@ function App() {
         saveChanges={saveChanges}
       /> */}
 
-      {/* <ViewTaskDialog
+      <ViewTaskDialog
         viewTaskIsOpen={viewTaskIsOpen}
         closeViewTask={closeViewTask}
         clickedTask={clickedTask}
-        changeSubtaskStatus={changeSubtaskStatus}
-      /> */}
+        // changeSubtaskStatus={changeSubtaskStatus}
+      />
     </div>
   );
 }
