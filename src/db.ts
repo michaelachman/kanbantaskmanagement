@@ -65,8 +65,8 @@ export  const subtasks: Subtask[] = [{
     taskId: 0
   }, {
     id: 1,
-    subtaskDescription: "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDs",
-    subtaskStatus: true,
+    subtaskDescription: "DDDDD DDDDD DDDDD DDDDD DDDDD DDDDD DDDDD DDDDD DDDDD DDDDD",
+    subtaskStatus: false,
     taskId: 2
   },
   {
@@ -117,7 +117,7 @@ export  const subtasks: Subtask[] = [{
     return tasks.filter((task) => task.boardId === boardId)
   }
 
-  export function getSubtasksByTaskId(ids: number[]): Map<number, Subtask[]> {
+  export function getSubtasksByTasksId(ids: number[]): Map<number, Subtask[]> {
     const subtaskMap: Map<number, Subtask[]> = new Map();
     ids.forEach((id) => {
       subtasks.forEach((subtask) => {
@@ -135,6 +135,6 @@ export  const subtasks: Subtask[] = [{
     // return subtasks.filter((subtask) => subtask.taskId === id)
   }
   
-  export function getTaskById(taskId: number) {
-    return tasks.find((task) => task.id === taskId)
+  export function getSubtasksBySingleTaskId(taskId: number) {
+    return subtasks.filter((subtask) => subtask.taskId === taskId)
   }

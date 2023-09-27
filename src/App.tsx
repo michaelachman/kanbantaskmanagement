@@ -5,7 +5,7 @@ import EditBoardDialog from "./components/EditBoardDialog";
 import { TaskDetails, ViewTaskDialog } from "./components/ViewTaskDialog";
 import { Statuses } from "./components/Statuses";
 import { Board, Status, Subtask, Task } from "./crud";
-import { boards, getStatusesByBoardId, getSubtasksByTaskId, getTasksByBoardId } from "./db";
+import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId } from "./db";
 
 
 function App() {
@@ -19,7 +19,8 @@ function App() {
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
-  const [clickedTask, setClickedTask] = useState<Task | null>(null)
+  const [clickedTask, setClickedTask] = useState<Task | null>(null);
+  const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
   // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
 
 
@@ -38,6 +39,8 @@ function App() {
 
   function viewTask(task: Task) {
     setClickedTask(task);
+    const clickedTaskSubtasksArray = getSubtasksBySingleTaskId(task.id)
+    setClickedTaskSubtasks(clickedTaskSubtasksArray)
     setViewTaskIsOpen(true)
   }
 
@@ -45,12 +48,16 @@ function App() {
     setViewTaskIsOpen(false)
   }
 
+  function changeSubtaskStatus() {
+    
+  }
+
 
   useEffect(() => {
     if (activeBoard !== null) {
     const filteredStatuses = getStatusesByBoardId(activeBoard)
     const filteredTasks = getTasksByBoardId(activeBoard)
-    const filteredSubtasks = getSubtasksByTaskId(filteredTasks.map((task) => task.id))
+    const filteredSubtasks = getSubtasksByTasksId(filteredTasks.map((task) => task.id))
     setActiveBoardStatusesArray(filteredStatuses)
     setActiveBoardTasksArray(filteredTasks)
     setSubtasksMap(filteredSubtasks)
@@ -87,7 +94,8 @@ function App() {
         viewTaskIsOpen={viewTaskIsOpen}
         closeViewTask={closeViewTask}
         clickedTask={clickedTask}
-        // changeSubtaskStatus={changeSubtaskStatus}
+        clickedTaskSubtasks={clickedTaskSubtasks}
+        changeSubtaskStatus={changeSubtaskStatus}
       />
     </div>
   );

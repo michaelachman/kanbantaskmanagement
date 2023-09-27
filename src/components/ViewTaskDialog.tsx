@@ -1,7 +1,6 @@
 import { Dialog } from "@headlessui/react"
 import { ReactComponent as IconCheck } from "../../assets/icon-check.svg";
-import { getTaskById } from "../db";
-import { Task } from "../crud";
+import { Subtask, Task } from "../crud";
 // import { useEffect } from "react";
 
 // export type TaskDetails = {
@@ -18,6 +17,7 @@ export type ViewTaskDialogProps = {
     closeViewTask: () => void;
     clickedTask: Task | null;
     changeSubtaskStatus: () => void;
+    clickedTaskSubtasks: Subtask[] | null
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
@@ -47,16 +47,19 @@ return (
           <div className="mt-3">
             <p className="text-gray-500">{props.clickedTask?.taskDescription}</p>
           </div>
-          <h2 className="mt-3 text-gray-500 w-full font-semibold">Subtasks ({} of {})</h2>
-          <div className="mt-3">
-            <div className="bg-[#F4F7FD]`} mt-2">
-            {/* <div onClick={() => props.changeSubtaskStatus()} className={`flex w-4 h-4 ml-2 justify-center items-center self-center ${subtasksIteration.subtaskStatus === true ? `bg-purple-500` : `bg-white border`} rounded-sm`}>
+          {props.clickedTaskSubtasks?.length !== 0 && <><h2 className="mt-3 text-gray-500 w-full font-semibold">{props.clickedTaskSubtasks?.length === 1 ? "Subtask" : "Subtasks"} ({props.clickedTaskSubtasks?.filter((subtask) => subtask.subtaskStatus === true).length} of {props.clickedTaskSubtasks?.length})</h2>
+          {props.clickedTaskSubtasks?.length !== 0 && props.clickedTaskSubtasks?.map((mappedSubtask) => (
+            <div className="mt-3 bg-[#F4F7FD] flex rounded-md">
+            <div onClick={() => props.changeSubtaskStatus()} className={`flex w-4 h-4 ml-2 justify-center items-center self-center ${mappedSubtask.subtaskStatus === true ? `bg-purple-500` : `bg-white border`} rounded-sm`}>
             <IconCheck className="text-white"/>
-            </div> */}
-            {/* <p className={`pl-1 w-full ml-3 ${subtasksIteration.subtaskStatus === true ? `text-gray-500 line-through` : `font-semibold text-black`}`}>{subtasksIteration.subtaskContent}</p> */}
             </div>
+            <p className={`pl-1 w-full ml-3 ${mappedSubtask.subtaskStatus === true ? `text-gray-500 line-through` : `font-semibold text-black`}`}>{mappedSubtask.subtaskDescription}</p>
+            
             
           </div>
+          ))}
+          </>}
+          
             
           
         </Dialog.Panel>
