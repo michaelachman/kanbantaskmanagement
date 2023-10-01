@@ -52,6 +52,10 @@ function App() {
     
   }
 
+  function changeStatus() {
+    
+  }
+
 
   useEffect(() => {
     if (activeBoard !== null) {
@@ -96,6 +100,8 @@ function App() {
         clickedTask={clickedTask}
         clickedTaskSubtasks={clickedTaskSubtasks}
         changeSubtaskStatus={changeSubtaskStatus}
+        activeBoardStatusesArray={activeBoardStatusesArray}
+        changeStatus={changeStatus}
       />
     </div>
   );
@@ -105,3 +111,4 @@ export default App;
 
 
 // jak zrobic tak zeby ten scrollbar nie nachodzil na navbara przy scrollowaniu po osi y? (tu bylo robione tak ze navbar fixed a renderowane Columns dostaly margin topa)
+// w viewtasku jak string jest za dlugi z subtaskiem to wylatuje poza ekran z lewej i prawej

@@ -1,6 +1,6 @@
-import { Dialog } from "@headlessui/react"
+import { Dialog, Listbox } from "@headlessui/react"
 import { ReactComponent as IconCheck } from "../../assets/icon-check.svg";
-import { Subtask, Task } from "../crud";
+import { Status, Subtask, Task } from "../crud";
 // import { useEffect } from "react";
 
 // export type TaskDetails = {
@@ -18,6 +18,8 @@ export type ViewTaskDialogProps = {
     clickedTask: Task | null;
     changeSubtaskStatus: () => void;
     clickedTaskSubtasks: Subtask[] | null
+    activeBoardStatusesArray: Status[] | null
+    changeStatus: () => void;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
@@ -54,14 +56,26 @@ return (
             <IconCheck className="text-white"/>
             </div>
             <p className={`pl-1 w-full ml-3 ${mappedSubtask.subtaskStatus === true ? `text-gray-500 line-through` : `font-semibold text-black`}`}>{mappedSubtask.subtaskDescription}</p>
-            
-            
           </div>
           ))}
           </>}
-          
-            
-          
+          <div>
+            <h2 className="mt-3 text-gray-500 w-full font-semibold">Current Status</h2>
+            <Listbox value={props.activeBoardStatusesArray} onChange={props.changeStatus}>
+      <Listbox.Button>{props.activeBoardStatusesArray?.find((status) => status.id === props.clickedTask?.statusId)?.statusName}</Listbox.Button>
+      <Listbox.Options>
+        {props.activeBoardStatusesArray?.map((status) => (
+          <Listbox.Option
+            key={status.id}
+            value={status.statusName}
+            // disabled={person.unavailable}
+          >
+            {status.statusName}
+          </Listbox.Option>
+        ))}
+      </Listbox.Options>
+    </Listbox>
+          </div>
         </Dialog.Panel>
       </div>
     </Dialog>
