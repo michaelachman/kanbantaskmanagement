@@ -1,6 +1,7 @@
 import { Dialog, Listbox } from "@headlessui/react"
 import { ReactComponent as IconCheck } from "../../assets/icon-check.svg";
 import { Status, Subtask, Task } from "../crud";
+import { updateTaskStatus, changeSubtaskStatus } from "../db";
 // import { useEffect } from "react";
 
 // export type TaskDetails = {
@@ -16,13 +17,15 @@ export type ViewTaskDialogProps = {
     viewTaskIsOpen: boolean;
     closeViewTask: () => void;
     clickedTask: Task | null;
-    changeSubtaskStatus: () => void;
+    // changeSubtaskStatus: () => void;
     clickedTaskSubtasks: Subtask[] | null
     activeBoardStatusesArray: Status[] | null
     changeStatus: () => void;
+    // chosenStatus: (key: number, clickedTask: Task | null) => void;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
+
 
 
   // let doneSubtasksArray = props.clickedTask?.subtasks?.filter(doneSubtasks => doneSubtasks.subtaskStatus === true)
@@ -50,24 +53,36 @@ return (
             <p className="text-gray-500">{props.clickedTask?.taskDescription}</p>
           </div>
           {props.clickedTaskSubtasks?.length !== 0 && <><h2 className="mt-3 text-gray-500 w-full font-semibold">{props.clickedTaskSubtasks?.length === 1 ? "Subtask" : "Subtasks"} ({props.clickedTaskSubtasks?.filter((subtask) => subtask.subtaskStatus === true).length} of {props.clickedTaskSubtasks?.length})</h2>
-          {props.clickedTaskSubtasks?.length !== 0 && props.clickedTaskSubtasks?.map((mappedSubtask) => (
+          {props.clickedTaskSubtasks?.length !== 0 && props.clickedTaskSubtasks?.map((subtask) => (
             <div className="mt-3 bg-[#F4F7FD] flex rounded-md">
-            <div onClick={() => props.changeSubtaskStatus()} className={`flex w-4 h-4 ml-2 justify-center items-center self-center ${mappedSubtask.subtaskStatus === true ? `bg-purple-500` : `bg-white border`} rounded-sm`}>
+            <div onClick={() => changeSubtaskStatus(subtask.id, props.clickedTask?.id)} className={`flex w-4 h-4 ml-2 justify-center items-center self-center ${subtask.subtaskStatus === true ? `bg-purple-500` : `bg-white border`} rounded-sm`}>
             <IconCheck className="text-white"/>
             </div>
-            <p className={`pl-1 w-full ml-3 ${mappedSubtask.subtaskStatus === true ? `text-gray-500 line-through` : `font-semibold text-black`}`}>{mappedSubtask.subtaskDescription}</p>
+            <p className={`pl-1 w-full ml-3 ${subtask.subtaskStatus === true ? `text-gray-500 line-through` : `font-semibold text-black`}`}>{subtask.subtaskDescription}</p>
           </div>
           ))}
           </>}
           <div>
-            <h2 className="mt-3 text-gray-500 w-full font-semibold">Current Status</h2>
+            <h2 className="mt-3 mb-2 text-gray-500 w-full font-semibold">Current Status</h2>
             <Listbox value={props.activeBoardStatusesArray} onChange={props.changeStatus}>
-      <Listbox.Button>{props.activeBoardStatusesArray?.find((status) => status.id === props.clickedTask?.statusId)?.statusName}</Listbox.Button>
-      <Listbox.Options>
+             
+      <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md">
+        {props.activeBoardStatusesArray?.find((status) => status.id === props.clickedTask?.statusId)?.statusName}
+        <img src="./assets/icon-chevron-down.svg"></img>
+        </Listbox.Button>
+
+        {/* <div className="bg-purple-500 mt-3 pl-4 flex items-center w-full text-white rounded-r-xl"> */}
+      
+      <Listbox.Options className="mt-1 rounded-md border border-gray-300">
         {props.activeBoardStatusesArray?.map((status) => (
           <Listbox.Option
+            className={status.id === props.clickedTask?.statusId ? `ml-0 pl-2 bg-purple-500 text-white rounded-r-xl rounded-l-md mr-5` : `pl-2`}
             key={status.id}
             value={status.statusName}
+            onClick = {() => {
+              if (props.clickedTask?.id) {
+              updateTaskStatus(props.clickedTask.id, status.id)
+            }}}
             // disabled={person.unavailable}
           >
             {status.statusName}

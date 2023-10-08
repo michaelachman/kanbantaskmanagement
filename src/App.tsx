@@ -67,6 +67,12 @@ function App() {
     setSubtasksMap(filteredSubtasks)
   } }, [activeBoard])
 
+  useEffect(() => {
+    if (activeBoard !== null) {
+    const filteredTasksByIdWithNewStatus = getTasksByBoardId(activeBoard)
+    setActiveBoardTasksArray(filteredTasksByIdWithNewStatus)
+  }})
+
   return (
     <div className="h-full w-full">
 
@@ -99,9 +105,11 @@ function App() {
         closeViewTask={closeViewTask}
         clickedTask={clickedTask}
         clickedTaskSubtasks={clickedTaskSubtasks}
-        changeSubtaskStatus={changeSubtaskStatus}
+        // changeSubtaskStatus={changeSubtaskStatus}
         activeBoardStatusesArray={activeBoardStatusesArray}
         changeStatus={changeStatus}
+        // chosenStatus={chosenStatus}
+        // updateTaskStatus={updateTaskStatus}
       />
     </div>
   );

@@ -138,3 +138,17 @@ export  const subtasks: Subtask[] = [{
   export function getSubtasksBySingleTaskId(taskId: number) {
     return subtasks.filter((subtask) => subtask.taskId === taskId)
   }
+
+  export function updateTaskStatus(taskId: number, statusId: number) {
+   const foundTask =  tasks.find((task) => task.id === taskId)
+    if (foundTask !== undefined) {
+  return foundTask.statusId = statusId
+  }
+}
+
+  export function changeSubtaskStatus(subtaskId: number, taskId: number) {
+      const foundSubtask = subtasks.find((subtask) => subtask.taskId === taskId && subtask.id === subtaskId)
+      if (foundSubtask !== undefined) {
+      return foundSubtask.subtaskStatus = !foundSubtask?.subtaskStatus
+    }
+  }
