@@ -5,7 +5,9 @@ import EditBoardDialog from "./components/EditBoardDialog";
 import { TaskDetails, ViewTaskDialog } from "./components/ViewTaskDialog";
 import { Statuses } from "./components/Statuses";
 import { Board, Status, Subtask, Task } from "./crud";
-import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId } from "./db";
+import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId, updateTaskStatus } from "./db";
+import { act } from "react-dom/test-utils";
+import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
+  const [editTaskDialogIsOpen, setEditTaskDialogIsOpen] = useState(false)
   const [clickedTask, setClickedTask] = useState<Task | null>(null);
   const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
   // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
@@ -34,6 +37,7 @@ function App() {
 
   function addNewTask() {}
 
+
   function createNewBoard(){}
  
 
@@ -48,12 +52,20 @@ function App() {
     setViewTaskIsOpen(false)
   }
 
+  function closeEditTask() {
+    setEditTaskDialogIsOpen(false)
+  }
+
   function changeSubtaskStatus() {
     
   }
 
   function changeStatus() {
     
+  }
+
+  function editTask() {
+    setEditTaskDialogIsOpen(true)
   }
 
 
@@ -71,7 +83,9 @@ function App() {
     if (activeBoard !== null) {
     const filteredTasksByIdWithNewStatus = getTasksByBoardId(activeBoard)
     setActiveBoardTasksArray(filteredTasksByIdWithNewStatus)
-  }})
+  }}, [activeBoardTasksArray, activeBoard])
+
+
 
   return (
     <div className="h-full w-full">
@@ -80,7 +94,6 @@ function App() {
         boardsArray={boardsArray}
         activeBoard={activeBoard}
         mobile={false}
-        addNewTask={addNewTask}
         createNewBoard={createNewBoard}
       />
 
@@ -107,10 +120,20 @@ function App() {
         clickedTaskSubtasks={clickedTaskSubtasks}
         // changeSubtaskStatus={changeSubtaskStatus}
         activeBoardStatusesArray={activeBoardStatusesArray}
-        changeStatus={changeStatus}
         // chosenStatus={chosenStatus}
         // updateTaskStatus={updateTaskStatus}
+        editTask={editTask}
       />
+
+        <EditTaskDialog
+        editTaskDialogIsOpen={editTaskDialogIsOpen}
+        closeEditTask={closeEditTask}
+        clickedTask={clickedTask}
+        clickedTaskSubtasks={clickedTaskSubtasks}
+        activeBoardStatusesArray={activeBoardStatusesArray}
+        />
+
+
     </div>
   );
 }
@@ -119,4 +142,4 @@ export default App;
 
 
 // jak zrobic tak zeby ten scrollbar nie nachodzil na navbara przy scrollowaniu po osi y? (tu bylo robione tak ze navbar fixed a renderowane Columns dostaly margin topa)
-// w viewtasku jak string jest za dlugi z subtaskiem to wylatuje poza ekran z lewej i prawej
+// pierwszego taska nie moge przeniesc do innego statusu, kiedy kazdy inny task bez problemu sie przenosi

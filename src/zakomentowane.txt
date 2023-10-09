@@ -149,3 +149,33 @@
           </div>
         )}
       </div> */}
+
+
+
+
+      <Listbox value={props.activeBoardStatusesArray} onChange={props.changeStatus}>
+             
+      <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md">
+        {props.activeBoardStatusesArray?.find((status) => status.id === props.clickedTask?.statusId)?.statusName}
+        <img src="./assets/icon-chevron-down.svg"></img>
+        </Listbox.Button>
+
+        {/* <div className="bg-purple-500 mt-3 pl-4 flex items-center w-full text-white rounded-r-xl"> */}
+      
+      <Listbox.Options className="mt-1 rounded-md border border-gray-300">
+        {props.activeBoardStatusesArray?.map((status) => (
+          <Listbox.Option
+            className={status.id === props.clickedTask?.statusId ? `ml-0 pl-2 bg-purple-500 text-white rounded-r-xl rounded-l-md mr-5` : `pl-2`}
+            key={status.id}
+            value={status.statusName}
+            onClick = {() => {
+              if (props.clickedTask?.id) {
+              updateTaskStatus(props.clickedTask.id, status.id)
+            }}}
+            // disabled={person.unavailable}
+          >
+            {status.statusName}
+          </Listbox.Option>
+        ))}
+      </Listbox.Options>
+    </Listbox>

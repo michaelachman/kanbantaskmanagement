@@ -71,7 +71,7 @@ export  const subtasks: Subtask[] = [{
   },
   {
     id: 2,
-    subtaskDescription: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+    subtaskDescription: "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
     subtaskStatus: false,
     taskId: 0
   },
@@ -143,6 +143,7 @@ export  const subtasks: Subtask[] = [{
    const foundTask =  tasks.find((task) => task.id === taskId)
     if (foundTask !== undefined) {
   return foundTask.statusId = statusId
+      
   }
 }
 
@@ -151,4 +152,8 @@ export  const subtasks: Subtask[] = [{
       if (foundSubtask !== undefined) {
       return foundSubtask.subtaskStatus = !foundSubtask?.subtaskStatus
     }
+  }
+
+  export function addNewTask() {
+    
   }

@@ -8,7 +8,6 @@ export type BoardsNavbarProps = {
   boardsArray: Board[] | null;
   activeBoard: number | null;
   mobile: boolean;
-  addNewTask: () => void;
   createNewBoard: () => void;
 };
 
@@ -49,7 +48,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
        undefined}
       
       
-      <div onClick={props.addNewTask} className="ml-auto flex border w-11 h-8 content-center rounded-2xl bg-purple-100">+</div>
+      <div className="ml-auto flex border w-11 h-8 content-center rounded-2xl bg-purple-100 justify-center">+</div>
       <img src="./assets/icon-vertical-ellipsis.svg" className="flex ml-auto h-4 self-center"></img>
     </div>
   )
