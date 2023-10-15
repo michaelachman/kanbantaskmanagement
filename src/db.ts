@@ -1,3 +1,4 @@
+import { EditTaskForm } from "./components/EditTaskDialog"
 import { Board, Status, Subtask, Task } from "./crud"
 
 
@@ -96,15 +97,15 @@ export  const subtasks: Subtask[] = [{
 
  export const statuses: Status[] = [{
     id: 0,
-    statusName: "TODO",
+    statusName: "Todo",
     boardId: 0
   },{
     id: 1,
-    statusName: "DOING",
+    statusName: "Doing",
     boardId: 0
   },{
     id: 2,
-    statusName: "DONE",
+    statusName: "Done",
     boardId: 0
   }]
 
@@ -155,5 +156,30 @@ export  const subtasks: Subtask[] = [{
   }
 
   export function addNewTask() {
+    
+  }
+
+
+  export function sendLocalEditTaskForm(localEditTaskForm: EditTaskForm) {
+    const foundTask = tasks.find((task) => task.id === localEditTaskForm.localClickedTask.id)
+    if (foundTask !== undefined) {
+    foundTask.taskTitle = localEditTaskForm.localClickedTask.taskTitle
+    foundTask.taskDescription = localEditTaskForm.localClickedTask.taskDescription
+    foundTask.statusId = localEditTaskForm.localClickedTask.statusId
+    subtasks.forEach((subtask) => {
+      localEditTaskForm.subtasksArray?.forEach((localSubtask) => {
+       if (localSubtask.id === subtask.id) {
+        subtask.subtaskDescription = localSubtask.subtaskDescription,
+        subtask.subtaskStatus = localSubtask.subtaskStatus,
+        subtask.taskId = localSubtask.taskId
+       } else {
+        subtasks.push(localSubtask)
+       }
+      })
+    })
+
+    console.log(localEditTaskForm.subtasksArray)
+    return foundTask
+  }
     
   }

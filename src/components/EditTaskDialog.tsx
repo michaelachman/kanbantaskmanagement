@@ -1,11 +1,12 @@
 import { Dialog, Listbox } from "@headlessui/react";
 import { Status, Subtask, Task } from "../crud";
 import { useEffect, useState } from "react";
+import { sendLocalEditTaskForm } from "../db";
 
 export type EditTaskDialogProps = {
   editTaskDialogIsOpen: boolean;
   closeEditTask: () => void;
-  clickedTask: Task | null;
+  clickedTask: Task;
   clickedTaskSubtasks: Subtask[] | null;
   activeBoardStatusesArray: Status[] | null;
 };
@@ -13,7 +14,7 @@ export type EditTaskDialogProps = {
 export type EditTaskForm = {
   subtasksArray: Subtask[] | null,
   statusesArray: Status[] | null,
-  localClickedTask: Task | null
+  localClickedTask: Task
 }
 
 
@@ -63,27 +64,47 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
 
  
 
-  function newSubtask() { // do przerobienia 
-    if (localEditTaskForm.localClickedTask?.id !== undefined) {
-     
+  function newSubtask() {
+    
+     setLocalEditTaskForm((previousState) => {
+      if (previousState.localClickedTask !== null) {
+       previousState.subtasksArray?.push({
+        id: previousState.subtasksArray.length +1,
+        subtaskDescription: "",
+        subtaskStatus: false,
+        taskId: previousState.localClickedTask.id
+      })
     }
+    return previousState
+     })
+    }
+
+
+  function handleTaskTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setLocalEditTaskForm((previousState) => {
+      return {...previousState, localClickedTask: {...previousState.localClickedTask, taskTitle: event.target.value}}
+    })
   }
 
-  // const idOfTask = localEditTaskForm.localClickedTask.id
-  // setLocalSubtasksArray((previousArrayState) => {
-  //   if (previousArrayState !== null) {
-  //     previousArrayState.push({
-  //       id: (previousArrayState.length + 1),
-  //       subtaskDescription: "",
-  //       subtaskStatus: false,
-  //       taskId: idOfTask
-  //     })
-  //   }
-  //   return previousArrayState
-  // })
+  function handleTaskDescriptionChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setLocalEditTaskForm((previousState) => {
+      return {...previousState, localClickedTask: {...previousState.localClickedTask, taskDescription: event.target.value}}
+    })
+  }
 
-  function sendLocalEditTaskForm() {
+  function handleStatusClick(idOfClickedStatus: number) {
+    setLocalEditTaskForm((previousState) => {
+      return {...previousState, localClickedTask: {...previousState.localClickedTask, statusId: idOfClickedStatus}}
+    })
+  }
 
+  function deleteSubtask(subtaskId: number) {
+    setLocalEditTaskForm((previousState) => {
+      if (previousState !== undefined) {
+      const newArray = previousState.subtasksArray?.filter((subtask) => subtask.id !== subtaskId)
+      return {...previousState, subtasksArray: newArray}
+    }
+    })
   }
 
   
@@ -103,9 +124,8 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             <input
               className="px-2 py-1 border rounded-md pl-2"
               value={localEditTaskForm.localClickedTask?.taskTitle}
-              onChange={(event) => setLocalEditTaskForm((previousState) => {
-                return {...previousState, localClickedTask.taskTitle = event.target.value} // jak to obejsc?
-              })}
+              onChange={(event) => handleTaskTitleChange(event)}
+              
             ></input>
           </div>
           <div className="flex flex-col mt-3">
@@ -113,9 +133,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             <input
               className="px-2 py-1 border rounded-md"
               value={localEditTaskForm.localClickedTask?.taskDescription}
-              onChange={(event) => setLocalEditTaskForm((previousState) => {
-                return {...previousState, localClickedTask.taskDescription = event.target.value} // analogicznie tutaj?
-              })}
+              onChange={(event) => handleTaskDescriptionChange(event)}
             ></input>
           </div>
           <div className="flex flex-col mt-4">
@@ -126,7 +144,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
                     className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
                     defaultValue={subtask.subtaskDescription}
                   ></input>
-                  <button className="flex w-[10%] justify-center self-center mt-1">
+                  <button onClick={() => deleteSubtask(subtask.id)} className="flex w-[10%] justify-center self-center mt-1">
                     <img src="./assets/icon-cross.svg"></img>
                   </button>
                 </div>
@@ -144,7 +162,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
               <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md">
                 {
                   localEditTaskForm.statusesArray?.find(
-                    (status) => status.id === props.clickedTask?.statusId
+                    (status) => status.id === localEditTaskForm.localClickedTask.statusId
                   )?.statusName
                 }
                 <img src="./assets/icon-chevron-down.svg"></img>
@@ -162,13 +180,13 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
                     }
                     key={status.id}
                     value={status.statusName}
-                    onClick={() => {
-                      if (localEditTaskForm.localClickedTask?.id) {
-                        setLocalEditTaskForm((previousState) => {
-                          return {...previousState, localClickedTask?.localClickedTask?.statusId = status.id}
-                        });
-                      }
-                    }}
+                    onClick={() => handleStatusClick(status.id)}
+                    //   if (localEditTaskForm.localClickedTask?.id) {
+                    //     setLocalEditTaskForm((previousState) => {
+                    //       return {...previousState, localClickedTask?.localClickedTask?.statusId = status.id}
+                    //     });
+                    //   }
+                    // }}
                     // (localEditTaskForm.localClickedTask.id, status.id);
                     // disabled={person.unavailable}
                   >
@@ -179,7 +197,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             </Listbox>
           </div>
           <div>
-            <button onClick={() => sendLocalEditTaskForm()} className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white">Edit Task</button>
+            <button onClick={() => sendLocalEditTaskForm(localEditTaskForm)} className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white">Edit Task</button>
           </div>
         </Dialog.Panel>
       </div>

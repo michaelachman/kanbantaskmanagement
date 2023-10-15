@@ -26,7 +26,7 @@ export const Statuses = (props: StatusesProps) => {
       {props.activeBoardStatusesArray?.map((status) => (
         <div className="column min-w-[75%] min-h-[88px] mr-6 mb-5">
           <h1 className="column-title pb-6 text-lg">
-            {status.statusName} (
+            {status.statusName.toUpperCase()} (
             {
               props.activeBoardTasksArray?.filter(
                 (filteredTask) => filteredTask.statusId === status.id

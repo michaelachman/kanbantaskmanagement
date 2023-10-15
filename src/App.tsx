@@ -12,6 +12,14 @@ import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
 
 function App() {
 
+  const emptyTask: Task = {
+    id: 0,
+    taskTitle: "",
+    taskDescription: "",
+    boardId: 0,
+    statusId: 0
+  }
+
 
 
   const [boardsArray, setBoardsArray] = useState<Board[] | null>(boards);
@@ -22,7 +30,7 @@ function App() {
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
   const [editTaskDialogIsOpen, setEditTaskDialogIsOpen] = useState(false)
-  const [clickedTask, setClickedTask] = useState<Task | null>(null);
+  const [clickedTask, setClickedTask] = useState<Task>(emptyTask);
   const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
   // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
 
