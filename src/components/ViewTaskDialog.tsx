@@ -22,13 +22,10 @@ export type ViewTaskDialogProps = {
     clickedTaskSubtasks: Subtask[] | null
     activeBoardStatusesArray: Status[] | null
     // chosenStatus: (key: number, clickedTask: Task | null) => void;
-    // updateTaskStatus: (clickedTaskId: number, statusId: number) => void;
     editTask: () => void;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
-
-
 
 
 return (

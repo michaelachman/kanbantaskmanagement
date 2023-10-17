@@ -98,6 +98,19 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
     })
   }
 
+  function handleSubtaskInput(event: React.ChangeEvent<HTMLInputElement>, subtaskId: number) {
+
+    setLocalEditTaskForm((previousState) => {
+
+    const foundSubtask = previousState.subtasksArray?.find((subtask) => subtask.id === subtaskId)
+      if (foundSubtask !== undefined) {
+      foundSubtask.subtaskDescription = event.target.value
+ 
+    }
+    return previousState
+    })
+  }
+
   function deleteSubtask(subtaskId: number) {
     setLocalEditTaskForm((previousState) => {
       if (previousState !== undefined) {
@@ -107,6 +120,10 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
     })
   }
 
+  function editTaskButton(localEditTaskForm: EditTaskForm) {
+    sendLocalEditTaskForm(localEditTaskForm);
+    props.closeEditTask()
+  }
   
 
   return (
@@ -139,10 +156,13 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
           <div className="flex flex-col mt-4">
             <label className="text-gray-500">Subtasks</label>
               {localEditTaskForm.subtasksArray?.map((subtask) => (
-                <div className="w-full flex">
+                <div key={subtask.id} className="w-full flex">
                   <input
+                    key={subtask.id}
+                    id={`${subtask.id}`}
                     className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
-                    defaultValue={subtask.subtaskDescription}
+                    value={subtask.subtaskDescription}
+                    onChange={(event) => handleSubtaskInput(event, subtask.id)}
                   ></input>
                   <button onClick={() => deleteSubtask(subtask.id)} className="flex w-[10%] justify-center self-center mt-1">
                     <img src="./assets/icon-cross.svg"></img>
@@ -197,7 +217,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             </Listbox>
           </div>
           <div>
-            <button onClick={() => sendLocalEditTaskForm(localEditTaskForm)} className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white">Edit Task</button>
+            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white">Edit Task</button>
           </div>
         </Dialog.Panel>
       </div>

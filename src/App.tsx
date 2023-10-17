@@ -13,11 +13,11 @@ import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
 function App() {
 
   const emptyTask: Task = {
-    id: 0,
+    id: 1,
     taskTitle: "",
     taskDescription: "",
-    boardId: 0,
-    statusId: 0
+    boardId: 1,
+    statusId: 1
   }
 
 
@@ -64,13 +64,6 @@ function App() {
     setEditTaskDialogIsOpen(false)
   }
 
-  function changeSubtaskStatus() {
-    
-  }
-
-  function changeStatus() {
-    
-  }
 
   function editTask() {
     setEditTaskDialogIsOpen(true)
@@ -92,6 +85,16 @@ function App() {
     const filteredTasksByIdWithNewStatus = getTasksByBoardId(activeBoard)
     setActiveBoardTasksArray(filteredTasksByIdWithNewStatus)
   }}, [activeBoardTasksArray, activeBoard])
+
+  useEffect(() => {
+    if (activeBoard !== null) {
+    const filteredStatuses = getStatusesByBoardId(activeBoard)
+    const filteredTasks = getTasksByBoardId(activeBoard)
+    const filteredSubtasks = getSubtasksByTasksId(filteredTasks.map((task) => task.id))
+    setActiveBoardStatusesArray(filteredStatuses)
+    setActiveBoardTasksArray(filteredTasks)
+    setSubtasksMap(filteredSubtasks)
+  }}, [editTaskDialogIsOpen, activeBoard])
 
 
 
