@@ -170,13 +170,13 @@ export  const subtasks: Subtask[] = [{
 
     subtasks.forEach((subtask) => {
       localEditTaskForm.subtasksArray?.forEach((localSubtask) => {
-       if (localSubtask.id === subtask.id) {
+       if (localSubtask.id === subtask.id && localSubtask.taskId === subtask.taskId) {
         subtask.subtaskDescription = localSubtask.subtaskDescription,
         subtask.subtaskStatus = localSubtask.subtaskStatus,
         subtask.taskId = localSubtask.taskId
        } 
 
-       else if (localSubtask.id !== subtask.id) { 
+       else if (localSubtask.id !== subtask.id && localSubtask.taskId === subtask.taskId) { 
         const newSubtasksArray: Subtask[] = [{
           id: localSubtask.id,
           subtaskDescription: localSubtask.subtaskDescription,

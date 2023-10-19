@@ -99,13 +99,10 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
   }
 
   function handleSubtaskInput(event: React.ChangeEvent<HTMLInputElement>, subtaskId: number) {
-
     setLocalEditTaskForm((previousState) => {
-
     const foundSubtask = previousState.subtasksArray?.find((subtask) => subtask.id === subtaskId)
       if (foundSubtask !== undefined) {
       foundSubtask.subtaskDescription = event.target.value
- 
     }
     return previousState
     })

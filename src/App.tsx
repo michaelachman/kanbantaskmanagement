@@ -8,6 +8,7 @@ import { Board, Status, Subtask, Task } from "./crud";
 import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId, updateTaskStatus } from "./db";
 import { act } from "react-dom/test-utils";
 import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
+import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
 
 
 function App() {
@@ -23,13 +24,14 @@ function App() {
 
 
   const [boardsArray, setBoardsArray] = useState<Board[] | null>(boards);
-  const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[0].id : null);
+  const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[1].id : null);
   const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[] | null>(null)
   const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null>(null)
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
   const [editTaskDialogIsOpen, setEditTaskDialogIsOpen] = useState(false)
+  const [newTaskDialogIsOpen, setNewTaskDialogIsOpen] = useState(false)
   const [clickedTask, setClickedTask] = useState<Task>(emptyTask);
   const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
   // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
@@ -39,11 +41,21 @@ function App() {
   //   setEditBoardIsOpen(false);
   // }
 
+  function changeBoard(boardId: number) {
+    setActiveBoard(boardId)
+  }
+
   function openEditBoard(){
     setEditBoardIsOpen(true)
   }
 
-  function addNewTask() {}
+  function openNewTaskDialog() {
+    setNewTaskDialogIsOpen(true)
+  }
+
+  function closeNewTask() {
+    setNewTaskDialogIsOpen(false)
+  }
 
 
   function createNewBoard(){}
@@ -106,6 +118,8 @@ function App() {
         activeBoard={activeBoard}
         mobile={false}
         createNewBoard={createNewBoard}
+        changeBoard={changeBoard}
+        openNewTaskDialog={openNewTaskDialog}
       />
 
     <div className="mt-16">
@@ -144,6 +158,11 @@ function App() {
         activeBoardStatusesArray={activeBoardStatusesArray}
         />
 
+        <AddNewTaskDialog 
+      newTaskDialogIsOpen={newTaskDialogIsOpen}
+      closeNewTask={closeNewTask}
+        />
+
 
     </div>
   );
@@ -153,4 +172,7 @@ export default App;
 
 
 // jak zrobic tak zeby ten scrollbar nie nachodzil na navbara przy scrollowaniu po osi y? (tu bylo robione tak ze navbar fixed a renderowane Columns dostaly margin topa)
-// pierwszego taska nie moge przeniesc do innego statusu, kiedy kazdy inny task bez problemu sie przenosi
+
+// jak ogarnac te subtaski jezus maria, jak dac unikatowe id nowo wytworzonemu subtaskowi w edittasku i dlaczego tak dziwnie sie pisze w tych inputach
+
+// strzalka do gory w navbarze jak jest otwarty boardselect bo nie ma teraz atrybutu open w menu jak byl w dialogu
