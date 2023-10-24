@@ -24,7 +24,7 @@ function App() {
 
 
   const [boardsArray, setBoardsArray] = useState<Board[] | null>(boards);
-  const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[1].id : null);
+  const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[0].id : null);
   const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[] | null>(null)
   const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null>(null)
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)

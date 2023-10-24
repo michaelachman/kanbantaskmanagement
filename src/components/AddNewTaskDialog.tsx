@@ -10,7 +10,7 @@ export type AddNewTaskDialogProps = {
 }
 
 export type AddTaskForm = {
-    subtasksArray: Subtask[] | null,
+    subtasksArray: Partial<Subtask>[] | null,
     statusesArray: Status[] | null,
     localClickedTask: Task
   }
@@ -32,6 +32,30 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
       }
 
     const [localAddTaskForm, setLocalAddTaskForm] = useState<AddTaskForm>(initialLocalForm)
+
+
+    function newSubtask() {
+
+      setLocalAddTaskForm((previousState) => {
+        previousState.subtasksArray?.push({
+          subtaskDescription: "",
+          subtaskStatus: false,
+        })
+        return previousState
+      })
+    }
+
+    function handleSubtaskInput(event: React.ChangeEvent<HTMLInputElement>, index: number) {
+      
+    }
+
+    function deleteSubtask(index: number) {
+      
+      setLocalAddTaskForm((previousState) => {
+      const arrayWithoutDeletedInput = previousState.subtasksArray?.splice(index, 1)
+        return arrayWithoutDeletedInput
+      })
+    }
 
     return (
         <Dialog
@@ -62,17 +86,14 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
               </div>
               <div className="flex flex-col mt-4">
                 <label className="text-gray-500">Subtasks</label>
-                  {localAddTaskForm.subtasksArray?.map((subtask) => (
-                    <div key={subtask.id} className="w-full flex">
+                  {localAddTaskForm.subtasksArray?.map((index) => (
+                    <div className="w-full flex">
                       <input
-                        key={subtask.id}
-                        id={`${subtask.id}`}
                         className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
-                        value={subtask.subtaskDescription}
-                        // onChange={(event) => handleSubtaskInput(event, subtask.id)}
+                        onChange={(event) => handleSubtaskInput(event, index)}
                       ></input>
                       <button 
-                    //   onClick={() => deleteSubtask(subtask.id)} 
+                      onClick={() => deleteSubtask(index)} 
                       className="flex w-[10%] justify-center self-center mt-1">
                         <img src="./assets/icon-cross.svg"></img>
                       </button>
