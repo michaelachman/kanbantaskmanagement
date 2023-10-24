@@ -46,7 +46,9 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
     }
 
     function handleSubtaskInput(event: React.ChangeEvent<HTMLInputElement>, index: number) {
-      
+      setLocalAddTaskForm((previousState) => {
+        previousState
+      })
     }
 
     function deleteSubtask(index: number) {
@@ -86,7 +88,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
               </div>
               <div className="flex flex-col mt-4">
                 <label className="text-gray-500">Subtasks</label>
-                  {localAddTaskForm.subtasksArray?.map((index) => (
+                  {localAddTaskForm.subtasksArray?.map((subtask, index) => (
                     <div className="w-full flex">
                       <input
                         className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
