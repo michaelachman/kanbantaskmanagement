@@ -6,9 +6,9 @@ import { TaskDetails, ViewTaskDialog } from "./components/ViewTaskDialog";
 import { Statuses } from "./components/Statuses";
 import { Board, Status, Subtask, Task } from "./crud";
 import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId, updateTaskStatus } from "./db";
-import { act } from "react-dom/test-utils";
 import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
 import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
+import { NewBoardDialog } from "./components/NewBoardDialog";
 
 
 function App() {
@@ -25,13 +25,14 @@ function App() {
 
   const [boardsArray, setBoardsArray] = useState<Board[] | null>(boards);
   const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[0].id : null);
-  const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[] | null>(null)
+  const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[]>([])
   const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null>(null)
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
+  const [newBoardDialogIsOpen, setNewBoardDialogIsOpen] = useState(false)
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
-  const [editTaskDialogIsOpen, setEditTaskDialogIsOpen] = useState(false)
-  const [newTaskDialogIsOpen, setNewTaskDialogIsOpen] = useState(false)
+  const [editTaskDialogIsOpen, setEditTaskDialogIsOpen] = useState(false);
+  const [newTaskDialogIsOpen, setNewTaskDialogIsOpen] = useState(false);
   const [clickedTask, setClickedTask] = useState<Task>(emptyTask);
   const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
   // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
@@ -58,7 +59,13 @@ function App() {
   }
 
 
-  function createNewBoard(){}
+  function openCreateNewBoardDialog(){
+  setNewBoardDialogIsOpen(true)
+}
+
+  function closeNewBoardDialog(){
+    setNewBoardDialogIsOpen(false)
+  }
  
 
   function viewTask(task: Task) {
@@ -96,7 +103,7 @@ function App() {
     if (activeBoard !== null) {
     const filteredTasksByIdWithNewStatus = getTasksByBoardId(activeBoard)
     setActiveBoardTasksArray(filteredTasksByIdWithNewStatus)
-  }}, [activeBoardTasksArray, activeBoard])
+  }}, [activeBoard])
 
   useEffect(() => {
     if (activeBoard !== null) {
@@ -117,9 +124,10 @@ function App() {
         boardsArray={boardsArray}
         activeBoard={activeBoard}
         mobile={false}
-        createNewBoard={createNewBoard}
         changeBoard={changeBoard}
         openNewTaskDialog={openNewTaskDialog}
+        activeBoardStatusesArray={activeBoardStatusesArray}
+        openCreateNewBoardDialog={openCreateNewBoardDialog}
       />
 
     <div className="mt-16">
@@ -137,6 +145,8 @@ function App() {
         boardName={boardsArray[activeBoard].boardName}
         saveChanges={saveChanges}
       /> */}
+
+      <NewBoardDialog newBoardDialogIsOpen={newBoardDialogIsOpen} closeNewBoardDialog={closeNewBoardDialog}/>
 
       <ViewTaskDialog
         viewTaskIsOpen={viewTaskIsOpen}
@@ -161,6 +171,7 @@ function App() {
         <AddNewTaskDialog 
       newTaskDialogIsOpen={newTaskDialogIsOpen}
       closeNewTask={closeNewTask}
+      activeBoardStatusesArray={activeBoardStatusesArray}
         />
 
 
@@ -176,3 +187,5 @@ export default App;
 // jak ogarnac te subtaski jezus maria, jak dac unikatowe id nowo wytworzonemu subtaskowi w edittasku i dlaczego tak dziwnie sie pisze w tych inputach
 
 // strzalka do gory w navbarze jak jest otwarty boardselect bo nie ma teraz atrybutu open w menu jak byl w dialogu
+
+// zmienianie statusow taska naprzemiennie w view i edit tasku dziala dzwiwnie

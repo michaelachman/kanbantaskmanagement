@@ -12,7 +12,7 @@ export type EditTaskDialogProps = {
 };
 
 export type EditTaskForm = {
-  subtasksArray: Subtask[] | null,
+  subtasksArray: Partial<Subtask>[] | null,
   statusesArray: Status[] | null,
   localClickedTask: Task
 }
@@ -67,17 +67,18 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
   function newSubtask() {
     
      setLocalEditTaskForm((previousState) => {
-      if (previousState.localClickedTask !== null) {
-       previousState.subtasksArray?.push({
-        id: previousState.subtasksArray.length +1,
-        subtaskDescription: "",
+        const newSubtask = {
+          subtaskDescription: "",
         subtaskStatus: false,
         taskId: previousState.localClickedTask.id
+        }
+        return {...previousState, subtasksArray: [...previousState.subtasksArray || [], newSubtask]}
       })
     }
-    return previousState
-     })
-    }
+        
+    
+     
+    
 
 
   function handleTaskTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -98,22 +99,20 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
     })
   }
 
-  function handleSubtaskInput(event: React.ChangeEvent<HTMLInputElement>, subtaskId: number) {
+  function handleSubtaskInput(event: React.ChangeEvent<HTMLInputElement>, indexToHandle: number) {
     setLocalEditTaskForm((previousState) => {
-    const foundSubtask = previousState.subtasksArray?.find((subtask) => subtask.id === subtaskId)
-      if (foundSubtask !== undefined) {
-      foundSubtask.subtaskDescription = event.target.value
-    }
-    return previousState
-    })
-  }
+      if (previousState.subtasksArray !== null)
+      previousState.subtasksArray[indexToHandle].subtaskDescription = event.target.value
+      return {...previousState, subtasksArray: [...previousState.subtasksArray || []]}
+    })}
+  
 
-  function deleteSubtask(subtaskId: number) {
+  function deleteSubtask(indexToDelete: number) {
     setLocalEditTaskForm((previousState) => {
-      if (previousState !== undefined) {
-      const newArray = previousState.subtasksArray?.filter((subtask) => subtask.id !== subtaskId)
-      return {...previousState, subtasksArray: newArray}
-    }
+      
+      const newArray = previousState.subtasksArray?.filter((subtask, index) => index !== indexToDelete)
+      return {...previousState, subtasksArray: newArray || []}
+    
     })
   }
 
@@ -152,16 +151,16 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
           </div>
           <div className="flex flex-col mt-4">
             <label className="text-gray-500">Subtasks</label>
-              {localEditTaskForm.subtasksArray?.map((subtask) => (
+              {localEditTaskForm.subtasksArray?.map((subtask, index) => (
                 <div key={subtask.id} className="w-full flex">
                   <input
                     key={subtask.id}
                     id={`${subtask.id}`}
                     className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
                     value={subtask.subtaskDescription}
-                    onChange={(event) => handleSubtaskInput(event, subtask.id)}
+                    onChange={(event) => handleSubtaskInput(event, index)}
                   ></input>
-                  <button onClick={() => deleteSubtask(subtask.id)} className="flex w-[10%] justify-center self-center mt-1">
+                  <button onClick={() => deleteSubtask(index)} className="flex w-[10%] justify-center self-center mt-1">
                     <img src="./assets/icon-cross.svg"></img>
                   </button>
                 </div>
@@ -198,13 +197,6 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
                     key={status.id}
                     value={status.statusName}
                     onClick={() => handleStatusClick(status.id)}
-                    //   if (localEditTaskForm.localClickedTask?.id) {
-                    //     setLocalEditTaskForm((previousState) => {
-                    //       return {...previousState, localClickedTask?.localClickedTask?.statusId = status.id}
-                    //     });
-                    //   }
-                    // }}
-                    // (localEditTaskForm.localClickedTask.id, status.id);
                     // disabled={person.unavailable}
                   >
                     {status.statusName}

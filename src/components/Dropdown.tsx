@@ -6,6 +6,7 @@ export type DropdownProps = {
   boardsArray: Board[] | null;
   activeBoard: number | null;
   changeBoard: (boardId: number) => void;
+  openCreateNewBoardDialog: () => void;
 };
 
 export const Dropdown = (props: DropdownProps) => {
@@ -46,7 +47,7 @@ export const Dropdown = (props: DropdownProps) => {
               </div>
             </Menu.Item>
           ))}
-          <div className="pl-4 py-2 flex items-center w-full rounded-r-xl font-medium text-sm text-[#635FC7]">
+          <div onClick={() => props.openCreateNewBoardDialog()} className="pl-4 py-2 flex items-center w-full rounded-r-xl font-medium text-sm text-[#635FC7]">
             <IconBoard />
             <p className="pl-2">+ Create New Board</p>
           </div>

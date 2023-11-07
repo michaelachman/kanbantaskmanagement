@@ -2,17 +2,7 @@ import { Dialog, Listbox } from "@headlessui/react"
 import { ReactComponent as IconCheck } from "../../assets/icon-check.svg";
 import { Status, Subtask, Task } from "../crud";
 import { updateTaskStatus, changeSubtaskStatus } from "../db";
-import { useState } from "react";
-// import { useEffect } from "react";
 
-// export type TaskDetails = {
-//     taskName: string,
-//     taskDescription?: string,
-//     subtasks?: {
-//         subtaskContent: string,
-//         subtaskStatus: boolean
-//     }[]
-// }
 
 export type ViewTaskDialogProps = {
     viewTaskIsOpen: boolean;
