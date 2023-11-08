@@ -9,6 +9,7 @@ export type EditTaskDialogProps = {
   clickedTask: Task;
   clickedTaskSubtasks: Subtask[] | null;
   activeBoardStatusesArray: Status[] | null;
+  deleteTaskButton: () => void;
 };
 
 export type EditTaskForm = {
@@ -130,10 +131,10 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden">
-          <Dialog.Title className="text-xl">Edit Task</Dialog.Title>
+          <Dialog.Title className="text-xl font-semibold">Edit Task</Dialog.Title>
 
-          <div className="flex flex-col mt-3">
-            <label className="text-gray-500">Title</label>
+          <div className="flex flex-col">
+            <label className="text-gray-500 text-xs font-semibold mb-2 mt-4 pl-1">Title</label>
             <input
               className="px-2 py-1 border rounded-md pl-2"
               value={localEditTaskForm.localClickedTask?.taskTitle}
@@ -166,7 +167,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
                 </div>
                 
               ))}
-              <button onClick={() => newSubtask()} className="mt-2 py-1 rounded-2xl bg-purple-100">+ Add New Subtask</button>
+              <button onClick={() => newSubtask()} className="mt-2 py-1 h-9 rounded-3xl bg-purple-100 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
             
           </div>
           <div>
@@ -206,7 +207,10 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             </Listbox>
           </div>
           <div>
-            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white">Edit Task</button>
+            <button onClick={() => props.deleteTaskButton()} className="mt-4 py-1 rounded-3xl bg-[#EA5555] w-full text-white font-medium text-sm h-9">Delete Task</button>
+          </div>
+          <div>
+            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-4 py-1 rounded-3xl bg-[#635FC7] w-full text-white text-sm font-medium h-9">Edit Task</button>
           </div>
         </Dialog.Panel>
       </div>

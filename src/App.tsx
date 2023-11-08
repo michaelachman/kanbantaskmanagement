@@ -9,6 +9,7 @@ import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByT
 import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
 import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
 import { NewBoardDialog } from "./components/NewBoardDialog";
+import { DeleteTaskDialog } from "./components/DeleteTaskDialog";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   const [newTaskDialogIsOpen, setNewTaskDialogIsOpen] = useState(false);
   const [clickedTask, setClickedTask] = useState<Task>(emptyTask);
   const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
+  const [deleteTaskDialogIsOpen, setDeleteTaskDialogIsOpen] = useState(false)
   // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
 
 
@@ -86,6 +88,14 @@ function App() {
 
   function editTask() {
     setEditTaskDialogIsOpen(true)
+  }
+
+  function deleteTaskButton(){
+    setDeleteTaskDialogIsOpen(true)
+  }
+
+  function closeDeleteTaskDialog(){
+    setDeleteTaskDialogIsOpen(false)
   }
 
 
@@ -166,7 +176,10 @@ function App() {
         clickedTask={clickedTask}
         clickedTaskSubtasks={clickedTaskSubtasks}
         activeBoardStatusesArray={activeBoardStatusesArray}
+        deleteTaskButton={deleteTaskButton}
         />
+
+        <DeleteTaskDialog deleteTaskDialogIsOpen={deleteTaskDialogIsOpen} closeDeleteTaskDialog={closeDeleteTaskDialog} />
 
         <AddNewTaskDialog 
       newTaskDialogIsOpen={newTaskDialogIsOpen}

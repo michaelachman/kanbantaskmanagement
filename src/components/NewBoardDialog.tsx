@@ -100,13 +100,13 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
               ))}
               <div className="flex flex-col mt-1">
                 <button
-                  className="bg-red-500 rounded-2xl"
+                  className="bg-red-500 rounded-2xl h-10"
                   onClick={() => addNewColumn()}
                 >
                   + Add New Column
                 </button>
                 <button
-                  className="bg-red-500 mt-1 rounded-2xl"
+                  className="bg-red-500 mt-4 rounded-2xl h-10"
                   onClick={() => saveChanges(localNewBoardForm)}
                 >
                   Save Changes
