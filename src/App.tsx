@@ -5,7 +5,7 @@ import EditBoardDialog from "./components/EditBoardDialog";
 import { ViewTaskDialog } from "./components/ViewTaskDialog";
 import { Statuses } from "./components/Statuses";
 import { Board, Status, Subtask, Task } from "./crud";
-import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId, updateTaskStatus } from "./db";
+import { boards, changeTaskStatusWithBoardAndTaskId, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId, updateTaskStatus } from "./db";
 import { EditTaskDialog } from "./components/EditTaskDialog";
 import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
 import { NewBoardDialog } from "./components/NewBoardDialog";
@@ -98,6 +98,13 @@ function App() {
     setDeleteTaskDialogIsOpen(false)
   }
 
+  function taskStatusChange(clickedTaskId: number, newStatusId: number, boardId: number) {
+    if (activeBoard !== null) {
+    changeTaskStatusWithBoardAndTaskId(clickedTaskId, newStatusId, boardId)
+    const filteredTasks = getTasksByBoardId(activeBoard)
+    setActiveBoardTasksArray(filteredTasks)
+  }
+}
 
   useEffect(() => {
     if (activeBoard !== null) {
@@ -142,7 +149,7 @@ function App() {
       />
 
     <div className="mt-16">
-    <Statuses activeBoardStatusesArray={activeBoardStatusesArray} activeBoardTasksArray={activeBoardTasksArray} subtasksMap={subtasksMap} openEditBoard={openEditBoard} viewTask={viewTask} />
+    <Statuses activeBoardStatusesArray={activeBoardStatusesArray} activeBoardTasksArray={activeBoardTasksArray} subtasksMap={subtasksMap} openEditBoard={openEditBoard} viewTask={viewTask} activeBoard={activeBoard} />
     </div>
 
      
@@ -151,13 +158,14 @@ function App() {
         editBoardIsOpen={editBoardIsOpen}
         closeEditBoard={closeEditBoard}
         activeBoardStatusesArray={activeBoardStatusesArray}
-        activeBoard={activeBoard}
+        
         // boardName={boardsArray?[activeBoard].boardName}
       />
 
       <NewBoardDialog newBoardDialogIsOpen={newBoardDialogIsOpen} closeNewBoardDialog={closeNewBoardDialog}/>
 
       <ViewTaskDialog
+        activeBoard={activeBoard}
         viewTaskIsOpen={viewTaskIsOpen}
         closeViewTask={closeViewTask}
         clickedTask={clickedTask}
@@ -167,6 +175,7 @@ function App() {
         // chosenStatus={chosenStatus}
         // updateTaskStatus={updateTaskStatus}
         editTask={editTask}
+        taskStatusChange={taskStatusChange}
       />
 
         <EditTaskDialog
@@ -195,8 +204,6 @@ export default App;
 
 
 // jak zrobic tak zeby ten scrollbar nie nachodzil na navbara przy scrollowaniu po osi y? (tu bylo robione tak ze navbar fixed a renderowane Columns dostaly margin topa)
-
-// jak ogarnac te subtaski jezus maria, jak dac unikatowe id nowo wytworzonemu subtaskowi w edittasku i dlaczego tak dziwnie sie pisze w tych inputach
 
 // strzalka do gory w navbarze jak jest otwarty boardselect bo nie ma teraz atrybutu open w menu jak byl w dialogu
 

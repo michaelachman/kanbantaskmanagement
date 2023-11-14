@@ -5,6 +5,7 @@ import { updateTaskStatus, changeSubtaskStatus } from "../db";
 
 
 export type ViewTaskDialogProps = {
+    activeBoard: number | null;
     viewTaskIsOpen: boolean;
     closeViewTask: () => void;
     clickedTask: Task | null;
@@ -13,6 +14,7 @@ export type ViewTaskDialogProps = {
     activeBoardStatusesArray: Status[] | null
     // chosenStatus: (key: number, clickedTask: Task | null) => void;
     editTask: () => void;
+    taskStatusChange: (clickedTaskId: number, newStatusId: number, boardId: number) => void;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
@@ -64,8 +66,8 @@ return (
             key={status.id}
             value={status.statusName}
             onClick = {() => {
-              if (props.clickedTask?.id) {
-              updateTaskStatus(props.clickedTask.id, status.id)
+              if (props.clickedTask?.id && props.activeBoard !== null) {
+              props.taskStatusChange(props.clickedTask.id, status.id, props.activeBoard)
             }}}
             // disabled={person.unavailable}
           >
@@ -74,6 +76,12 @@ return (
         ))}
       </Listbox.Options>
     </Listbox>
+    <button
+              onClick={() => props.closeViewTask()}
+              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+            >
+              Cancel
+            </button>
           </div>
         </Dialog.Panel>
       </div>

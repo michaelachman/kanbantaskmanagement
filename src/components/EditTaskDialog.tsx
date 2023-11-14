@@ -212,6 +212,12 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
           <div>
             <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-4 py-1 rounded-3xl bg-[#635FC7] w-full text-white text-sm font-medium h-9">Edit Task</button>
           </div>
+          <button
+              onClick={() => props.closeEditTask()}
+              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+            >
+              Cancel
+            </button>
         </Dialog.Panel>
       </div>
     </Dialog>

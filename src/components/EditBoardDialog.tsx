@@ -74,7 +74,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg">
-          <Dialog.Title className="text-2xl">Edit New Board</Dialog.Title>
+          <Dialog.Title className="text-2xl">Edit Board</Dialog.Title>
           <div className="mt-3">
             <label className="text-gray-500 w-full font-semibold">
               Board Name
@@ -118,6 +118,12 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               onClick={() => saveChanges(localNewBoardForm)}
             >
               Save Changes
+            </button>
+            <button
+              onClick={() => props.closeEditBoard()}
+              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+            >
+              Cancel
             </button>
           </div>
         </Dialog.Panel>

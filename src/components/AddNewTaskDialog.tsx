@@ -214,6 +214,12 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             >
               Create Task
             </button>
+            <button
+              onClick={() => props.closeNewTask()}
+              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+            >
+              Cancel
+            </button>
           </div>
         </Dialog.Panel>
       </div>

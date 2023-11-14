@@ -16,13 +16,13 @@ export type BoardsNavbarProps = {
 };
 
 export const BoardsNavbar = (props: BoardsNavbarProps) => {
-  const [buttonAvailability, setButtonAvailability] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
-    if (props.activeBoardStatusesArray === null) {
-      setButtonAvailability(true);
+    if (props.activeBoardStatusesArray?.length === 0) {
+      setButtonDisabled(true);
     } else {
-      setButtonAvailability(false);
+      setButtonDisabled(false);
     }
   }, [props.activeBoardStatusesArray]);
 
@@ -61,8 +61,9 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
 
       <button
         onClick={() => props.openNewTaskDialog()}
-        disabled={buttonAvailability}
-        className="flex ml-auto border rounded-2xl w-11 h-8 bg-[#635FC7] text-white font-bold text-xl justify-center"
+        disabled={buttonDisabled}
+        className={`flex ml-auto border rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-200` : `bg-[#635FC7]`}`}
+        // className="flex ml-auto border rounded-2xl w-11 h-8 bg-[#635FC7] text-white font-bold text-xl justify-center"
       >
         +
       </button>
