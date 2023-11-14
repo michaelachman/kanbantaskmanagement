@@ -12,6 +12,7 @@ export type BoardsNavbarProps = {
   openNewTaskDialog: () => void;
   activeBoardStatusesArray: Status[] | null;
   openCreateNewBoardDialog: () => void;
+  openEditBoard: () => void;
 };
 
 export const BoardsNavbar = (props: BoardsNavbarProps) => {
@@ -66,6 +67,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
         +
       </button>
       <img
+        onClick={() => props.openEditBoard()}
         src="./assets/icon-vertical-ellipsis.svg"
         className="flex ml-auto h-4 self-center"
       ></img>

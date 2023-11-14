@@ -1,52 +1,70 @@
 import { Dialog } from "@headlessui/react";
 import { BoardType, Column } from "../App";
 import { useEffect, useState } from "react";
+import { Status } from "../crud";
 
-export type EditBoardDialogType = {
-  editBoardIsOpen: boolean;
-  closeEditBoard: () => void;
-  boardsArray: BoardType[];
-  boardColumnsArray: Column[];
-  activeBoard: number;
+export type BoardForm = {
+  boardName: string,
+  statusesArray: Partial<Status>[]
+}
+
+
+export type EditBoardDialogProps = {
+  editBoardIsOpen: boolean,
+  closeEditBoard: () => void
   boardName: string;
-  saveChanges: (columnsArray: Column[], boardName: string) => void;
-};
+  activeBoardStatusesArray: Status[]
+}
 
-// localBoardsArray[props.activeBoard].columns?.push({...previousLocalBoardArray, columnName: "New Board"})
+export const EditBoardDialog = (props: EditBoardDialogProps) => {
 
-export const EditBoardDialog = (props: EditBoardDialogType) => {
-  const [columnsArray, setColumnsArray] = useState(props.boardColumnsArray);
-  const [boardName, setBoardName] = useState(props.boardName)
-
-  function deleteColumn(indexToDelete: number) {
-    console.log(indexToDelete);
-    setColumnsArray((previousState) => {
-      return previousState.filter((item, index) => index !== indexToDelete);
-    });
+  const initialNewBoardForm: BoardForm = {
+      boardName: "",
+      statusesArray: []
   }
 
-  function addNewColumn() {
-    setColumnsArray((previousColumnsArray) => {
-      return [...previousColumnsArray, { columnName: "New column" }];
-    });
-  }
+
+  const [localNewBoardForm, setLocalNewBoardForm] = useState(initialNewBoardForm)
+
+  useEffect(() => {
+    setLocalNewBoardForm((previousState) => {
+      return {...previousState, statusesArray: props.activeBoardStatusesArray}
+    })
+  }, [props.activeBoardStatusesArray])
 
   function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setBoardName((previousBoardName) => {
-      previousBoardName = event.target.value
-      return previousBoardName
-    })
+      setLocalNewBoardForm((previousState) => {
+          return {...previousState, boardName: event.target.value}
+      })
   }
 
-  function handleColumnNameInput(event: React.ChangeEvent<HTMLInputElement>, index: number) {
-    setColumnsArray((previousColumnArray) => {
-      previousColumnArray[index].columnName = event.target.value
-      console.log(previousColumnArray)
-      return [...previousColumnArray]
-    })
+  function handleColumnNameInput(event: React.ChangeEvent<HTMLInputElement>, index: number){
+      setLocalNewBoardForm((previousState) => {
+          previousState.statusesArray[index].statusName = event.target.value
+          return {...previousState}
+      })
   }
 
-  useEffect(() => console.log(columnsArray), [columnsArray])
+  function deleteColumn(indexToHandle: number) {
+      setLocalNewBoardForm((previousState) => {
+          const newArray = previousState.statusesArray.filter((element, index) => index !== indexToHandle)
+          return {...previousState, statusesArray: newArray}
+      })
+  }
+
+  function addNewColumn(){
+      setLocalNewBoardForm((previousState) => {
+          const newStatus = {
+              statusName: ""
+          }
+          return {...previousState, statusesArray: [...previousState.statusesArray, newStatus]}
+      })
+  }
+
+  function saveChanges(localNewBoardForm: BoardForm){
+      // tu wyslac do db
+      props.closeEditBoard()
+  }
 
   return (
     <Dialog
@@ -56,7 +74,7 @@ export const EditBoardDialog = (props: EditBoardDialogType) => {
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg">
-          <Dialog.Title className="text-2xl">Edit Board</Dialog.Title>
+          <Dialog.Title className="text-2xl">Edit New Board</Dialog.Title>
           <div className="mt-3">
             <label className="text-gray-500 w-full font-semibold">
               Board Name
@@ -65,7 +83,7 @@ export const EditBoardDialog = (props: EditBoardDialogType) => {
               className="bg-green-500 w-full rounded-md p-1"
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
-              value={boardName}
+              value=""
             ></input>
           </div>
           <div className="mt-3">
@@ -73,12 +91,12 @@ export const EditBoardDialog = (props: EditBoardDialogType) => {
               Board Columns
             </label>
           </div>
-          {columnsArray.map((column, index) => (
+          {localNewBoardForm.statusesArray.map((column, index) => (
             <div key={index} className="flex">
               <input
                 className="bg-purple-500 w-full border rounded-md p-1"
                 type="text"
-                value={column.columnName}
+                value={column.statusName}
                 onChange={(event) => handleColumnNameInput(event, index)}
               ></input>
               <img
@@ -90,14 +108,14 @@ export const EditBoardDialog = (props: EditBoardDialogType) => {
           ))}
           <div className="flex flex-col mt-1">
             <button
-              className="bg-red-500 rounded-2xl"
+              className="bg-red-500 rounded-2xl h-10"
               onClick={() => addNewColumn()}
             >
               + Add New Column
             </button>
             <button
-              className="bg-red-500 mt-1 rounded-2xl"
-              onClick={() => props.saveChanges(columnsArray, boardName)}
+              className="bg-red-500 mt-4 rounded-2xl h-10"
+              onClick={() => saveChanges(localNewBoardForm)}
             >
               Save Changes
             </button>

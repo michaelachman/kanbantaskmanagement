@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import BoardsNavbar from "./components/BoardsNavbar";
 import EditBoardDialog from "./components/EditBoardDialog";
-import { TaskDetails, ViewTaskDialog } from "./components/ViewTaskDialog";
+import { ViewTaskDialog } from "./components/ViewTaskDialog";
 import { Statuses } from "./components/Statuses";
 import { Board, Status, Subtask, Task } from "./crud";
 import { boards, getStatusesByBoardId, getSubtasksBySingleTaskId, getSubtasksByTasksId, getTasksByBoardId, updateTaskStatus } from "./db";
-import { EditTaskDialog, TaskDialog } from "./components/EditTaskDialog";
+import { EditTaskDialog } from "./components/EditTaskDialog";
 import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
 import { NewBoardDialog } from "./components/NewBoardDialog";
 import { DeleteTaskDialog } from "./components/DeleteTaskDialog";
@@ -26,23 +26,19 @@ function App() {
 
   const [boardsArray, setBoardsArray] = useState<Board[] | null>(boards);
   const [activeBoard, setActiveBoard] = useState<number | null>(boardsArray?.length ? boardsArray[0].id : null);
-  const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[]>([])
-  const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null>(null)
-  const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null)
-  const [newBoardDialogIsOpen, setNewBoardDialogIsOpen] = useState(false)
+  const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[]>([]);
+  const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null>(null);
+  const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(null);
+  const [newBoardDialogIsOpen, setNewBoardDialogIsOpen] = useState(false);
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [viewTaskIsOpen, setViewTaskIsOpen] = useState(false);
   const [editTaskDialogIsOpen, setEditTaskDialogIsOpen] = useState(false);
   const [newTaskDialogIsOpen, setNewTaskDialogIsOpen] = useState(false);
   const [clickedTask, setClickedTask] = useState<Task>(emptyTask);
-  const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null)
-  const [deleteTaskDialogIsOpen, setDeleteTaskDialogIsOpen] = useState(false)
-  // const [clickedTask, setClickedTask] = useState<TaskDetails | null>(null);
+  const [clickedTaskSubtasks, setClickedTaskSubtasks] = useState<Subtask[] | null>(null);
+  const [deleteTaskDialogIsOpen, setDeleteTaskDialogIsOpen] = useState(false);
 
 
-  // function closeEditBoard() {
-  //   setEditBoardIsOpen(false);
-  // }
 
   function changeBoard(boardId: number) {
     setActiveBoard(boardId)
@@ -50,6 +46,10 @@ function App() {
 
   function openEditBoard(){
     setEditBoardIsOpen(true)
+  }
+
+  function closeEditBoard(){
+    setEditBoardIsOpen(false)
   }
 
   function openNewTaskDialog() {
@@ -138,6 +138,7 @@ function App() {
         openNewTaskDialog={openNewTaskDialog}
         activeBoardStatusesArray={activeBoardStatusesArray}
         openCreateNewBoardDialog={openCreateNewBoardDialog}
+        openEditBoard={openEditBoard}
       />
 
     <div className="mt-16">
@@ -146,15 +147,13 @@ function App() {
 
      
 
-      {/* <EditBoardDialog
+      <EditBoardDialog
         editBoardIsOpen={editBoardIsOpen}
         closeEditBoard={closeEditBoard}
-        boardsArray={boardsArray}
-        boardColumnsArray={boardsArray[activeBoard].columns || []}
+        activeBoardStatusesArray={activeBoardStatusesArray}
         activeBoard={activeBoard}
-        boardName={boardsArray[activeBoard].boardName}
-        saveChanges={saveChanges}
-      /> */}
+        // boardName={boardsArray?[activeBoard].boardName}
+      />
 
       <NewBoardDialog newBoardDialogIsOpen={newBoardDialogIsOpen} closeNewBoardDialog={closeNewBoardDialog}/>
 
