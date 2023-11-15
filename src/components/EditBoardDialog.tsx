@@ -1,5 +1,4 @@
 import { Dialog } from "@headlessui/react";
-import { BoardType, Column } from "../App";
 import { useEffect, useState } from "react";
 import { Status } from "../crud";
 
@@ -10,10 +9,12 @@ export type BoardForm = {
 
 
 export type EditBoardDialogProps = {
+  activeBoard: number;
   editBoardIsOpen: boolean,
   closeEditBoard: () => void
   boardName: string;
   activeBoardStatusesArray: Status[]
+  saveEditBoardChanges: (localEditBoardForm: BoardForm, boardId: number) => void
 }
 
 export const EditBoardDialog = (props: EditBoardDialogProps) => {
@@ -24,46 +25,47 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
   }
 
 
-  const [localNewBoardForm, setLocalNewBoardForm] = useState(initialNewBoardForm)
+  const [localEditBoardForm, setEditBoardForm] = useState(initialNewBoardForm)
 
   useEffect(() => {
-    setLocalNewBoardForm((previousState) => {
+    setEditBoardForm((previousState) => {
       return {...previousState, statusesArray: props.activeBoardStatusesArray}
     })
   }, [props.activeBoardStatusesArray])
 
+  useEffect(() => {
+    setEditBoardForm((previousState) => {
+      return {...previousState, boardName: props.boardName}
+    })
+  }, [props.boardName])
+
   function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
-      setLocalNewBoardForm((previousState) => {
+      setEditBoardForm((previousState) => {
           return {...previousState, boardName: event.target.value}
       })
   }
 
   function handleColumnNameInput(event: React.ChangeEvent<HTMLInputElement>, index: number){
-      setLocalNewBoardForm((previousState) => {
+      setEditBoardForm((previousState) => {
           previousState.statusesArray[index].statusName = event.target.value
           return {...previousState}
       })
   }
 
   function deleteColumn(indexToHandle: number) {
-      setLocalNewBoardForm((previousState) => {
+      setEditBoardForm((previousState) => {
           const newArray = previousState.statusesArray.filter((element, index) => index !== indexToHandle)
           return {...previousState, statusesArray: newArray}
       })
   }
 
   function addNewColumn(){
-      setLocalNewBoardForm((previousState) => {
+      setEditBoardForm((previousState) => {
           const newStatus = {
               statusName: ""
           }
           return {...previousState, statusesArray: [...previousState.statusesArray, newStatus]}
       })
-  }
-
-  function saveChanges(localNewBoardForm: BoardForm){
-      // tu wyslac do db
-      props.closeEditBoard()
   }
 
   return (
@@ -83,7 +85,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               className="bg-green-500 w-full rounded-md p-1"
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
-              value=""
+              value={localEditBoardForm.boardName}
             ></input>
           </div>
           <div className="mt-3">
@@ -91,7 +93,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               Board Columns
             </label>
           </div>
-          {localNewBoardForm.statusesArray.map((column, index) => (
+          {localEditBoardForm.statusesArray.map((column, index) => (
             <div key={index} className="flex">
               <input
                 className="bg-purple-500 w-full border rounded-md p-1"
@@ -115,13 +117,13 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
             </button>
             <button
               className="bg-red-500 mt-4 rounded-2xl h-10"
-              onClick={() => saveChanges(localNewBoardForm)}
+              onClick={() => props.saveEditBoardChanges(localEditBoardForm, props.activeBoard)}
             >
               Save Changes
             </button>
             <button
               onClick={() => props.closeEditBoard()}
-              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BoardSelect } from "./BoardSelect";
 import { Board, Status } from "../crud";
 import { Dropdown } from "./Dropdown";
 // import BoardsList from "./BoardsList";

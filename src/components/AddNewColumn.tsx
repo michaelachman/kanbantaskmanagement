@@ -5,6 +5,7 @@ export type AddNewColumnProps = {
     addNewColumnIsOpen: boolean;
     closeAddNewColumn: () => void;
     activeBoard: number;
+    createColumn: (localColumnName: string, activeBoard: number) => void;
 }
 
 export const AddNewColumn = (props: AddNewColumnProps) => {
@@ -15,10 +16,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
         setLocalColumnName(event.target.value)
     }
 
-    function createColumn(localColumnName: string) {
-        // tu wyslac do db activeBoard i nowy columnname
-        props.closeAddNewColumn()
-    }
+    
 
     return (
         <Dialog
@@ -44,7 +42,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
           <div className="flex flex-col mt-1">
             <button
               className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white"
-              onClick={() => createColumn(localColumnName)}
+              onClick={() => props.createColumn(localColumnName, props.activeBoard)}
             >
               Create Column
             </button>

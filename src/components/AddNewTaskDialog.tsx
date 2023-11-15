@@ -163,7 +163,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             ))}
             <button
               onClick={() => newSubtask()}
-              className="mt-2 py-1 rounded-2xl bg-purple-100"
+              className="mt-2 py-1 rounded-2xl bg-purple-200"
             >
               + Add New Subtask
             </button>
@@ -216,7 +216,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             </button>
             <button
               onClick={() => props.closeNewTask()}
-              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>

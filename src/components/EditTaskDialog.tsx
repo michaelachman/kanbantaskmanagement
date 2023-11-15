@@ -143,7 +143,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             ></input>
           </div>
           <div className="flex flex-col mt-3">
-            <label className="text-gray-500">Description</label>
+            <label className="text-gray-500 text-xs font-semibold mb-2 mt-1 pl-1">Description</label>
             <input
               className="px-2 py-1 border rounded-md"
               value={localEditTaskForm.localClickedTask?.taskDescription}
@@ -151,7 +151,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             ></input>
           </div>
           <div className="flex flex-col mt-4">
-            <label className="text-gray-500">Subtasks</label>
+            <label className="text-gray-500 text-xs font-semibold mb-2 mt-1 pl-1">Subtasks</label>
               {localEditTaskForm.subtasksArray?.map((subtask, index) => (
                 <div key={subtask.id} className="w-full flex">
                   <input
@@ -167,11 +167,11 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
                 </div>
                 
               ))}
-              <button onClick={() => newSubtask()} className="mt-2 py-1 h-9 rounded-3xl bg-purple-100 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
+              <button onClick={() => newSubtask()} className="mt-2 py-1 h-9 rounded-3xl bg-purple-200 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
             
           </div>
           <div>
-            <h2 className="mt-3 mb-2 text-gray-500 w-full font-semibold">
+            <h2 className="mt-3 mb-2 text-gray-500 text-xs font-semibold pl-1">
               Status
             </h2>
 
@@ -214,7 +214,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
           </div>
           <button
               onClick={() => props.closeEditTask()}
-              className="mt-4 py-1 rounded-2xl bg-purple-200 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>
