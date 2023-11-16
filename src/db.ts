@@ -147,6 +147,31 @@ export function editBoardWithLocalFormAndBoardId(localForm: BoardForm, boardId: 
     
 }
 
+export function createNewColumnWithBoardId(localColumnName: string, boardId: number) {
+  statuses.push({
+    id: Math.floor(Math.random() * 100),
+    statusName: localColumnName,
+    boardId: boardId
+  })
+  console.log(statuses)
+}
+
+export function createNewBoardWithLocalForm(localBoardForm: BoardForm){
+  const newBoardId = Math.floor(Math.random() * 100)
+  boards.push({
+    id: newBoardId,
+    boardName: localBoardForm.boardName
+  })
+   const updatedLocalArray = localBoardForm.statusesArray.map((stat, index) => {
+    stat.boardId = newBoardId,
+    stat.id = index + 1,
+    stat.statusName
+    return stat
+  })
+  statuses = [...statuses, ...updatedLocalArray] as Status[]
+}
+
+
 export function getSubtasksByTasksId(ids: number[]): Map<number, Subtask[]> {
   const subtaskMap: Map<number, Subtask[]> = new Map();
   ids.forEach((id) => {

@@ -1,6 +1,7 @@
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 import { Status } from "../crud";
+import { createNewBoardWithLocalForm } from "../db";
 
 export type BoardForm = {
     boardName: string,
@@ -10,7 +11,8 @@ export type BoardForm = {
 
 export type NewBoardDialogProps = {
     newBoardDialogIsOpen: boolean,
-    closeNewBoardDialog: () => void
+    closeNewBoardDialog: () => void,
+    createNewBoard: (localNewBoardForm: BoardForm) => void;
 }
 
 export const NewBoardDialog = (props: NewBoardDialogProps) => {
@@ -52,11 +54,6 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
         })
     }
 
-    function saveChanges(localNewBoardForm: BoardForm){
-        // tu wyslac do db
-        props.closeNewBoardDialog()
-    }
-
 
     return (
         <Dialog
@@ -75,7 +72,7 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
                   className="bg-green-500 w-full rounded-md p-1"
                   type="text"
                   onChange={(event) => handleBoardNameInput(event)}
-                  value=""
+                  value={localNewBoardForm.boardName}
                 ></input>
               </div>
               <div className="mt-3">
@@ -107,10 +104,16 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
                 </button>
                 <button
                   className="bg-red-500 mt-4 rounded-2xl h-10"
-                  onClick={() => saveChanges(localNewBoardForm)}
+                  onClick={() => props.createNewBoard(localNewBoardForm)}
                 >
                   Save Changes
                 </button>
+                <button
+              onClick={() => props.closeNewBoardDialog()}
+              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+            >
+              Cancel
+            </button>
               </div>
             </Dialog.Panel>
           </div>

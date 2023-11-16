@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Status, Subtask, Task } from "../crud";
 import { AddNewColumn } from "./AddNewColumn";
 

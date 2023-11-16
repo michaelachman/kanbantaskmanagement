@@ -8,12 +8,14 @@ import { Board, Status, Subtask, Task } from "./crud";
 import {
   boards,
   changeTaskStatusWithBoardAndTaskId,
+  createNewBoardWithLocalForm,
+  createNewColumnWithBoardId,
   editBoardWithLocalFormAndBoardId,
+  getBoardNameByBoardId,
   getStatusesByBoardId,
   getSubtasksBySingleTaskId,
   getSubtasksByTasksId,
   getTasksByBoardId,
-  updateTaskStatus,
 } from "./db";
 import { EditTaskDialog } from "./components/EditTaskDialog";
 import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
@@ -78,6 +80,11 @@ function App() {
     setNewBoardDialogIsOpen(false);
   }
 
+  function createNewBoard(localNewBoardForm: BoardForm){
+    createNewBoardWithLocalForm(localNewBoardForm)
+    setNewBoardDialogIsOpen(false)
+}
+
   function viewTask(task: Task) {
     setClickedTask(task);
     const clickedTaskSubtasksArray = getSubtasksBySingleTaskId(task.id);
@@ -119,11 +126,22 @@ function App() {
 
   function saveEditBoardChanges(localNewBoardForm: BoardForm, activeBoard: number) {
     editBoardWithLocalFormAndBoardId(localNewBoardForm, activeBoard);
+    if (activeBoard !== null) {
+      const filteredStatuses = getStatusesByBoardId(activeBoard);
+      const filteredTasks = getTasksByBoardId(activeBoard);
+      const filteredSubtasks = getSubtasksByTasksId(
+        filteredTasks.map((task) => task.id)
+      );
+      setActiveBoardStatusesArray(filteredStatuses);
+      setActiveBoardTasksArray(filteredTasks);
+      setSubtasksMap(filteredSubtasks);
+    }
     setEditBoardIsOpen(false);
   }
 
   function createColumn(localColumnName: string, activeBoard: number) {
-    // tu wyslac do db activeBoard i nowy columnname
+    createNewColumnWithBoardId(localColumnName, activeBoard)
+
     setAddNewColumnIsOpen(false);
   }
 
@@ -166,7 +184,9 @@ function App() {
       setActiveBoardTasksArray(filteredTasks);
       setSubtasksMap(filteredSubtasks);
     }
-  }, [editTaskDialogIsOpen, editBoardIsOpen, activeBoard]);
+  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, activeBoard]);
+
+ 
 
   return (
     <div className="h-full w-full">
@@ -198,11 +218,11 @@ function App() {
 
       {boardsArray && activeBoard && (
         <EditBoardDialog
-        activeBoard={activeBoard}
+          boardsArray={boardsArray}
+          activeBoard={activeBoard}
           editBoardIsOpen={editBoardIsOpen}
           closeEditBoard={closeEditBoard}
           activeBoardStatusesArray={activeBoardStatusesArray}
-          boardName={boardsArray[activeBoard - 1].boardName}
           saveEditBoardChanges={saveEditBoardChanges}
         />
       )}
@@ -210,6 +230,7 @@ function App() {
       <NewBoardDialog
         newBoardDialogIsOpen={newBoardDialogIsOpen}
         closeNewBoardDialog={closeNewBoardDialog}
+        createNewBoard={createNewBoard}
       />
 
       <ViewTaskDialog

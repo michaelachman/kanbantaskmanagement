@@ -1,6 +1,7 @@
 import { Dialog } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { Status } from "../crud";
+import { Board, Status } from "../crud";
+
 
 export type BoardForm = {
   boardName: string,
@@ -9,15 +10,17 @@ export type BoardForm = {
 
 
 export type EditBoardDialogProps = {
+  boardsArray: Board[] | null;
   activeBoard: number;
   editBoardIsOpen: boolean,
   closeEditBoard: () => void
-  boardName: string;
   activeBoardStatusesArray: Status[]
   saveEditBoardChanges: (localEditBoardForm: BoardForm, boardId: number) => void
 }
 
 export const EditBoardDialog = (props: EditBoardDialogProps) => {
+
+  
 
   const initialNewBoardForm: BoardForm = {
       boardName: "",
@@ -33,11 +36,12 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
     })
   }, [props.activeBoardStatusesArray])
 
-  useEffect(() => {
-    setEditBoardForm((previousState) => {
-      return {...previousState, boardName: props.boardName}
-    })
-  }, [props.boardName])
+  function boardNameFunction() {
+    const foundBoard = props.boardsArray?.find(
+      (board) => board.id === props.activeBoard
+    );
+    return foundBoard?.boardName;
+  }
 
   function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
       setEditBoardForm((previousState) => {
@@ -85,7 +89,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               className="bg-green-500 w-full rounded-md p-1"
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
-              value={localEditBoardForm.boardName}
+              value={boardNameFunction()}
             ></input>
           </div>
           <div className="mt-3">
@@ -108,7 +112,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               ></img>
             </div>
           ))}
-          <div className="flex flex-col mt-1">
+          <div className="flex flex-col mt-3">
             <button
               className="bg-red-500 rounded-2xl h-10"
               onClick={() => addNewColumn()}
