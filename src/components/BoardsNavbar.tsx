@@ -44,8 +44,6 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
             openCreateNewBoardDialog={props.openCreateNewBoardDialog}
           />
 
-          {/* <h1 className="pr-1 self-center">{boardNameFunction()}</h1> */}
-
           {/* {selectBoardIsOpen ? 
           <img src="./assets/icon-chevron-up.svg" className="w-[8px] h-[7px] flex self-center"></img>
            : 
@@ -53,16 +51,11 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
         </div>
       )}
 
-      {/* {props.boardsArray !== null ? 
-      (<BoardSelect selectBoardIsOpen={selectBoardIsOpen} boardsArray={props.boardsArray} activeBoard={props.activeBoard} closeBoardSelect={closeBoardSelect} changeBoard={props.changeBoard}/>)
-      :
-       undefined} */}
 
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
         className={`flex ml-auto border rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-200` : `bg-[#635FC7]`}`}
-        // className="flex ml-auto border rounded-2xl w-11 h-8 bg-[#635FC7] text-white font-bold text-xl justify-center"
       >
         +
       </button>

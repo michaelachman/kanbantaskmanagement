@@ -11,7 +11,6 @@ import {
   createNewBoardWithLocalForm,
   createNewColumnWithBoardId,
   editBoardWithLocalFormAndBoardId,
-  getBoardNameByBoardId,
   getStatusesByBoardId,
   getSubtasksBySingleTaskId,
   getSubtasksByTasksId,
@@ -184,7 +183,7 @@ function App() {
       setActiveBoardTasksArray(filteredTasks);
       setSubtasksMap(filteredSubtasks);
     }
-  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, activeBoard]);
+  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, editBoardIsOpen, activeBoard]);
 
  
 
@@ -201,7 +200,7 @@ function App() {
         openEditBoard={openEditBoard}
       />
 
-      <div className="mt-16">
+      <div className="mt-16 h-full">
         <Statuses
           activeBoardStatusesArray={activeBoardStatusesArray}
           activeBoardTasksArray={activeBoardTasksArray}
@@ -277,3 +276,7 @@ export default App;
 // strzalka do gory w navbarze jak jest otwarty boardselect bo nie ma teraz atrybutu open w menu jak byl w dialogu
 
 // zmienianie statusow taska naprzemiennie w view i edit tasku dziala dzwiwnie
+
+// poprawic ta strzalke w navbarze bo nie wykminilem jak to zrobic gdy dodaje se nowa kolumne (zrobilem state chevronDirection w komponencie Dropdown bo nie moglem wykminic atrybutow)
+
+// jak dodaje nowe statusy do edytowanego boarda to sie renderuje za duzo statusow ale w console logu to wyglada elegancko

@@ -131,21 +131,7 @@ export function getTasksByBoardId(boardId: number): Task[] {
   return tasks.filter((task) => task.boardId === boardId);
 }
 
-export function editBoardWithLocalFormAndBoardId(localForm: BoardForm, boardId: number) {
-    localForm.statusesArray.forEach((stat, index) => {
-      stat.id = index + 1;
-    });
-    const arrayWithDifferentBoardId = statuses.filter(
-      (stat) => stat.boardId !== boardId
-    );
-    statuses = arrayWithDifferentBoardId.concat(localForm.statusesArray as Status[]);
-    //  statuses.concat(arrayWithDifferentBoardId, arrayWithSameBoardId)
-  
-  const foundBoard = boards.find((board) => board.id === boardId);
-    if (foundBoard)
-    return (foundBoard.boardName = localForm.boardName, statuses)
-    
-}
+
 
 export function createNewColumnWithBoardId(localColumnName: string, boardId: number) {
   statuses.push({
@@ -168,8 +154,47 @@ export function createNewBoardWithLocalForm(localBoardForm: BoardForm){
     stat.statusName
     return stat
   })
+  console.log(updatedLocalArray)
   statuses = [...statuses, ...updatedLocalArray] as Status[]
 }
+
+
+export function editBoardWithLocalFormAndBoardId(localForm: BoardForm, boardId: number) {
+  const foundBoard = boards.find((board) => board.id === boardId)
+  if (foundBoard) {
+  foundBoard.boardName = localForm.boardName
+  }
+  
+  const updatedLocalArray = localForm.statusesArray.map((stat, index) => {
+    if (stat.id) {
+      return stat
+    } else {
+      stat.boardId = boardId,
+      stat.id = index++,
+      stat.statusName
+      return stat
+    }
+  })
+  console.log(updatedLocalArray)
+  const statusesWithAnotherBoardId = statuses.filter((stat) => stat.boardId === boardId)
+
+  statuses = [...updatedLocalArray, ...statusesWithAnotherBoardId] as Status[]
+
+}
+
+//   localForm.statusesArray.forEach((stat, index) => {
+//     stat.id = index + 1;
+//   });
+//   const arrayWithDifferentBoardId = statuses.filter(
+//     (stat) => stat.boardId !== boardId
+//   );
+//   statuses = arrayWithDifferentBoardId.concat(localForm.statusesArray as Status[]);
+
+// const foundBoard = boards.find((board) => board.id === boardId);
+//   if (foundBoard)
+//   return (foundBoard.boardName = localForm.boardName, statuses)
+  
+
 
 
 export function getSubtasksByTasksId(ids: number[]): Map<number, Subtask[]> {

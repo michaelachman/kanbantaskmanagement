@@ -1,6 +1,7 @@
 import { Menu } from "@headlessui/react";
 import { Board } from "../crud";
 import { ReactComponent as IconBoard } from "../../assets/icon-board.svg";
+import { useState } from "react";
 
 export type DropdownProps = {
   boardsArray: Board[] | null;
@@ -11,6 +12,8 @@ export type DropdownProps = {
 
 export const Dropdown = (props: DropdownProps) => {
 
+  const [chevronDirection, setChevronDirection] = useState(true)
+
   function boardNameFunction() {
     const foundBoard = props.boardsArray?.find(
       (board) => board.id === props.activeBoard
@@ -18,12 +21,15 @@ export const Dropdown = (props: DropdownProps) => {
     return foundBoard?.boardName;
   }
 
+  
+
+
   return (
     <Menu>
       <Menu.Button>
-        <div className="flex">
+        <div className="flex" onClick={() => setChevronDirection(!chevronDirection)}>
         <h1 className="pr-2 font-bold">{boardNameFunction()}</h1>
-        <img src="./assets/icon-chevron-down.svg" className="w-[8px] h-[7px] self-center"></img>
+        <img src={chevronDirection ? "./assets/icon-chevron-down.svg" : "./assets/icon-chevron-up.svg"} className="w-[8px] h-[7px] self-center"></img>
         </div>
         </Menu.Button>
       
@@ -40,7 +46,11 @@ export const Dropdown = (props: DropdownProps) => {
                     ? `bg-[#635FC7] text-white`
                     : `bg-white text-[#828FA3] `
                 }`}
-                onClick={() => props.changeBoard(board.id)}
+                onClick={() => {
+                  props.changeBoard(board.id)
+                  setChevronDirection(!chevronDirection)
+                }
+                }
               >
                 <IconBoard />
                 <p className="pl-2">{board?.boardName}</p>

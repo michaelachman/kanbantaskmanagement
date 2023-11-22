@@ -1,7 +1,6 @@
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 import { Status } from "../crud";
-import { createNewBoardWithLocalForm } from "../db";
 
 export type BoardForm = {
     boardName: string,
@@ -104,7 +103,10 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
                 </button>
                 <button
                   className="bg-red-500 mt-4 rounded-2xl h-10"
-                  onClick={() => props.createNewBoard(localNewBoardForm)}
+                  onClick={() => {
+                    props.createNewBoard(localNewBoardForm)
+                    setLocalNewBoardForm(initialNewBoardForm)
+                  }}
                 >
                   Save Changes
                 </button>

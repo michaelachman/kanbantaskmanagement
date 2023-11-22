@@ -39,7 +39,7 @@ export const Statuses = (props: StatusesProps) => {
       
     </div>
   ) : (
-    <div className="h-full w-full flex flex-row bg-gray-100 pt-6 pl-4 text-left overflow-x-scroll flex-nowrap">
+    <div className="h-[90%] w-full flex flex-row bg-gray-100 pt-6 pl-4 text-left overflow-x-scroll flex-nowrap">
       {props.activeBoardStatusesArray?.map((status) => (
         <div className="column min-w-[75%] min-h-[88px] mr-6 mb-5">
           <h1 className="column-title pb-6 text-base text-gray-400 font-semibold">

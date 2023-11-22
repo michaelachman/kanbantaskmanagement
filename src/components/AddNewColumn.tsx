@@ -42,7 +42,10 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
           <div className="flex flex-col mt-1">
             <button
               className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white"
-              onClick={() => props.createColumn(localColumnName, props.activeBoard)}
+              onClick={() => {
+                props.createColumn(localColumnName, props.activeBoard);
+                setLocalColumnName("")
+              }}
             >
               Create Column
             </button>

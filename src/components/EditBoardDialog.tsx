@@ -20,10 +20,18 @@ export type EditBoardDialogProps = {
 
 export const EditBoardDialog = (props: EditBoardDialogProps) => {
 
+
+  function boardNameFunction() {
+    const foundBoard = props.boardsArray?.find(
+      (board) => board.id === props.activeBoard
+    );
+    return foundBoard?.boardName;
+  }
+
   
 
   const initialNewBoardForm: BoardForm = {
-      boardName: "",
+      boardName: boardNameFunction() as string,
       statusesArray: []
   }
 
@@ -36,12 +44,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
     })
   }, [props.activeBoardStatusesArray])
 
-  function boardNameFunction() {
-    const foundBoard = props.boardsArray?.find(
-      (board) => board.id === props.activeBoard
-    );
-    return foundBoard?.boardName;
-  }
+
 
   function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
       setEditBoardForm((previousState) => {
