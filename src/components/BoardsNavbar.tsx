@@ -51,11 +51,11 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
         </div>
       )}
 
-
+          <div className="flex ml-auto">
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`flex ml-auto border rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-200` : `bg-[#635FC7]`}`}
+        className={`flex ml-auto mr-4 border rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-200` : `bg-[#635FC7]`}`}
       >
         +
       </button>
@@ -64,6 +64,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
         src="./assets/icon-vertical-ellipsis.svg"
         className="flex ml-auto h-4 self-center"
       ></img>
+      </div>
     </div>
   );
 };

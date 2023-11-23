@@ -46,6 +46,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
 
 
 
+
   function handleBoardNameInput(event: React.ChangeEvent<HTMLInputElement>) {
       setEditBoardForm((previousState) => {
           return {...previousState, boardName: event.target.value}
@@ -92,7 +93,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               className="bg-green-500 w-full rounded-md p-1"
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
-              value={boardNameFunction()}
+              value={localEditBoardForm.boardName}
             ></input>
           </div>
           <div className="mt-3">

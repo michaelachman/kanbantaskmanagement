@@ -50,6 +50,7 @@ function App() {
   >(null);
   const [deleteTaskDialogIsOpen, setDeleteTaskDialogIsOpen] = useState(false);
   const [addNewColumnIsOpen, setAddNewColumnIsOpen] = useState(false);
+  const [sstatusDependency, setStatusDependency] = useState(true)
 
   function changeBoard(boardId: number) {
     setActiveBoard(boardId);
@@ -111,6 +112,10 @@ function App() {
     setDeleteTaskDialogIsOpen(false);
   }
 
+  function statusDependency(){
+    setStatusDependency(!sstatusDependency)
+  }
+
   function taskStatusChange(
     clickedTaskId: number,
     newStatusId: number,
@@ -170,7 +175,7 @@ function App() {
       const filteredTasksByIdWithNewStatus = getTasksByBoardId(activeBoard);
       setActiveBoardTasksArray(filteredTasksByIdWithNewStatus);
     }
-  }, [activeBoard]);
+  }, [activeBoard, sstatusDependency]);
 
   useEffect(() => {
     if (activeBoard !== null) {
@@ -183,7 +188,7 @@ function App() {
       setActiveBoardTasksArray(filteredTasks);
       setSubtasksMap(filteredSubtasks);
     }
-  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, editBoardIsOpen, activeBoard]);
+  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, editBoardIsOpen, newTaskDialogIsOpen, activeBoard]);
 
  
 
@@ -238,12 +243,10 @@ function App() {
         closeViewTask={closeViewTask}
         clickedTask={clickedTask}
         clickedTaskSubtasks={clickedTaskSubtasks}
-        // changeSubtaskStatus={changeSubtaskStatus}
         activeBoardStatusesArray={activeBoardStatusesArray}
-        // chosenStatus={chosenStatus}
-        // updateTaskStatus={updateTaskStatus}
         editTask={editTask}
         taskStatusChange={taskStatusChange}
+        statusDependency={statusDependency}
       />
 
       <EditTaskDialog
@@ -261,6 +264,7 @@ function App() {
       />
 
       <AddNewTaskDialog
+        activeBoard={activeBoard}
         newTaskDialogIsOpen={newTaskDialogIsOpen}
         closeNewTask={closeNewTask}
         activeBoardStatusesArray={activeBoardStatusesArray}
@@ -278,5 +282,3 @@ export default App;
 // zmienianie statusow taska naprzemiennie w view i edit tasku dziala dzwiwnie
 
 // poprawic ta strzalke w navbarze bo nie wykminilem jak to zrobic gdy dodaje se nowa kolumne (zrobilem state chevronDirection w komponencie Dropdown bo nie moglem wykminic atrybutow)
-
-// jak dodaje nowe statusy do edytowanego boarda to sie renderuje za duzo statusow ale w console logu to wyglada elegancko

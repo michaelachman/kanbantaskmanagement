@@ -1,3 +1,4 @@
+import { AddTaskForm } from "./components/AddNewTaskDialog";
 import { BoardForm } from "./components/EditBoardDialog";
 import { EditTaskForm } from "./components/EditTaskDialog";
 import { Board, Status, Subtask, Task } from "./crud";
@@ -65,7 +66,7 @@ export const tasks: Task[] = [
   },
 ];
 
-export const subtasks: Subtask[] = [
+export let subtasks: Subtask[] = [
   {
     id: 1,
     subtaskDescription: "dsfsdfsadfdsfds",
@@ -131,7 +132,28 @@ export function getTasksByBoardId(boardId: number): Task[] {
   return tasks.filter((task) => task.boardId === boardId);
 }
 
+export function addNewTaskToBoard(localAddTaskForm: AddTaskForm, activeBoard: number) {
 
+  const newTaskId = Date.now() + Math.floor(Math.random())
+
+  tasks.push({
+    id: newTaskId,
+    taskTitle: localAddTaskForm.localTaskProps.taskTitle as string,
+    taskDescription: localAddTaskForm.localTaskProps.taskDescription as string,
+    boardId: activeBoard,
+    statusId: localAddTaskForm.localTaskProps.statusId as number,
+  })
+  if (localAddTaskForm.subtasksArray?.length !== 0) {
+    const updatedSubtasksArray = localAddTaskForm.subtasksArray?.map((subtask, index) => {
+      subtask.id = Date.now() + Math.floor(Math.random()) + index,
+      subtask.subtaskDescription,
+      subtask.subtaskStatus,
+      subtask.taskId = newTaskId
+      return subtask
+    })
+    subtasks = [...subtasks, ...updatedSubtasksArray as Subtask[]] 
+  } 
+}
 
 export function createNewColumnWithBoardId(localColumnName: string, boardId: number) {
   statuses.push({
@@ -150,7 +172,8 @@ export function createNewBoardWithLocalForm(localBoardForm: BoardForm){
   })
    const updatedLocalArray = localBoardForm.statusesArray.map((stat, index) => {
     stat.boardId = newBoardId,
-    stat.id = index + 1,
+    stat.id = Date.now() + index,
+    // stat.id = index + 1,
     stat.statusName
     return stat
   })
@@ -176,23 +199,11 @@ export function editBoardWithLocalFormAndBoardId(localForm: BoardForm, boardId: 
     }
   })
   console.log(updatedLocalArray)
-  const statusesWithAnotherBoardId = statuses.filter((stat) => stat.boardId === boardId)
+  const statusesWithAnotherBoardId = statuses.filter((stat) => stat.boardId !== boardId)
 
   statuses = [...updatedLocalArray, ...statusesWithAnotherBoardId] as Status[]
 
 }
-
-//   localForm.statusesArray.forEach((stat, index) => {
-//     stat.id = index + 1;
-//   });
-//   const arrayWithDifferentBoardId = statuses.filter(
-//     (stat) => stat.boardId !== boardId
-//   );
-//   statuses = arrayWithDifferentBoardId.concat(localForm.statusesArray as Status[]);
-
-// const foundBoard = boards.find((board) => board.id === boardId);
-//   if (foundBoard)
-//   return (foundBoard.boardName = localForm.boardName, statuses)
   
 
 

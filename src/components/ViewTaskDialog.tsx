@@ -1,7 +1,7 @@
 import { Dialog, Listbox } from "@headlessui/react"
 import { ReactComponent as IconCheck } from "../../assets/icon-check.svg";
 import { Status, Subtask, Task } from "../crud";
-import { updateTaskStatus, changeSubtaskStatus } from "../db";
+import { changeSubtaskStatus } from "../db";
 
 
 export type ViewTaskDialogProps = {
@@ -15,6 +15,7 @@ export type ViewTaskDialogProps = {
     // chosenStatus: (key: number, clickedTask: Task | null) => void;
     editTask: () => void;
     taskStatusChange: (clickedTaskId: number, newStatusId: number, boardId: number) => void;
+    statusDependency: () => void;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
@@ -40,6 +41,7 @@ return (
             <div className="mt-3 bg-[#F4F7FD] flex rounded-md">
             <div onClick={() => { if (props.clickedTask?.id !== undefined) {
               changeSubtaskStatus(subtask.id, props.clickedTask?.id)
+              props.statusDependency()
               }}}
               className={`flex w-4 h-4 ml-2 justify-center items-center self-center ${subtask.subtaskStatus === true ? `bg-purple-500` : `bg-white border`} rounded-sm`}>
             <IconCheck className="text-white"/>

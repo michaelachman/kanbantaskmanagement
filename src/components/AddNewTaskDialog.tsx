@@ -1,8 +1,10 @@
 import { Dialog, Listbox } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import { Status, Subtask, Task } from "../crud";
+import { addNewTaskToBoard } from "../db";
 
 export type AddNewTaskDialogProps = {
+  activeBoard: number | null;
   newTaskDialogIsOpen: boolean;
   closeNewTask: () => void;
   activeBoardStatusesArray: Status[];
@@ -10,22 +12,19 @@ export type AddNewTaskDialogProps = {
 
 export type AddTaskForm = {
   subtasksArray: Partial<Subtask>[] | null;
-  localTaskProps: Task;
+  localTaskProps: Partial<Task>;
 };
 
 export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
   const initialLocalForm: AddTaskForm = {
     subtasksArray: [],
     localTaskProps: {
-      id: 0,
       taskTitle: "",
       taskDescription: "",
       boardId: 0,
       statusId: 1,
     },
   };
-
-  // props.activeBoardStatusesArray[0]?.id
 
   const [localAddTaskForm, setLocalAddTaskForm] =
     useState<AddTaskForm>(initialLocalForm);
@@ -113,7 +112,9 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
   }
 
   function closeAndSaveTask(localAddTaskForm: AddTaskForm) {
-    // tutaj wyslac forma do db
+    if (props.activeBoard)
+    addNewTaskToBoard(localAddTaskForm, props.activeBoard)
+    setLocalAddTaskForm(initialLocalForm)
     props.closeNewTask();
   }
 
