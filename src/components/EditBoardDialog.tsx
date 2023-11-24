@@ -16,6 +16,7 @@ export type EditBoardDialogProps = {
   closeEditBoard: () => void
   activeBoardStatusesArray: Status[]
   saveEditBoardChanges: (localEditBoardForm: BoardForm, boardId: number) => void
+  darkTheme: boolean;
 }
 
 export const EditBoardDialog = (props: EditBoardDialogProps) => {
@@ -83,35 +84,35 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
       onClose={() => props.closeEditBoard()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg">
-          <Dialog.Title className="text-2xl">Edit Board</Dialog.Title>
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg`}>
+          <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-2xl`}>Edit Board</Dialog.Title>
           <div className="mt-3">
-            <label className="text-gray-500 w-full font-semibold">
+            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold`}>
               Board Name
             </label>
             <input
-              className="bg-green-500 w-full rounded-md p-1"
+              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`}  mt-1 w-full rounded-md p-1`}
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
               value={localEditBoardForm.boardName}
             ></input>
           </div>
-          <div className="mt-3">
-            <label className="text-gray-500 w-full font-semibold">
+          <div className="mt-3 mb-1">
+            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold`}>
               Board Columns
             </label>
           </div>
           {localEditBoardForm.statusesArray.map((column, index) => (
             <div key={index} className="flex">
               <input
-                className="bg-purple-500 w-full border rounded-md p-1"
+                className={`mb-2 w-full  rounded-md p-1 ${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`}`}
                 type="text"
                 value={column.statusName}
                 onChange={(event) => handleColumnNameInput(event, index)}
               ></input>
               <img
                 onClick={() => deleteColumn(index)}
-                className="p-2"
+                className="pb-3 ml-4 object-scale-down self-center justify-center items-center"
                 src="./assets/icon-cross.svg"
               ></img>
             </div>

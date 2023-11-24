@@ -14,7 +14,7 @@ export const boards: Board[] = [
   },
 ];
 
-export const tasks: Task[] = [
+export let tasks: Task[] = [
   {
     id: 1,
     taskTitle: "firstTask",
@@ -260,7 +260,12 @@ export function changeSubtaskStatus(subtaskId: number, taskId: number) {
   }
 }
 
-export function addNewTask() {}
+export function deleteTask(clickedTaskProps: Task) {
+const tasksArrayWithoutDeletedTask = tasks.filter((task) => task.id !== clickedTaskProps.id && task.boardId === clickedTaskProps.boardId)
+tasks = [...tasksArrayWithoutDeletedTask]
+const subtasksArrayWithoutDeletedTask = subtasks.filter((subtask) => subtask.taskId !== clickedTaskProps.id)
+subtasks = [...subtasksArrayWithoutDeletedTask]
+}
 
 export function sendLocalEditTaskForm(localEditTaskForm: EditTaskForm) {
   const foundTask = tasks.find(

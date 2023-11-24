@@ -35,9 +35,6 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
   }
 
   const [localEditTaskForm, setLocalEditTaskForm] = useState<EditTaskForm>(initialLocalForm)
-  // const [localSubtasksArray, setLocalSubtasksArray] = useState<Subtask[]>([])
-  // const [localStatusesArray, setLocalStatusesArray] = useState<Status[]>([])
-  // const [localClickedTask, setLocalClickedTask] = useState<Task | null>(props.clickedTask)
 
   useEffect(() => {
     if (props.clickedTask !== null) {
@@ -130,7 +127,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
       onClose={() => props.closeEditTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden">
+        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden w-[90%]">
           <Dialog.Title className="text-xl font-semibold">Edit Task</Dialog.Title>
 
           <div className="flex flex-col">

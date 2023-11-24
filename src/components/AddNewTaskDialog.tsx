@@ -8,6 +8,7 @@ export type AddNewTaskDialogProps = {
   newTaskDialogIsOpen: boolean;
   closeNewTask: () => void;
   activeBoardStatusesArray: Status[];
+  darkTheme: boolean;
 };
 
 export type AddTaskForm = {

@@ -28,7 +28,7 @@ return (
       onClose={() => props.closeViewTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden">
+        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden w-[95%]">
           <div className="flex">
           <Dialog.Title className="text-xl w-[90%]">{props.clickedTask?.taskTitle}</Dialog.Title>
           <button onClick={() => props.editTask()} className="h-10 w-10 flex items-center justify-center"><img className="" src="./assets/icon-vertical-ellipsis.svg"></img></button>

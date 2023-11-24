@@ -12,6 +12,8 @@ export type BoardsNavbarProps = {
   activeBoardStatusesArray: Status[] | null;
   openCreateNewBoardDialog: () => void;
   openEditBoard: () => void;
+  darkTheme: boolean;
+  changeTheme: () => void;
 };
 
 export const BoardsNavbar = (props: BoardsNavbarProps) => {
@@ -26,7 +28,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
   }, [props.activeBoardStatusesArray]);
 
   return (
-    <div className="fixed bg-white w-full p-4 flex flex-row top-0">
+    <div className={`fixed top-0  w-full p-4 flex flex-row ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`}`}>
       <img src="./assets/logo-mobile.svg" className="pr-4"></img>
       {props.boardsArray === null && props.activeBoard === null ? (
         <div
@@ -42,6 +44,8 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
             activeBoard={props.activeBoard}
             changeBoard={props.changeBoard}
             openCreateNewBoardDialog={props.openCreateNewBoardDialog}
+            darkTheme={props.darkTheme}
+            changeTheme={props.changeTheme}
           />
 
           {/* {selectBoardIsOpen ? 
@@ -55,8 +59,8 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`flex ml-auto mr-4 border rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-200` : `bg-[#635FC7]`}`}
-      >
+        className={`flex ml-auto mr-4 rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
+      > 
         +
       </button>
       <img

@@ -1,15 +1,16 @@
 import { Dialog } from "@headlessui/react"
+import { Task } from "../crud";
+import { deleteTask } from "../db";
 
 export type DeleteTaskDialogProps = {
     deleteTaskDialogIsOpen: boolean
     closeDeleteTaskDialog: () => void;
+    clickedTask: Task
 }
 
 export const DeleteTaskDialog = (props: DeleteTaskDialogProps) => {
 
-function deleteTask() {
 
-}
 
     return <div>
         <Dialog
@@ -28,7 +29,10 @@ function deleteTask() {
           <div className="flex flex-col mt-1">
             <button
               className="bg-[#EA5555] text-white font-semibold rounded-2xl h-10 mt-6"
-              onClick={() => deleteTask()}
+              onClick={() => {
+                deleteTask(props.clickedTask)
+                props.closeDeleteTaskDialog()
+              }}
             >
               Delete
             </button>

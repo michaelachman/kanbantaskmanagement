@@ -6,6 +6,7 @@ export type AddNewColumnProps = {
     closeAddNewColumn: () => void;
     activeBoard: number;
     createColumn: (localColumnName: string, activeBoard: number) => void;
+    darkTheme: boolean;
 }
 
 export const AddNewColumn = (props: AddNewColumnProps) => {

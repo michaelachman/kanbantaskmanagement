@@ -50,6 +50,7 @@ function App() {
   >(null);
   const [deleteTaskDialogIsOpen, setDeleteTaskDialogIsOpen] = useState(false);
   const [addNewColumnIsOpen, setAddNewColumnIsOpen] = useState(false);
+  const [darkTheme, setdarkTheme] = useState(false)
   const [sstatusDependency, setStatusDependency] = useState(true)
 
   function changeBoard(boardId: number) {
@@ -157,6 +158,10 @@ function App() {
     setAddNewColumnIsOpen(true);
   }
 
+  function changeTheme() {
+    setdarkTheme(!darkTheme)
+  }
+
   useEffect(() => {
     if (activeBoard !== null) {
       const filteredStatuses = getStatusesByBoardId(activeBoard);
@@ -188,12 +193,12 @@ function App() {
       setActiveBoardTasksArray(filteredTasks);
       setSubtasksMap(filteredSubtasks);
     }
-  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, editBoardIsOpen, newTaskDialogIsOpen, activeBoard]);
+  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, editBoardIsOpen, newTaskDialogIsOpen, deleteTaskDialogIsOpen, activeBoard]);
 
  
 
   return (
-    <div className="h-full w-full">
+    <div className="w-full h-full">
       <BoardsNavbar
         boardsArray={boardsArray}
         activeBoard={activeBoard}
@@ -203,6 +208,8 @@ function App() {
         activeBoardStatusesArray={activeBoardStatusesArray}
         openCreateNewBoardDialog={openCreateNewBoardDialog}
         openEditBoard={openEditBoard}
+        darkTheme={darkTheme}
+        changeTheme={changeTheme}
       />
 
       <div className="mt-16 h-full">
@@ -217,6 +224,7 @@ function App() {
           closeAddNewColumn={closeAddNewColumn}
           addNewColumnIsOpen={addNewColumnIsOpen}
           createColumn={createColumn}
+          darkTheme={darkTheme}
         />
       </div>
 
@@ -228,6 +236,7 @@ function App() {
           closeEditBoard={closeEditBoard}
           activeBoardStatusesArray={activeBoardStatusesArray}
           saveEditBoardChanges={saveEditBoardChanges}
+          darkTheme={darkTheme}
         />
       )}
 
@@ -235,6 +244,7 @@ function App() {
         newBoardDialogIsOpen={newBoardDialogIsOpen}
         closeNewBoardDialog={closeNewBoardDialog}
         createNewBoard={createNewBoard}
+        darkTheme={darkTheme}
       />
 
       <ViewTaskDialog
@@ -247,6 +257,7 @@ function App() {
         editTask={editTask}
         taskStatusChange={taskStatusChange}
         statusDependency={statusDependency}
+        darkTheme={darkTheme}
       />
 
       <EditTaskDialog
@@ -256,11 +267,14 @@ function App() {
         clickedTaskSubtasks={clickedTaskSubtasks}
         activeBoardStatusesArray={activeBoardStatusesArray}
         deleteTaskButton={deleteTaskButton}
+        darkTheme={darkTheme}
       />
 
       <DeleteTaskDialog
         deleteTaskDialogIsOpen={deleteTaskDialogIsOpen}
         closeDeleteTaskDialog={closeDeleteTaskDialog}
+        clickedTask={clickedTask}
+        darkTheme={darkTheme}
       />
 
       <AddNewTaskDialog
@@ -268,6 +282,7 @@ function App() {
         newTaskDialogIsOpen={newTaskDialogIsOpen}
         closeNewTask={closeNewTask}
         activeBoardStatusesArray={activeBoardStatusesArray}
+        darkTheme={darkTheme}
       />
     </div>
   );
