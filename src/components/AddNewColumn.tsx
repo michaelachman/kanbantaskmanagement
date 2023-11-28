@@ -26,14 +26,14 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
       onClose={() => props.closeAddNewColumn()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg">
-          <Dialog.Title className="text-2xl">Add New Column</Dialog.Title>
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg`}>
+          <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-lg font-semibold`}>Add New Column</Dialog.Title>
           <div className="mt-3">
-            <label className="text-gray-500 w-full font-semibold">
+            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold text-sm`}>
               Column Title
             </label>
             <input
-              className="bg-green-500 w-full rounded-md p-1"
+              className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700 text-white` : `bg-white`} w-full rounded-md px-2 py-1`}
               type="text"
               onChange={(event) => handleColumnNameInput(event)}
               value={localColumnName}
@@ -42,7 +42,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
           
           <div className="flex flex-col mt-1">
             <button
-              className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white"
+              className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white h-8 text-sm font-semibold"
               onClick={() => {
                 props.createColumn(localColumnName, props.activeBoard);
                 setLocalColumnName("")
@@ -51,7 +51,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
               Create Column
             </button>
             <button
-            className="bg-purple-100 text-[#635FC7] font-semibold rounded-2xl h-10 mt-4"
+            className="bg-purple-100 text-[#635FC7] font-semibold rounded-2xl h-8 mt-4 text-sm"
             onClick={() => props.closeAddNewColumn()}
             >Cancel</button>
           </div>

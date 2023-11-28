@@ -10,6 +10,7 @@ export type EditTaskDialogProps = {
   clickedTaskSubtasks: Subtask[] | null;
   activeBoardStatusesArray: Status[] | null;
   deleteTaskButton: () => void;
+  darkTheme: boolean;
 };
 
 export type EditTaskForm = {
@@ -127,53 +128,53 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
       onClose={() => props.closeEditTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden w-[90%]">
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden w-[90%]`}>
           <Dialog.Title className="text-xl font-semibold">Edit Task</Dialog.Title>
 
           <div className="flex flex-col">
-            <label className="text-gray-500 text-xs font-semibold mb-2 mt-4 pl-1">Title</label>
+            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} text-xs font-semibold mb-2 mt-4 pl-1`}>Title</label>
             <input
-              className="px-2 py-1 border rounded-md pl-2"
+              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white`} text-sm px-2 py-1 border rounded-md pl-2`}
               value={localEditTaskForm.localClickedTask?.taskTitle}
               onChange={(event) => handleTaskTitleChange(event)}
               
             ></input>
           </div>
           <div className="flex flex-col mt-3">
-            <label className="text-gray-500 text-xs font-semibold mb-2 mt-1 pl-1">Description</label>
+            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} text-xs font-semibold mb-2 mt-1 pl-1`}>Description</label>
             <input
-              className="px-2 py-1 border rounded-md"
+              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white`} text-sm px-2 py-1 border rounded-md`}
               value={localEditTaskForm.localClickedTask?.taskDescription}
               onChange={(event) => handleTaskDescriptionChange(event)}
             ></input>
           </div>
           <div className="flex flex-col mt-4">
-            <label className="text-gray-500 text-xs font-semibold mb-2 mt-1 pl-1">Subtasks</label>
+            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} text-xs font-semibold mb-0 mt-1 pl-1`}>Subtasks</label>
               {localEditTaskForm.subtasksArray?.map((subtask, index) => (
                 <div key={subtask.id} className="w-full flex">
                   <input
                     key={subtask.id}
                     id={`${subtask.id}`}
-                    className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
+                    className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white`} text-sm mt-2 px-2 py-1 w-[88%] border border-gray-200 rounded-md`}
                     value={subtask.subtaskDescription}
                     onChange={(event) => handleSubtaskInput(event, index)}
                   ></input>
                   <button onClick={() => deleteSubtask(index)} className="flex w-[10%] justify-center self-center mt-1">
-                    <img src="./assets/icon-cross.svg"></img>
+                    <img className="ml-3" src="./assets/icon-cross.svg"></img>
                   </button>
                 </div>
                 
               ))}
-              <button onClick={() => newSubtask()} className="mt-2 py-1 h-9 rounded-3xl bg-purple-200 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
+              <button onClick={() => newSubtask()} className="mt-3 py-1 h-9 rounded-3xl bg-purple-100 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
             
           </div>
           <div>
-            <h2 className="mt-3 mb-2 text-gray-500 text-xs font-semibold pl-1">
+            <h2 className={`${props.darkTheme ? `text-white` : `text-gray-500`} mt-3 mb-2  text-xs font-semibold pl-1`}>
               Status
             </h2>
 
             <Listbox value={localEditTaskForm.statusesArray}>
-              <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md">
+              <Listbox.Button className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `border border-gray-300`} text-sm flex justify-between w-full text-left pl-2 pr-3 items-center h-8  rounded-md`}>
                 {
                   localEditTaskForm.statusesArray?.find(
                     (status) => status.id === localEditTaskForm.localClickedTask.statusId
@@ -204,14 +205,14 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             </Listbox>
           </div>
           <div>
-            <button onClick={() => props.deleteTaskButton()} className="mt-4 py-1 rounded-3xl bg-[#EA5555] w-full text-white font-medium text-sm h-9">Delete Task</button>
+            <button onClick={() => props.deleteTaskButton()} className="mt-4 py-1 rounded-3xl bg-[#EA5555] w-full text-white font-medium text-xs h-8">Delete Task</button>
           </div>
           <div>
-            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-4 py-1 rounded-3xl bg-[#635FC7] w-full text-white text-sm font-medium h-9">Edit Task</button>
+            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-2 py-1 rounded-3xl bg-[#635FC7] w-full text-white text-xs font-medium h-8">Edit Task</button>
           </div>
           <button
               onClick={() => props.closeEditTask()}
-              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+              className="mt-2 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold text-xs h-8"
             >
               Cancel
             </button>

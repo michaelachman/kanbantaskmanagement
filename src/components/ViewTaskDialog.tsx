@@ -16,6 +16,7 @@ export type ViewTaskDialogProps = {
     editTask: () => void;
     taskStatusChange: (clickedTaskId: number, newStatusId: number, boardId: number) => void;
     statusDependency: () => void;
+    darkTheme: boolean;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
@@ -28,25 +29,30 @@ return (
       onClose={() => props.closeViewTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden w-[95%]">
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden w-[95%]`}>
           <div className="flex">
-          <Dialog.Title className="text-xl w-[90%]">{props.clickedTask?.taskTitle}</Dialog.Title>
+          <Dialog.Title className="font-bold text-lg w-[90%]">{props.clickedTask?.taskTitle}</Dialog.Title>
           <button onClick={() => props.editTask()} className="h-10 w-10 flex items-center justify-center"><img className="" src="./assets/icon-vertical-ellipsis.svg"></img></button>
           </div>
           <div className="mt-3">
-            <p className="text-gray-500">{props.clickedTask?.taskDescription}</p>
+            <p className="text-gray-500 font-semibold text-sm">{props.clickedTask?.taskDescription}</p>
           </div>
-          {props.clickedTaskSubtasks?.length !== 0 && <><h2 className="mt-3 text-gray-500 w-full font-semibold">{props.clickedTaskSubtasks?.length === 1 ? "Subtask" : "Subtasks"} ({props.clickedTaskSubtasks?.filter((subtask) => subtask.subtaskStatus === true).length} of {props.clickedTaskSubtasks?.length})</h2>
+          {props.clickedTaskSubtasks?.length !== 0 && <><h2 className="mt-3 mb-3 text-gray-500 w-full font-semibold">{props.clickedTaskSubtasks?.length === 1 ? "Subtask" : "Subtasks"} ({props.clickedTaskSubtasks?.filter((subtask) => subtask.subtaskStatus === true).length} of {props.clickedTaskSubtasks?.length})</h2>
           {props.clickedTaskSubtasks?.length !== 0 && props.clickedTaskSubtasks?.map((subtask) => (
-            <div className="mt-3 bg-[#F4F7FD] flex rounded-md">
+            <div className={`px-1 py-2 mb-2 ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-200`} flex rounded-md`}>
             <div onClick={() => { if (props.clickedTask?.id !== undefined) {
               changeSubtaskStatus(subtask.id, props.clickedTask?.id)
               props.statusDependency()
               }}}
-              className={`flex w-4 h-4 ml-2 justify-center items-center self-center ${subtask.subtaskStatus === true ? `bg-purple-500` : `bg-white border`} rounded-sm`}>
-            <IconCheck className="text-white"/>
+              className={`flex w-5 h-4 ml-2 justify-center items-center self-center ${subtask.subtaskStatus === true ? `bg-[#635FC7]` : `bg-white border`} rounded-sm`}>
+            <IconCheck className="text-white object-scale-down"/>
             </div>
-            <p className={`pl-1 break-words overflo w-full ml-3 pr-9 ${subtask.subtaskStatus === true ? `text-gray-500 line-through` : `font-semibold text-black`}`}>{subtask.subtaskDescription}</p>
+            {props.darkTheme ? (
+              <p className={`pl-1 break-words overflo w-full ml-3 pr-9 font-semibold ${(subtask.subtaskStatus === true) ? `text-gray-500 line-through` : `text-white`}`}>{subtask.subtaskDescription}</p>
+            ) : (
+              <p className={`pl-1 break-words overflo w-full ml-3 pr-9 font-semibold ${(subtask.subtaskStatus === true) ? `text-gray-500 line-through` : `text-black`}`}>{subtask.subtaskDescription}</p>
+            )}
+            
           </div>
           ))}
           </>}
@@ -54,7 +60,7 @@ return (
             <h2 className="mt-3 mb-2 text-gray-500 w-full font-semibold">Current Status</h2>
             <Listbox value={props.activeBoardStatusesArray}>
              
-      <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md">
+      <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md font-semibold">
         {props.activeBoardStatusesArray?.find((status) => status.id === props.clickedTask?.statusId)?.statusName}
         <img src="./assets/icon-chevron-down.svg"></img>
         </Listbox.Button>
@@ -73,7 +79,7 @@ return (
             }}}
             // disabled={person.unavailable}
           >
-            {status.statusName}
+           {status.statusName}
           </Listbox.Option>
         ))}
       </Listbox.Options>

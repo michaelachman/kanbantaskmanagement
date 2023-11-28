@@ -297,3 +297,7 @@ export default App;
 // zmienianie statusow taska naprzemiennie w view i edit tasku dziala dzwiwnie
 
 // poprawic ta strzalke w navbarze bo nie wykminilem jak to zrobic gdy dodaje se nowa kolumne (zrobilem state chevronDirection w komponencie Dropdown bo nie moglem wykminic atrybutow)
+
+// rozciagajacy sie input w add new tasku jak content przekracza juz miejsce
+
+// ogarnac shadowy za dialogami jak sa otwarte

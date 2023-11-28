@@ -91,7 +91,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
               Board Name
             </label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`}  mt-1 w-full rounded-md p-1`}
+              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`}  mt-1 w-full rounded-md px-3 py-1 text-sm`}
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
               value={localEditBoardForm.boardName}
@@ -105,7 +105,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
           {localEditBoardForm.statusesArray.map((column, index) => (
             <div key={index} className="flex">
               <input
-                className={`mb-2 w-full  rounded-md p-1 ${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`}`}
+                className={`mb-2 w-full  rounded-md p-1 ${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`} px-3 py-1 text-sm`}
                 type="text"
                 value={column.statusName}
                 onChange={(event) => handleColumnNameInput(event, index)}
@@ -119,20 +119,20 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
           ))}
           <div className="flex flex-col mt-3">
             <button
-              className="bg-red-500 rounded-2xl h-10"
+              className="bg-purple-100 text-[#635FC7] font-bold text-sm rounded-3xl h-9"
               onClick={() => addNewColumn()}
             >
               + Add New Column
             </button>
             <button
-              className="bg-red-500 mt-4 rounded-2xl h-10"
+              className="bg-[#635FC7] text-white font-semibold text-sm mt-4 rounded-3xl h-9"
               onClick={() => props.saveEditBoardChanges(localEditBoardForm, props.activeBoard)}
             >
               Save Changes
             </button>
             <button
               onClick={() => props.closeEditBoard()}
-              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-3xl bg-purple-100 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>

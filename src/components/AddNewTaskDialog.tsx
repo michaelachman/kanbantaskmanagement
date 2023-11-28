@@ -126,38 +126,38 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
       onClose={() => props.closeNewTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className="bg-white border p-4 rounded-md shadow-lg overflow-hidden">
-          <Dialog.Title className="text-xl">Add New Task</Dialog.Title>
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} w-[95%] p-4 rounded-md shadow-lg overflow-hidden`}>
+          <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-base font-semibold`}>Add New Task</Dialog.Title>
 
           <div className="flex flex-col mt-3">
-            <label className="text-gray-500">Title</label>
+            <label className={`text-gray-500 text-xs font-semibold`}>Title</label>
             <input
-              className="px-2 py-1 border rounded-md pl-2"
+              className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700` : `bg-white`} px-2 py-1 border rounded-md pl-2 text-xs`}
               placeholder="e.g. Take coffee break"
               onChange={(event) => handleTaskTitleChange(event)}
             ></input>
           </div>
           <div className="flex flex-col mt-3">
-            <label className="text-gray-500">Description</label>
+            <label className={`text-gray-500 text-xs font-semibold`}>Description</label>
             <input
-              className="px-2 py-1 border rounded-md"
+              className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700` : `bg-white`} px-2 py-1 border rounded-md  text-xs resize-y`}
               placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little"
               onChange={(event) => handleTaskDescriptionChange(event)}
             ></input>
           </div>
           <div className="flex flex-col mt-4">
-            <label className="text-gray-500">Subtasks</label>
+            <label className={`text-gray-500 font-semibold text-xs`}>Subtasks</label>
             {localAddTaskForm.subtasksArray?.map((subtask, index) => (
               <div className="w-full flex">
                 <input
                   value={subtask.subtaskDescription}
-                  className="mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
+                  className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700` : `bg-white`} text-sm mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md`}
                   onChange={(event) => handleSubtaskInput(event, index)}
                   placeholder="e.g. Make coffee"
                 ></input>
                 <button
                   onClick={() => deleteSubtask(index)}
-                  className="flex w-[10%] justify-center self-center mt-1"
+                  className={`flex w-[10%] justify-center self-center mt-1`}
                 >
                   <img src="./assets/icon-cross.svg"></img>
                 </button>
@@ -165,18 +165,18 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             ))}
             <button
               onClick={() => newSubtask()}
-              className="mt-2 py-1 rounded-2xl bg-purple-200"
+              className="mt-2 py-1 rounded-2xl bg-purple-100 text-[#635FC7] font-semibold text-xs"
             >
               + Add New Subtask
             </button>
           </div>
           <div>
-            <h2 className="mt-3 mb-2 text-gray-500 w-full font-semibold">
+            <h2 className={`mt-3 mb-2 text-gray-500 w-full font-semibold text-xs`}>
               Status
             </h2>
 
             <Listbox value={props.activeBoardStatusesArray}>
-              <Listbox.Button className="flex justify-between w-full text-left pl-2 pr-3 items-center h-8 border border-gray-300 rounded-md">
+              <Listbox.Button className={`${props.darkTheme ? `border-2 border-gray-700 text-white` : `border border-gray-300 text-black`} flex justify-between w-full text-left pl-2 pr-3 items-center h-8 rounded-md text-xs`}>
                 {
                   props.activeBoardStatusesArray.find(
                     (status) =>
@@ -189,7 +189,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
 
               {/* <div className="bg-purple-500 mt-3 pl-4 flex items-center w-full text-white rounded-r-xl"> */}
 
-              <Listbox.Options className="mt-1 rounded-md border border-gray-300">
+              <Listbox.Options className={`${props.darkTheme ? `border-2 border-gray-700 text-white` : `border border-gray-300 text-black`} text-sm mt-1 rounded-md border border-gray-300`}>
                 {props.activeBoardStatusesArray?.map((status) => (
                   <Listbox.Option
                     className={
@@ -212,13 +212,13 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
           <div>
             <button
               onClick={() => closeAndSaveTask(localAddTaskForm)}
-              className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white"
+              className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white text-xs h-8 font-semibold"
             >
               Create Task
             </button>
             <button
               onClick={() => props.closeNewTask()}
-              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] text-xs h-8 font-bold"
             >
               Cancel
             </button>
