@@ -26,7 +26,7 @@ export const Dropdown = (props: DropdownProps) => {
     <Menu>
       <Menu.Button>
         <div
-          className="flex"
+          className="flex md:pl-6"
           onClick={() => setChevronDirection(!chevronDirection)}
         >
           <h1 className="pr-2 font-bold">{boardNameFunction()}</h1>
@@ -36,13 +36,13 @@ export const Dropdown = (props: DropdownProps) => {
                 ? "./assets/icon-chevron-down.svg"
                 : "./assets/icon-chevron-up.svg"
             }
-            className="w-[8px] h-[7px] self-center"
+            className="w-[8px] h-[7px] self-center md:hidden"
           ></img>
         </div>
       </Menu.Button>
 
-      <div className="fixed top-20 left-20 w-9/12 mb-4">
-        <Menu.Items className={`${props.darkTheme ? "bg-[#2B2C37]" : "bg-white"} rounded-md shadow-lg pr-4 w-10/12 pb-1`}>
+      <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[35%] md:h-full">
+        <Menu.Items className={`${props.darkTheme ? "bg-[#2B2C37]" : "bg-white"} rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1 `}>
           <h1 className="flex text-xs text-[#828FA3] pl-4 py-3 font-semibold">
             ALL BOARDS ({props.boardsArray?.length})
           </h1>

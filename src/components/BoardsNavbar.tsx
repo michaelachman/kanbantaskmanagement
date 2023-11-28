@@ -27,18 +27,25 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
     }
   }, [props.activeBoardStatusesArray]);
 
+  const imgSrcDependingOnTheme = props.darkTheme ? "./assets/logo-light.svg" : "./assets/logo-dark.svg"
+
   return (
-    <div className={`fixed top-0  w-full p-4 flex flex-row ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`}`}>
-      <img src="./assets/logo-mobile.svg" className="pr-4"></img>
+    <div className={`fixed top-0 h-16 w-full flex flex-row ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`}`}>
+      <div className="flex p-4 pr-3 justify-center place-self-center md:hidden">
+      <img src="./assets/logo-mobile.svg" className="flex h-[75%] w-[100%]"></img>
+      </div>
+      <div className="hidden md:flex md:w-[30%] md:place-self-center md:pl-4">
+      <img className="md:w-36 md:h-6" src={imgSrcDependingOnTheme}></img>
+      </div>
       {props.boardsArray === null && props.activeBoard === null ? (
         <div
-          className="flex flex-row"
+          className="flex flex-row md:border-l-2 md:border-gray-100"
           onClick={() => props.openCreateNewBoardDialog()}
         >
           <h1 className="pr-1 self-center">+ Create New Board</h1>
         </div>
       ) : (
-        <div className="flex flex-row">
+        <div className="flex flex-row md:border-l-2 md:border-gray-100">
           <Dropdown
             boardsArray={props.boardsArray}
             activeBoard={props.activeBoard}
@@ -59,14 +66,14 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`flex ml-auto mr-4 rounded-2xl w-11 h-8 text-white font-bold text-xl justify-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
+        className={`flex ml-auto mr-4 rounded-2xl w-12 h-8 text-white font-bold text-xl justify-center place-self-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
       > 
         +
       </button>
       <img
         onClick={() => props.openEditBoard()}
         src="./assets/icon-vertical-ellipsis.svg"
-        className="flex ml-auto h-4 self-center"
+        className="flex ml-auto h-4 self-center pr-4"
       ></img>
       </div>
     </div>
