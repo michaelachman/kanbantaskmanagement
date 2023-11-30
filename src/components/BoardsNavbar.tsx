@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Board, Status } from "../crud";
 import { Dropdown } from "./Dropdown";
-// import BoardsList from "./BoardsList";
 
 export type BoardsNavbarProps = {
   boardsArray: Board[] | null;
@@ -14,6 +13,8 @@ export type BoardsNavbarProps = {
   openEditBoard: () => void;
   darkTheme: boolean;
   changeTheme: () => void;
+  dropdownSidebar: boolean;
+  dropdownSidebarToggle: () => void;
 };
 
 export const BoardsNavbar = (props: BoardsNavbarProps) => {
@@ -34,7 +35,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <div className="flex p-4 pr-3 justify-center place-self-center md:hidden">
       <img src="./assets/logo-mobile.svg" className="flex h-[75%] w-[100%]"></img>
       </div>
-      <div className="hidden md:flex md:w-[30%] md:place-self-center md:pl-4">
+      <div className="hidden md:flex md:w-[25%] md:place-self-center md:pl-4">
       <img className="md:w-36 md:h-6" src={imgSrcDependingOnTheme}></img>
       </div>
       {props.boardsArray === null && props.activeBoard === null ? (
@@ -53,12 +54,9 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
             openCreateNewBoardDialog={props.openCreateNewBoardDialog}
             darkTheme={props.darkTheme}
             changeTheme={props.changeTheme}
+            dropdownSidebar={props.dropdownSidebar}
+            dropdownSidebarToggle={props.dropdownSidebarToggle}
           />
-
-          {/* {selectBoardIsOpen ? 
-          <img src="./assets/icon-chevron-up.svg" className="w-[8px] h-[7px] flex self-center"></img>
-           : 
-          <img src="./assets/icon-chevron-down.svg" className="w-[8px] h-[7px] flex self-center"></img>} */}
         </div>
       )}
 

@@ -10,14 +10,10 @@ export type DropdownProps = {
   openCreateNewBoardDialog: () => void;
   darkTheme: boolean;
   changeTheme: () => void;
-  dropdownSidebar: boolean;
-  dropdownSidebarToggle: () => void;
 };
 
 export const Dropdown = (props: DropdownProps) => {
   const [chevronDirection, setChevronDirection] = useState(true);
-
-
 
   function boardNameFunction() {
     const foundBoard = props.boardsArray?.find(
@@ -28,15 +24,10 @@ export const Dropdown = (props: DropdownProps) => {
 
   return (
     <Menu>
-      {() => (
-      <>
-        <Menu.Button>
-          
+      <Menu.Button>
         <div
           className="flex md:pl-6"
-          onClick={() => {setChevronDirection(!chevronDirection);
-          props.dropdownSidebarToggle()
-          }}
+          onClick={() => setChevronDirection(!chevronDirection)}
         >
           <h1 className="pr-2 font-bold">{boardNameFunction()}</h1>
           <img
@@ -49,9 +40,9 @@ export const Dropdown = (props: DropdownProps) => {
           ></img>
         </div>
       </Menu.Button>
-      {props.dropdownSidebar && (
-        <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[30%] md:h-[95%]">
-        <Menu.Items static className={`${props.darkTheme ? "bg-[#2B2C37]" : "bg-white"} rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1 `}>
+
+      <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[30%] md:h-full">
+        <Menu.Items className={`${props.darkTheme ? "bg-[#2B2C37]" : "bg-white"} rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1 `}>
           <h1 className="flex text-xs text-[#828FA3] pl-4 py-3 font-semibold">
             ALL BOARDS ({props.boardsArray?.length})
           </h1>
@@ -80,7 +71,7 @@ export const Dropdown = (props: DropdownProps) => {
             <IconBoard />
             <p className="pl-2">+ Create New Board</p>
           </div>
-          <div className={`flex md:bottom-0 md:mt-96 md:mt m-4 mr-0 py-2 justify-center rounded-md ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-100`}`}>
+          <div className={`flex m-4 mr-0 py-2 justify-center rounded-md ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-100`}`}>
             <img className="mr-4 object-scale-down" src="./assets/icon-light-theme.svg"></img>
             <Switch
               checked={props.darkTheme}
@@ -96,11 +87,11 @@ export const Dropdown = (props: DropdownProps) => {
             </Switch>
             <img className="ml-4 object-scale-down" src="./assets/icon-dark-theme.svg"></img>
           </div>
+          <div className="hidden md:flex">
+
+          </div>
         </Menu.Items>
       </div>
-      )}
-      </>
-      )}
     </Menu>
   );
 };

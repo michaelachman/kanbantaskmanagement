@@ -34,8 +34,12 @@ function App() {
   const [activeBoard, setActiveBoard] = useState<number | null>(
     boardsArray?.length ? boardsArray[0].id : null
   );
-  const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<Status[]>([]);
-  const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<Task[] | null >(null);
+  const [activeBoardStatusesArray, setActiveBoardStatusesArray] = useState<
+    Status[]
+  >([]);
+  const [activeBoardTasksArray, setActiveBoardTasksArray] = useState<
+    Task[] | null
+  >(null);
   const [subtasksMap, setSubtasksMap] = useState<Map<number, Subtask[]> | null>(
     null
   );
@@ -50,8 +54,9 @@ function App() {
   >(null);
   const [deleteTaskDialogIsOpen, setDeleteTaskDialogIsOpen] = useState(false);
   const [addNewColumnIsOpen, setAddNewColumnIsOpen] = useState(false);
-  const [darkTheme, setdarkTheme] = useState(false)
-  const [sstatusDependency, setStatusDependency] = useState(true)
+  const [darkTheme, setdarkTheme] = useState(false);
+  const [sstatusDependency, setStatusDependency] = useState(true);
+  const [dropdownSidebar, setDropdownSidebar] = useState(true);
 
   function changeBoard(boardId: number) {
     setActiveBoard(boardId);
@@ -81,10 +86,10 @@ function App() {
     setNewBoardDialogIsOpen(false);
   }
 
-  function createNewBoard(localNewBoardForm: BoardForm){
-    createNewBoardWithLocalForm(localNewBoardForm)
-    setNewBoardDialogIsOpen(false)
-}
+  function createNewBoard(localNewBoardForm: BoardForm) {
+    createNewBoardWithLocalForm(localNewBoardForm);
+    setNewBoardDialogIsOpen(false);
+  }
 
   function viewTask(task: Task) {
     setClickedTask(task);
@@ -113,8 +118,8 @@ function App() {
     setDeleteTaskDialogIsOpen(false);
   }
 
-  function statusDependency(){
-    setStatusDependency(!sstatusDependency)
+  function statusDependency() {
+    setStatusDependency(!sstatusDependency);
   }
 
   function taskStatusChange(
@@ -129,7 +134,10 @@ function App() {
     }
   }
 
-  function saveEditBoardChanges(localNewBoardForm: BoardForm, activeBoard: number) {
+  function saveEditBoardChanges(
+    localNewBoardForm: BoardForm,
+    activeBoard: number
+  ) {
     editBoardWithLocalFormAndBoardId(localNewBoardForm, activeBoard);
     if (activeBoard !== null) {
       const filteredStatuses = getStatusesByBoardId(activeBoard);
@@ -145,7 +153,7 @@ function App() {
   }
 
   function createColumn(localColumnName: string, activeBoard: number) {
-    createNewColumnWithBoardId(localColumnName, activeBoard)
+    createNewColumnWithBoardId(localColumnName, activeBoard);
 
     setAddNewColumnIsOpen(false);
   }
@@ -159,7 +167,11 @@ function App() {
   }
 
   function changeTheme() {
-    setdarkTheme(!darkTheme)
+    setdarkTheme(!darkTheme);
+  }
+
+  function dropdownSidebarToggle() {
+    setDropdownSidebar((previousState) => !previousState);
   }
 
   useEffect(() => {
@@ -192,10 +204,17 @@ function App() {
       setActiveBoardStatusesArray(filteredStatuses);
       setActiveBoardTasksArray(filteredTasks);
       setSubtasksMap(filteredSubtasks);
+      setBoardsArray(boards);
     }
-  }, [editTaskDialogIsOpen, addNewColumnIsOpen, newBoardDialogIsOpen, editBoardIsOpen, newTaskDialogIsOpen, deleteTaskDialogIsOpen, activeBoard]);
-
- 
+  }, [
+    editTaskDialogIsOpen,
+    addNewColumnIsOpen,
+    newBoardDialogIsOpen,
+    editBoardIsOpen,
+    newTaskDialogIsOpen,
+    deleteTaskDialogIsOpen,
+    activeBoard,
+  ]);
 
   return (
     <div className="w-full h-full">
@@ -210,9 +229,11 @@ function App() {
         openEditBoard={openEditBoard}
         darkTheme={darkTheme}
         changeTheme={changeTheme}
+        dropdownSidebar={dropdownSidebar}
+        dropdownSidebarToggle={dropdownSidebarToggle}
       />
 
-      <div className="mt-16 h-full">
+      <div className="pt-16 h-full">
         <Statuses
           activeBoardStatusesArray={activeBoardStatusesArray}
           activeBoardTasksArray={activeBoardTasksArray}
@@ -284,6 +305,19 @@ function App() {
         activeBoardStatusesArray={activeBoardStatusesArray}
         darkTheme={darkTheme}
       />
+
+      <div className="max-sm:hidden md:fixed md:left-0 md:bottom-8">
+        {dropdownSidebar ? (
+          <div onClick={() => dropdownSidebarToggle()} className="flex justify-start h-11 w-[100%]">
+          <img className="object-scale-down w-10 pl-5 self-center" src="./assets/icon-hide-sidebar.svg"></img>
+          <p className="text-gray-500 text-xs font-semibold self-center pl-2">Hide Sidebar</p>
+        </div>
+        ) : (
+          <div onClick={() => dropdownSidebarToggle()} className="flex justify-center h-11 w-12 bg-[#635FC7] rounded-r-3xl">
+            <img className="object-scale-down pr-2" src="./assets/icon-show-sidebar.svg"></img>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
