@@ -217,7 +217,7 @@ function App() {
   ]);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-[100%] h-full">
       <BoardsNavbar
         boardsArray={boardsArray}
         activeBoard={activeBoard}
@@ -246,6 +246,7 @@ function App() {
           addNewColumnIsOpen={addNewColumnIsOpen}
           createColumn={createColumn}
           darkTheme={darkTheme}
+          dropdownSidebar={dropdownSidebar}
         />
       </div>
 

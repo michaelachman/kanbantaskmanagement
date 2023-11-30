@@ -35,7 +35,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <div className="flex p-4 pr-3 justify-center place-self-center md:hidden">
       <img src="./assets/logo-mobile.svg" className="flex h-[75%] w-[100%]"></img>
       </div>
-      <div className="hidden md:flex md:w-[25%] md:place-self-center md:pl-4">
+      <div className="hidden md:flex md:w-[21%] md:place-self-center md:pl-4">
       <img className="md:w-36 md:h-6" src={imgSrcDependingOnTheme}></img>
       </div>
       {props.boardsArray === null && props.activeBoard === null ? (
@@ -64,9 +64,16 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`flex ml-auto mr-4 rounded-2xl w-12 h-8 text-white font-bold text-xl justify-center place-self-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
+        className={`flex md:hidden ml-auto mr-4 rounded-2xl w-12 h-8 text-white font-bold text-xl justify-center place-self-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
       > 
         +
+      </button>
+      <button
+        onClick={() => props.openNewTaskDialog()}
+        disabled={buttonDisabled}
+        className={`hidden md:flex ml-auto mr-4 rounded-3xl w-48 h-11 text-white font-bold text-base justify-center place-self-center items-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
+      > 
+        + Add New Task
       </button>
       <img
         onClick={() => props.openEditBoard()}

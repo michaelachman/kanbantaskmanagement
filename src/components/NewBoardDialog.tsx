@@ -62,7 +62,7 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
           onClose={() => props.closeNewBoardDialog()}
         >
           <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-            <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg`}>
+            <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg md:min-w-[65%]`}>
               <Dialog.Title className="text-2xl">Add New Board</Dialog.Title>
               <div className="mt-3">
                 <label className="text-gray-500 w-full font-semibold">

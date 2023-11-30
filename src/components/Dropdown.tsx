@@ -50,7 +50,7 @@ export const Dropdown = (props: DropdownProps) => {
         </div>
       </Menu.Button>
       {props.dropdownSidebar && (
-        <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[30%] md:h-[95%]">
+        <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[25%] md:h-[95%]">
         <Menu.Items static className={`${props.darkTheme ? "bg-[#2B2C37]" : "bg-white"} rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1 `}>
           <h1 className="flex text-xs text-[#828FA3] pl-4 py-3 font-semibold">
             ALL BOARDS ({props.boardsArray?.length})
@@ -80,7 +80,7 @@ export const Dropdown = (props: DropdownProps) => {
             <IconBoard />
             <p className="pl-2">+ Create New Board</p>
           </div>
-          <div className={`flex md:bottom-0 md:mt-96 md:mt m-4 mr-0 py-2 justify-center rounded-md ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-100`}`}>
+          <div className={`flex md:bottom-20 md:fixed md:w-[16%] m-4 mr-0 py-2 justify-center rounded-md ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-100`}`}>
             <img className="mr-4 object-scale-down" src="./assets/icon-light-theme.svg"></img>
             <Switch
               checked={props.darkTheme}
