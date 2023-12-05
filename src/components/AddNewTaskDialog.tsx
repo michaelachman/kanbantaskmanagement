@@ -30,9 +30,9 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
   const [localAddTaskForm, setLocalAddTaskForm] =
     useState<AddTaskForm>(initialLocalForm);
 
-  useEffect(() => {
-    console.log(localAddTaskForm);
-  }, [localAddTaskForm.subtasksArray, localAddTaskForm]);
+  // useEffect(() => {
+  //   console.log(localAddTaskForm);
+  // }, [localAddTaskForm.subtasksArray, localAddTaskForm]);
 
   function newSubtask() {
     setLocalAddTaskForm((previousState) => {
@@ -126,7 +126,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
       onClose={() => props.closeNewTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} w-[95%] p-4 rounded-md shadow-lg overflow-hidden`}>
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} max-sm:w-[95%] max-md:w-[75%] max-lg:w-[33%] lg:w-[33%] p-4 rounded-md shadow-lg overflow-hidden`}>
           <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-base font-semibold`}>Add New Task</Dialog.Title>
 
           <div className="flex flex-col mt-3">

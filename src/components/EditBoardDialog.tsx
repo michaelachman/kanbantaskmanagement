@@ -84,7 +84,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
       onClose={() => props.closeEditBoard()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg md:min-w-[65%]`}>
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
           <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-2xl`}>Edit Board</Dialog.Title>
           <div className="mt-3">
             <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold`}>

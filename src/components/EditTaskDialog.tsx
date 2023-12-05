@@ -128,7 +128,8 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
       onClose={() => props.closeEditTask()}
     >
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden w-[90%]`}>
+        
+        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
           <Dialog.Title className="text-xl font-semibold">Edit Task</Dialog.Title>
 
           <div className="flex flex-col">

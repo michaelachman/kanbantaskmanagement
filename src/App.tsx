@@ -56,7 +56,7 @@ function App() {
   const [addNewColumnIsOpen, setAddNewColumnIsOpen] = useState(false);
   const [darkTheme, setdarkTheme] = useState(false);
   const [sstatusDependency, setStatusDependency] = useState(true);
-  const [dropdownSidebar, setDropdownSidebar] = useState(true);
+  const [dropdownSidebar, setDropdownSidebar] = useState(false);
 
   function changeBoard(boardId: number) {
     setActiveBoard(boardId);
@@ -327,12 +327,8 @@ export default App;
 
 // jak zrobic tak zeby ten scrollbar nie nachodzil na navbara przy scrollowaniu po osi y? (tu bylo robione tak ze navbar fixed a renderowane Columns dostaly margin topa)
 
-// strzalka do gory w navbarze jak jest otwarty boardselect bo nie ma teraz atrybutu open w menu jak byl w dialogu
-
-// zmienianie statusow taska naprzemiennie w view i edit tasku dziala dzwiwnie
-
-// poprawic ta strzalke w navbarze bo nie wykminilem jak to zrobic gdy dodaje se nowa kolumne (zrobilem state chevronDirection w komponencie Dropdown bo nie moglem wykminic atrybutow)
-
 // rozciagajacy sie input w add new tasku jak content przekracza juz miejsce
 
 // ogarnac shadowy za dialogami jak sa otwarte
+
+// zrobic required inputy
