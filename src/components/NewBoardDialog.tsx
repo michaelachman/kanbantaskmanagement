@@ -61,6 +61,7 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
           open={props.newBoardDialogIsOpen}
           onClose={() => props.closeNewBoardDialog()}
         >
+          <div className="fixed inset-0 bg-black/70" aria-hidden="true">
           <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
             <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
               <Dialog.Title className="text-2xl">Add New Board</Dialog.Title>
@@ -119,6 +120,7 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
             </button>
               </div>
             </Dialog.Panel>
+          </div>
           </div>
         </Dialog>
       );

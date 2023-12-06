@@ -25,6 +25,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
       open={props.addNewColumnIsOpen}
       onClose={() => props.closeAddNewColumn()}
     >
+      <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg`}>
           <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-lg font-semibold`}>Add New Column</Dialog.Title>
@@ -56,6 +57,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
             >Cancel</button>
           </div>
         </Dialog.Panel>
+      </div>
       </div>
     </Dialog>
     )

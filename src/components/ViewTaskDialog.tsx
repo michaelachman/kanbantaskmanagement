@@ -24,10 +24,12 @@ export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
 
 return (
     <Dialog
+    
       className="relative z-50"
       open={props.viewTaskIsOpen}
       onClose={() => props.closeViewTask()}
     >
+      <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
           <div className="flex">
@@ -92,6 +94,7 @@ return (
             </button>
           </div>
         </Dialog.Panel>
+      </div>
       </div>
     </Dialog>
   )

@@ -125,8 +125,9 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
       open={props.newTaskDialogIsOpen}
       onClose={() => props.closeNewTask()}
     >
-      <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} max-sm:w-[95%] max-md:w-[75%] max-lg:w-[33%] lg:w-[33%] p-4 rounded-md shadow-lg overflow-hidden`}>
+      <div className="fixed inset-0 bg-black/70" aria-hidden="true">
+      <div className="fixed inset-0 flex items-center justify-center mx-4 px-6" >
+        <Dialog.Panel  className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} max-sm:w-[95%] max-md:w-[75%] max-lg:w-[33%] lg:w-[33%] p-4 rounded-md shadow-lg overflow-hidden`}>
           <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-base font-semibold`}>Add New Task</Dialog.Title>
 
           <div className="flex flex-col mt-3">
@@ -224,6 +225,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             </button>
           </div>
         </Dialog.Panel>
+      </div>
       </div>
     </Dialog>
   );

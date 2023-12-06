@@ -127,6 +127,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
       open={props.editTaskDialogIsOpen}
       onClose={() => props.closeEditTask()}
     >
+      <div className="fixed inset-0 bg-black/50" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         
         <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
@@ -218,6 +219,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
               Cancel
             </button>
         </Dialog.Panel>
+      </div>
       </div>
     </Dialog>
   );

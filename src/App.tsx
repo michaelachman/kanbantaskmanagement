@@ -325,10 +325,9 @@ function App() {
 
 export default App;
 
-// jak zrobic tak zeby ten scrollbar nie nachodzil na navbara przy scrollowaniu po osi y? (tu bylo robione tak ze navbar fixed a renderowane Columns dostaly margin topa)
 
 // rozciagajacy sie input w add new tasku jak content przekracza juz miejsce
 
-// ogarnac shadowy za dialogami jak sa otwarte
+// dziwnie chodzi to scrollowanie horyzontalne 
 
 // zrobic required inputy

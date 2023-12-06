@@ -83,6 +83,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
       open={props.editBoardIsOpen}
       onClose={() => props.closeEditBoard()}
     >
+      <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
           <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-2xl`}>Edit Board</Dialog.Title>
@@ -138,6 +139,7 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
             </button>
           </div>
         </Dialog.Panel>
+      </div>
       </div>
     </Dialog>
   );
