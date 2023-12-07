@@ -98,13 +98,13 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
               ))}
               <div className="flex flex-col mt-2">
                 <button
-                  className="bg-purple-100 font-bold text-[#635FC7]  rounded-3xl h-8 text-sm"
+                  className="bg-[#635FC7]/10 hover:bg-[#635FC7]/25 font-semibold text-[#635FC7]  rounded-3xl h-8 text-sm"
                   onClick={() => addNewColumn()}
                 >
                   + Add New Column
                 </button>
                 <button
-                  className="bg-[#635FC7] text-white font-semibold mt-4 rounded-3xl h-8 text-sm"
+                  className="bg-[#635FC7] hover:bg-[#A8A4FF] text-white font-semibold mt-4 rounded-3xl h-8 text-sm"
                   onClick={() => {
                     props.createNewBoard(localNewBoardForm)
                     setLocalNewBoardForm(initialNewBoardForm)
@@ -114,7 +114,7 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
                 </button>
                 <button
               onClick={() => props.closeNewBoardDialog()}
-              className="mt-4 py-1 rounded-3xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-3xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>

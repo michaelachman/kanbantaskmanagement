@@ -120,20 +120,20 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
           ))}
           <div className="flex flex-col mt-3">
             <button
-              className="bg-purple-100 text-[#635FC7] font-bold text-sm rounded-3xl h-9"
+              className="bg-[#635FC7]/10 hover:bg-[#635FC7]/25 text-[#635FC7] font-semibold text-sm rounded-3xl h-9"
               onClick={() => addNewColumn()}
             >
               + Add New Column
             </button>
             <button
-              className="bg-[#635FC7] text-white font-semibold text-sm mt-4 rounded-3xl h-9"
+              className="bg-[#635FC7] hover:bg-[#A8A4FF] text-white font-semibold text-sm mt-4 rounded-3xl h-9"
               onClick={() => props.saveEditBoardChanges(localEditBoardForm, props.activeBoard)}
             >
               Save Changes
             </button>
             <button
               onClick={() => props.closeEditBoard()}
-              className="mt-4 py-1 rounded-3xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-3xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>

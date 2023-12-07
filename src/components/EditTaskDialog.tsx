@@ -167,7 +167,7 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
                 </div>
                 
               ))}
-              <button onClick={() => newSubtask()} className="mt-3 py-1 h-9 rounded-3xl bg-purple-100 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
+              <button onClick={() => newSubtask()} className="mt-3 py-1 h-9 rounded-3xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 text-xs font-bold text-[#635FC7]">+ Add New Subtask</button>
             
           </div>
           <div>
@@ -207,14 +207,14 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             </Listbox>
           </div>
           <div>
-            <button onClick={() => props.deleteTaskButton()} className="mt-4 py-1 rounded-3xl bg-[#EA5555] w-full text-white font-medium text-xs h-8">Delete Task</button>
+            <button onClick={() => props.deleteTaskButton()} className="mt-4 py-1 rounded-3xl bg-[#EA5555] hover:bg-[#FF9898] w-full text-white font-medium text-xs h-8">Delete Task</button>
           </div>
           <div>
-            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-2 py-1 rounded-3xl bg-[#635FC7] w-full text-white text-xs font-medium h-8">Edit Task</button>
+            <button onClick={() => editTaskButton(localEditTaskForm)} className="mt-2 py-1 rounded-3xl bg-[#635FC7] hover:bg-[#A8A4FF] w-full text-white text-xs font-medium h-8">Edit Task</button>
           </div>
           <button
               onClick={() => props.closeEditTask()}
-              className="mt-2 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold text-xs h-8"
+              className="mt-2 py-1 rounded-2xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 w-full text-[#635FC7] font-semibold text-xs h-8"
             >
               Cancel
             </button>

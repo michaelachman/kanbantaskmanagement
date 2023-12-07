@@ -30,7 +30,7 @@ export const DeleteTaskDialog = (props: DeleteTaskDialogProps) => {
          
           <div className="flex flex-col mt-1">
             <button
-              className="bg-[#EA5555] text-white font-semibold rounded-3xl h-10 mt-6 text-sm"
+              className="bg-[#EA5555] hover:bg-[#FF9898] text-white font-semibold rounded-3xl h-10 mt-6 text-sm"
               onClick={() => {
                 deleteTask(props.clickedTask)
                 props.closeDeleteTaskDialog()
@@ -39,7 +39,7 @@ export const DeleteTaskDialog = (props: DeleteTaskDialogProps) => {
               Delete
             </button>
             <button
-              className="bg-purple-100 text-[#635FC7] font-semibold rounded-3xl h-10 mt-4 text-sm"
+              className="bg-[#635FC7]/10 hover:bg-[#635FC7]/25 text-[#635FC7] font-semibold rounded-3xl h-10 mt-4 text-sm"
               onClick={() => props.closeDeleteTaskDialog()}
             >
               Cancel

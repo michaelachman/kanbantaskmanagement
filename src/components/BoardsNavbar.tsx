@@ -64,21 +64,21 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`flex md:hidden ml-auto mr-4 rounded-2xl w-12 h-8 text-white font-bold text-xl justify-center place-self-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
+        className={`flex md:hidden ml-auto mr-4 rounded-2xl w-12 h-8 text-white font-bold text-xl justify-center place-self-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7] hover:bg-[#A8A4FF]`}`}
       > 
         +
       </button>
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`hidden md:flex ml-auto mr-4 rounded-3xl w-48 h-11 text-white font-bold text-base justify-center place-self-center items-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7]`}`}
+        className={`hidden md:flex ml-auto mr-4 rounded-3xl w-48 h-11 text-white font-bold text-base justify-center place-self-center items-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7] hover:bg-[#A8A4FF]`}`}
       > 
         + Add New Task
       </button>
       <img
         onClick={() => props.openEditBoard()}
         src="./assets/icon-vertical-ellipsis.svg"
-        className="flex ml-auto h-4 self-center pr-4"
+        className="flex ml-auto h-4 self-center pr-4 cursor-pointer"
       ></img>
       </div>
     </div>

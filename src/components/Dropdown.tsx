@@ -58,10 +58,10 @@ export const Dropdown = (props: DropdownProps) => {
           {props.boardsArray?.map((board) => (
             <Menu.Item>
               <div
-                className={`pl-4 py-2 flex items-center w-full rounded-r-3xl font-medium text-sm ${
+                className={`pl-4 py-2 flex items-center w-full rounded-r-3xl font-medium text-sm hover:bg-[#A8A4FF] hover:text-white cursor-pointer ${
                   board.id === props.activeBoard
                     ? `bg-[#635FC7] text-white`
-                    : `${props.darkTheme ? "bg-[#b635FC7]" : "bg-white"} text-[#828FA3] `
+                    : `text-[#828FA3] `
                 }`}
                 onClick={() => {
                   props.changeBoard(board.id);
@@ -75,7 +75,7 @@ export const Dropdown = (props: DropdownProps) => {
           ))}
           <div
             onClick={() => props.openCreateNewBoardDialog()}
-            className="pl-4 py-2 flex items-center w-full rounded-r-xl font-medium text-sm text-[#635FC7]"
+            className="pl-4 py-2 flex items-center w-full rounded-r-xl font-medium text-sm text-[#635FC7] cursor-pointer"
           >
             <IconBoard />
             <p className="pl-2">+ Create New Board</p>
@@ -85,7 +85,7 @@ export const Dropdown = (props: DropdownProps) => {
             <Switch
               checked={props.darkTheme}
               onChange={() => props.changeTheme()}
-              className="bg-[#635FC7] relative inline-flex h-6 w-11 items-center rounded-full"
+              className="bg-[#635FC7] hover:bg-[#A8A4FF] relative inline-flex h-6 w-11 items-center rounded-full"
             >
               <span className="sr-only">Enable notifications</span>
               <span

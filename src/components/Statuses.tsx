@@ -59,7 +59,7 @@ export const Statuses = (props: StatusesProps) => {
             .map((task) => (
               <div
                 onClick={() => props.viewTask(task)}
-                className={`taskdiv px-4 py-6 mb-5 rounded-lg shadow-xl ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`}`}
+                className={`taskdiv px-4 py-6 mb-5 rounded-lg shadow-xl ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white cursor-pointer`}`}
               >
                 <h2 className="font-bold">
                   {task.statusId === status.id && task.taskTitle}
@@ -84,7 +84,7 @@ export const Statuses = (props: StatusesProps) => {
             ))}
         </div>
       ))}
-      <div onClick={() => props.openAddNewColumn()} className={`flex px-4 py-6 mb-5 mr-5 max-lg:min-w-[45%] md:min-w-[20%] ${props.darkTheme ? `bg-[#2B2C37]` : `bg-gray-300`}  rounded-lg shadow-xl text-center`}>
+      <div onClick={() => props.openAddNewColumn()} className={`flex cursor-pointer px-4 py-6 mb-5 mr-5 max-lg:min-w-[45%] md:min-w-[20%] ${props.darkTheme ? `bg-[#2B2C37]` : `bg-gray-300`}  rounded-lg shadow-xl text-center`}>
         <h1 className="flex w-full justify-center self-center text-gray-500 text-xl font-bold">+New Column</h1>
       </div>
       {props.activeBoard !== null &&

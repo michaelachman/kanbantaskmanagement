@@ -309,12 +309,12 @@ function App() {
 
       <div className="max-sm:hidden md:fixed md:left-0 md:bottom-8">
         {dropdownSidebar ? (
-          <div onClick={() => dropdownSidebarToggle()} className="flex justify-start h-11 w-[100%]">
+          <div onClick={() => dropdownSidebarToggle()} className="flex justify-start h-11 w-[100%] cursor-pointer">
           <img className="object-scale-down w-10 pl-5 self-center" src="./assets/icon-hide-sidebar.svg"></img>
           <p className="text-gray-500 text-xs font-semibold self-center pl-2">Hide Sidebar</p>
         </div>
         ) : (
-          <div onClick={() => dropdownSidebarToggle()} className="flex justify-center h-11 w-12 bg-[#635FC7] rounded-r-3xl">
+          <div onClick={() => dropdownSidebarToggle()} className="flex justify-center h-11 w-12 bg-[#635FC7] hover:bg-[#A8A4FF] rounded-r-3xl cursor-pointer">
             <img className="object-scale-down pr-2" src="./assets/icon-show-sidebar.svg"></img>
           </div>
         )}
@@ -331,3 +331,9 @@ export default App;
 // dziwnie chodzi to scrollowanie horyzontalne 
 
 // zrobic required inputy
+
+// poprawic darkmode na samego tailwinda
+
+// sprawdzic jak sie sprawy maja jak nie ma boardow zadnych zeby ostylowac tez ten wariant
+
+// zrobic na elementach interaktywnych zeby sie lapka pojawiala z palcem a nie sam kursor

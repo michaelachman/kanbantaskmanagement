@@ -166,7 +166,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             ))}
             <button
               onClick={() => newSubtask()}
-              className="mt-2 py-1 rounded-2xl bg-purple-100 text-[#635FC7] font-semibold text-xs"
+              className="mt-2 py-1 rounded-2xl h-8 bg-[#635FC7]/10 hover:bg-[#635FC7]/25 text-[#635FC7] font-semibold text-xs"
             >
               + Add New Subtask
             </button>
@@ -213,13 +213,13 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
           <div>
             <button
               onClick={() => closeAndSaveTask(localAddTaskForm)}
-              className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white text-xs h-8 font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-[#635FC7] hover:bg-[#A8A4FF] w-full text-white text-xs h-8 font-semibold"
             >
               Create Task
             </button>
             <button
               onClick={() => props.closeNewTask()}
-              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] text-xs h-8 font-bold"
+              className="mt-4 py-1 rounded-2xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 w-full text-[#635FC7] text-xs h-8 font-bold"
             >
               Cancel
             </button>

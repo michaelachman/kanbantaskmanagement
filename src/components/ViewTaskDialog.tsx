@@ -88,7 +88,7 @@ return (
     </Listbox>
     <button
               onClick={() => props.closeViewTask()}
-              className="mt-4 py-1 rounded-2xl bg-purple-100 w-full text-[#635FC7] font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 w-full text-[#635FC7] font-semibold"
             >
               Cancel
             </button>

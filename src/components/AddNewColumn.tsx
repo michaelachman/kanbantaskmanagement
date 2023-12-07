@@ -43,7 +43,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
           
           <div className="flex flex-col mt-1">
             <button
-              className="mt-4 py-1 rounded-2xl bg-[#635FC7] w-full text-white h-8 text-sm font-semibold"
+              className="mt-4 py-1 rounded-2xl bg-[#635FC7] hover:bg-[#A8A4FF] w-full text-white h-8 text-sm font-semibold"
               onClick={() => {
                 props.createColumn(localColumnName, props.activeBoard);
                 setLocalColumnName("")
@@ -52,7 +52,7 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
               Create Column
             </button>
             <button
-            className="bg-purple-100 text-[#635FC7] font-semibold rounded-2xl h-8 mt-4 text-sm"
+            className="bg-[#635FC7]/10 hover:bg-[#635FC7]/25 text-[#635FC7] font-semibold rounded-2xl h-8 mt-4 text-sm"
             onClick={() => props.closeAddNewColumn()}
             >Cancel</button>
           </div>
