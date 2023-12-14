@@ -8,7 +8,6 @@ export type AddNewTaskDialogProps = {
   newTaskDialogIsOpen: boolean;
   closeNewTask: () => void;
   activeBoardStatusesArray: Status[];
-  darkTheme: boolean;
 };
 
 export type AddTaskForm = {
@@ -127,13 +126,13 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
     >
       <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6" >
-        <Dialog.Panel  className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} max-sm:w-[95%] max-md:w-[75%] max-lg:w-[33%] lg:w-[33%] p-4 rounded-md shadow-lg overflow-hidden`}>
-          <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-base font-semibold`}>Add New Task</Dialog.Title>
+        <Dialog.Panel  className="dark:bg-[#2B2C37] bg-white max-sm:w-[95%] max-md:w-[75%] max-lg:w-[33%] lg:w-[33%] p-4 rounded-md shadow-lg overflow-hidden">
+          <Dialog.Title className="dark:text-white text-black text-base font-semibold">Add New Task</Dialog.Title>
 
           <div className="flex flex-col mt-3">
-            <label className={`text-gray-500 text-xs font-semibold`}>Title</label>
+            <label className="text-gray-500 text-xs font-semibold">Title</label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700` : `bg-white`} px-2 py-1 border rounded-md pl-2 text-xs`}
+              className="dark:bg-[#2B2C37] dark:border-2 dark:border-gray-700 bg-white px-2 py-1 border rounded-md pl-2 text-xs"
               placeholder="e.g. Take coffee break"
               onChange={(event) => handleTaskTitleChange(event)}
             ></input>
@@ -141,7 +140,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
           <div className="flex flex-col mt-3">
             <label className={`text-gray-500 text-xs font-semibold`}>Description</label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700` : `bg-white`} px-2 py-1 border rounded-md  text-xs resize-y`}
+              className="dark:bg-[#2B2C37] dark:border-2 dark:border-gray-700 bg-white px-2 py-1 border rounded-md  text-xs resize-y"
               placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little"
               onChange={(event) => handleTaskDescriptionChange(event)}
             ></input>
@@ -152,7 +151,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
               <div className="w-full flex">
                 <input
                   value={subtask.subtaskDescription}
-                  className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700` : `bg-white`} text-sm mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md`}
+                  className="dark:bg-[#2B2C37] dark:border-2 dark:border-gray-700 bg-white text-sm mt-2 px-2 py-1 w-[90%] border border-gray-200 rounded-md"
                   onChange={(event) => handleSubtaskInput(event, index)}
                   placeholder="e.g. Make coffee"
                 ></input>
@@ -177,7 +176,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
             </h2>
 
             <Listbox value={props.activeBoardStatusesArray}>
-              <Listbox.Button className={`${props.darkTheme ? `border-2 border-gray-700 text-white` : `border border-gray-300 text-black`} flex justify-between w-full text-left pl-2 pr-3 items-center h-8 rounded-md text-xs`}>
+              <Listbox.Button className="dark:border-2 dark:border-gray-700 dark:text-white border border-gray-300 text-black flex justify-between w-full text-left pl-2 pr-3 items-center h-8 rounded-md text-xs">
                 {
                   props.activeBoardStatusesArray.find(
                     (status) =>
@@ -190,7 +189,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
 
               {/* <div className="bg-purple-500 mt-3 pl-4 flex items-center w-full text-white rounded-r-xl"> */}
 
-              <Listbox.Options className={`${props.darkTheme ? `border-2 border-gray-700 text-white` : `border border-gray-300 text-black`} text-sm mt-1 rounded-md border border-gray-300`}>
+              <Listbox.Options className="dark:border-2 dark:border-gray-700 dark:text-white text-black text-sm mt-1 rounded-md border border-gray-300">
                 {props.activeBoardStatusesArray?.map((status) => (
                   <Listbox.Option
                     className={

@@ -6,7 +6,6 @@ export type AddNewColumnProps = {
     closeAddNewColumn: () => void;
     activeBoard: number;
     createColumn: (localColumnName: string, activeBoard: number) => void;
-    darkTheme: boolean;
 }
 
 export const AddNewColumn = (props: AddNewColumnProps) => {
@@ -27,14 +26,14 @@ export const AddNewColumn = (props: AddNewColumnProps) => {
     >
       <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg`}>
-          <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-lg font-semibold`}>Add New Column</Dialog.Title>
+        <Dialog.Panel className="dark:bg-[#2B2C37] bg-white p-4 rounded-md shadow-lg">
+          <Dialog.Title className="dark:text-white text-black text-lg font-semibold">Add New Column</Dialog.Title>
           <div className="mt-3">
-            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold text-sm`}>
+            <label className="dark:text-white text-gray-500 w-full font-semibold text-sm">
               Column Title
             </label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] border-2 border-gray-700 text-white` : `bg-white`} w-full rounded-md px-2 py-1`}
+              className="dark:bg-[#2B2C37] dark:border-2 dark:border-gray-700 dark:text-white bg-white w-full rounded-md px-2 py-1"
               type="text"
               onChange={(event) => handleColumnNameInput(event)}
               value={localColumnName}

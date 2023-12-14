@@ -31,7 +31,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
   const imgSrcDependingOnTheme = props.darkTheme ? "./assets/logo-light.svg" : "./assets/logo-dark.svg"
 
   return (
-    <div className={`fixed top-0 h-16 w-full flex flex-row ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`}`}>
+    <div className="fixed top-0 h-16 w-full flex flex-row dark:bg-[#2B2C37] dark:text-white bg-white">
       <div className="flex p-4 pr-3 justify-center place-self-center md:hidden">
       <img src="./assets/logo-mobile.svg" className="flex h-[75%] w-[100%]"></img>
       </div>

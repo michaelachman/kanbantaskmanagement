@@ -10,7 +10,6 @@ export type EditTaskDialogProps = {
   clickedTaskSubtasks: Subtask[] | null;
   activeBoardStatusesArray: Status[] | null;
   deleteTaskButton: () => void;
-  darkTheme: boolean;
 };
 
 export type EditTaskForm = {
@@ -130,34 +129,34 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
       <div className="fixed inset-0 bg-black/50" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
         
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
+        <Dialog.Panel className="dark:bg-[#2B2C37] dark:text-white bg-white p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]">
           <Dialog.Title className="text-xl font-semibold">Edit Task</Dialog.Title>
 
           <div className="flex flex-col">
-            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} text-xs font-semibold mb-2 mt-4 pl-1`}>Title</label>
+            <label className="dark:text-white text-gray-500 text-xs font-semibold mb-2 mt-4 pl-1">Title</label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white`} text-sm px-2 py-1 border rounded-md pl-2`}
+              className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white text-sm px-2 py-1 border rounded-md pl-2"
               value={localEditTaskForm.localClickedTask?.taskTitle}
               onChange={(event) => handleTaskTitleChange(event)}
               
             ></input>
           </div>
           <div className="flex flex-col mt-3">
-            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} text-xs font-semibold mb-2 mt-1 pl-1`}>Description</label>
+            <label className="dark:text-white text-gray-500 text-xs font-semibold mb-2 mt-1 pl-1">Description</label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white`} text-sm px-2 py-1 border rounded-md`}
+              className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white text-sm px-2 py-1 border rounded-md"
               value={localEditTaskForm.localClickedTask?.taskDescription}
               onChange={(event) => handleTaskDescriptionChange(event)}
             ></input>
           </div>
           <div className="flex flex-col mt-4">
-            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} text-xs font-semibold mb-0 mt-1 pl-1`}>Subtasks</label>
+            <label className="dark:text-white text-gray-500 text-xs font-semibold mb-0 mt-1 pl-1">Subtasks</label>
               {localEditTaskForm.subtasksArray?.map((subtask, index) => (
                 <div key={subtask.id} className="w-full flex">
                   <input
                     key={subtask.id}
                     id={`${subtask.id}`}
-                    className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white`} text-sm mt-2 px-2 py-1 w-[88%] border border-gray-200 rounded-md`}
+                    className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white text-sm mt-2 px-2 py-1 w-[88%] border border-gray-200 rounded-md"
                     value={subtask.subtaskDescription}
                     onChange={(event) => handleSubtaskInput(event, index)}
                   ></input>
@@ -171,12 +170,12 @@ export const EditTaskDialog = (props: EditTaskDialogProps) => {
             
           </div>
           <div>
-            <h2 className={`${props.darkTheme ? `text-white` : `text-gray-500`} mt-3 mb-2  text-xs font-semibold pl-1`}>
+            <h2 className="dark:text-white text-gray-500 mt-3 mb-2  text-xs font-semibold pl-1">
               Status
             </h2>
 
             <Listbox value={localEditTaskForm.statusesArray}>
-              <Listbox.Button className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `border border-gray-300`} text-sm flex justify-between w-full text-left pl-2 pr-3 items-center h-8  rounded-md`}>
+              <Listbox.Button className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 border border-gray-300 text-sm flex justify-between w-full text-left pl-2 pr-3 items-center h-8  rounded-md">
                 {
                   localEditTaskForm.statusesArray?.find(
                     (status) => status.id === localEditTaskForm.localClickedTask.statusId

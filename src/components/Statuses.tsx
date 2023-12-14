@@ -12,7 +12,6 @@ export type StatusesProps = {
   closeAddNewColumn: () => void;
   createColumn: (localColumnName: string, activeBoard: number) => void;
   addNewColumnIsOpen: boolean;
-  darkTheme: boolean;
   dropdownSidebar: boolean;
 };
 
@@ -22,7 +21,7 @@ export const Statuses = (props: StatusesProps) => {
   
 
   return props.activeBoardStatusesArray?.length === 0 ? (
-    <div className={`h-full mt-5 flex flex-col items-center justify-center pb-32 ${props.darkTheme ? `bg-[#20212C]` : `bg-[#F4F7FD]`} `}>
+    <div className="h-full mt-5 flex flex-col items-center justify-center pb-32 dark:bg-[#20212C] bg-[#F4F7FD]">
       <p className="text-[#828FA3] font-bold">
         This board is empty. Create a new column to get started.
       </p>
@@ -37,12 +36,11 @@ export const Statuses = (props: StatusesProps) => {
         addNewColumnIsOpen={props.addNewColumnIsOpen}
         closeAddNewColumn={props.closeAddNewColumn}
         createColumn={props.createColumn}
-        darkTheme={props.darkTheme}
       />}
       
     </div>
   ) : (
-    <div className={`md:flex min-h-full w-full flex flex-row ${props.dropdownSidebar ? `md:ml-[21%] md:border-l-4 border-gray-100` : ``} pt-6 pl-4 text-left overflow-x-scroll flex-nowrap ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-100`}`}>
+    <div className={`md:flex min-h-full w-full flex flex-row ${props.dropdownSidebar ? `md:ml-[21%] md:border-l-4 border-gray-100` : ``} pt-6 pl-4 text-left overflow-x-scroll flex-nowrap dark:bg-[#20212C] bg-gray-100`}>
       {props.activeBoardStatusesArray?.map((status) => (
         <div className="column min-w-[75%] md:min-w-[35%] min-h-[88px] mr-6 mb-5">
           <h1 className="column-title pb-6 text-base text-gray-400 font-semibold">
@@ -59,7 +57,7 @@ export const Statuses = (props: StatusesProps) => {
             .map((task) => (
               <div
                 onClick={() => props.viewTask(task)}
-                className={`taskdiv px-4 py-6 mb-5 rounded-lg shadow-xl ${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white cursor-pointer`}`}
+                className="taskdiv px-4 py-6 mb-5 rounded-lg shadow-xl dark:bg-[#2B2C37] dark:text-white bg-white cursor-pointer"
               >
                 <h2 className="font-bold">
                   {task.statusId === status.id && task.taskTitle}
@@ -84,7 +82,7 @@ export const Statuses = (props: StatusesProps) => {
             ))}
         </div>
       ))}
-      <div onClick={() => props.openAddNewColumn()} className={`flex cursor-pointer px-4 py-6 mb-5 mr-5 max-lg:min-w-[45%] md:min-w-[20%] ${props.darkTheme ? `bg-[#2B2C37]` : `bg-gray-300`}  rounded-lg shadow-xl text-center`}>
+      <div onClick={() => props.openAddNewColumn()} className="flex cursor-pointer px-4 py-6 mb-5 mr-5 max-lg:min-w-[45%] md:min-w-[20%] dark:bg-[#2B2C37] bg-gray-300 rounded-lg shadow-xl text-center">
         <h1 className="flex w-full justify-center self-center text-gray-500 text-xl font-bold">+New Column</h1>
       </div>
       {props.activeBoard !== null &&
@@ -93,7 +91,6 @@ export const Statuses = (props: StatusesProps) => {
         addNewColumnIsOpen={props.addNewColumnIsOpen}
         closeAddNewColumn={props.closeAddNewColumn}
         createColumn={props.createColumn}
-        darkTheme={props.darkTheme}
       />
 }
     </div>

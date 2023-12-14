@@ -16,7 +16,7 @@ export type DropdownProps = {
 
 export const Dropdown = (props: DropdownProps) => {
   const [chevronDirection, setChevronDirection] = useState(true);
-
+  // const [checkedDark, setCheckedDark] = useState(true);
 
 
   function boardNameFunction() {
@@ -51,7 +51,7 @@ export const Dropdown = (props: DropdownProps) => {
       </Menu.Button>
       {props.dropdownSidebar && (
         <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[25%] md:h-[95%]">
-        <Menu.Items static className={`${props.darkTheme ? "bg-[#2B2C37]" : "bg-white"} rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1 `}>
+        <Menu.Items static className="dark:bg-[#2B2C37] bg-white rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1">
           <h1 className="flex text-xs text-[#828FA3] pl-4 py-3 font-semibold">
             ALL BOARDS ({props.boardsArray?.length})
           </h1>
@@ -80,18 +80,19 @@ export const Dropdown = (props: DropdownProps) => {
             <IconBoard />
             <p className="pl-2">+ Create New Board</p>
           </div>
-          <div className={`flex md:bottom-20 md:fixed md:w-[16%] m-4 mr-0 py-2 justify-center rounded-md ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-100`}`}>
+          <div className="flex md:bottom-20 md:fixed md:w-[16%] m-4 mr-0 py-2 justify-center rounded-md dark:bg-[#20212C] bg-gray-100">
             <img className="mr-4 object-scale-down" src="./assets/icon-light-theme.svg"></img>
             <Switch
               checked={props.darkTheme}
-              onChange={() => props.changeTheme()}
+              onChange={() => {
+                props.changeTheme()
+                // setCheckedDark((previousState) => !previousState)
+              }}
               className="bg-[#635FC7] hover:bg-[#A8A4FF] relative inline-flex h-6 w-11 items-center rounded-full"
             >
               <span className="sr-only">Enable notifications</span>
               <span
-                className={`${
-                  props.darkTheme ? "translate-x-6" : "translate-x-1"
-                } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                className="dark:translate-x-6 translate-x-1 inline-block h-4 w-4 transform rounded-full bg-white transition"
               />
             </Switch>
             <img className="ml-4 object-scale-down" src="./assets/icon-dark-theme.svg"></img>

@@ -5,8 +5,7 @@ import { deleteTask } from "../db";
 export type DeleteTaskDialogProps = {
     deleteTaskDialogIsOpen: boolean
     closeDeleteTaskDialog: () => void;
-    clickedTask: Task
-    darkTheme: boolean;
+    clickedTask: Task;
 }
 
 export const DeleteTaskDialog = (props: DeleteTaskDialogProps) => {
@@ -21,7 +20,7 @@ export const DeleteTaskDialog = (props: DeleteTaskDialogProps) => {
     >
       <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg max-lg:w-[75%] lg:w-[33%]`}>
+        <Dialog.Panel className="dark:bg-[#2B2C37] bg-white p-4 rounded-md shadow-lg max-lg:w-[75%] lg:w-[33%]">
           <Dialog.Title className="text-lg font-semibold text-[#EA5555]">Delete this task?</Dialog.Title>
           <div className="mt-6">
             <p className="text-gray-500 text-xs mt-6">Are you sure you want to delete the ‘Build settings UI’ task and its subtasks? This action cannot be reversed.</p>

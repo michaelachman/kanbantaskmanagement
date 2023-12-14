@@ -16,7 +16,6 @@ export type EditBoardDialogProps = {
   closeEditBoard: () => void
   activeBoardStatusesArray: Status[]
   saveEditBoardChanges: (localEditBoardForm: BoardForm, boardId: number) => void
-  darkTheme: boolean;
 }
 
 export const EditBoardDialog = (props: EditBoardDialogProps) => {
@@ -85,28 +84,28 @@ export const EditBoardDialog = (props: EditBoardDialogProps) => {
     >
       <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37]` : `bg-white`} p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
-          <Dialog.Title className={`${props.darkTheme ? `text-white` : `text-black`} text-2xl`}>Edit Board</Dialog.Title>
+        <Dialog.Panel className="dark:bg-[#2B2C37] bg-white p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]">
+          <Dialog.Title className="dark:text-white text-black text-2xl">Edit Board</Dialog.Title>
           <div className="mt-3">
-            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold`}>
+            <label className="dark:text-white text-gray-500 w-full font-semibold">
               Board Name
             </label>
             <input
-              className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`}  mt-1 w-full rounded-md px-3 py-1 text-sm`}
+              className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white border border-gray-300 mt-1 w-full rounded-md px-3 py-1 text-sm"
               type="text"
               onChange={(event) => handleBoardNameInput(event)}
               value={localEditBoardForm.boardName}
             ></input>
           </div>
           <div className="mt-3 mb-1">
-            <label className={`${props.darkTheme ? `text-white` : `text-gray-500`} w-full font-semibold`}>
+            <label className="dark:text-white text-gray-500 w-full font-semibold">
               Board Columns
             </label>
           </div>
           {localEditBoardForm.statusesArray.map((column, index) => (
             <div key={index} className="flex">
               <input
-                className={`mb-2 w-full  rounded-md p-1 ${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`} px-3 py-1 text-sm`}
+                className="mb-2 w-full  rounded-md p-1 dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white border border-gray-300 px-3 py-1 text-sm"
                 type="text"
                 value={column.statusName}
                 onChange={(event) => handleColumnNameInput(event, index)}

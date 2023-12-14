@@ -16,7 +16,6 @@ export type ViewTaskDialogProps = {
     editTask: () => void;
     taskStatusChange: (clickedTaskId: number, newStatusId: number, boardId: number) => void;
     statusDependency: () => void;
-    darkTheme: boolean;
 }
 
 export const ViewTaskDialog = (props: ViewTaskDialogProps) => {
@@ -31,7 +30,7 @@ return (
     >
       <div className="fixed inset-0 bg-black/70" aria-hidden="true">
       <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-        <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
+        <Dialog.Panel className="dark:bg-[#2B2C37] dark:text-white bg-white p-4 rounded-md shadow-lg overflow-hidden max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]">
           <div className="flex">
           <Dialog.Title className="font-bold text-lg w-[90%]">{props.clickedTask?.taskTitle}</Dialog.Title>
           <button onClick={() => props.editTask()} className="h-10 w-10 flex items-center justify-center"><img className="" src="./assets/icon-vertical-ellipsis.svg"></img></button>
@@ -41,7 +40,7 @@ return (
           </div>
           {props.clickedTaskSubtasks?.length !== 0 && <><h2 className="mt-3 mb-3 text-gray-500 w-full font-semibold">{props.clickedTaskSubtasks?.length === 1 ? "Subtask" : "Subtasks"} ({props.clickedTaskSubtasks?.filter((subtask) => subtask.subtaskStatus === true).length} of {props.clickedTaskSubtasks?.length})</h2>
           {props.clickedTaskSubtasks?.length !== 0 && props.clickedTaskSubtasks?.map((subtask) => (
-            <div className={`px-1 py-2 mb-2 ${props.darkTheme ? `bg-[#20212C]` : `bg-gray-200`} flex rounded-md`}>
+            <div className="px-1 py-2 mb-2 dark:bg-[#20212C] bg-gray-200 flex rounded-md">
             <div onClick={() => { if (props.clickedTask?.id !== undefined) {
               changeSubtaskStatus(subtask.id, props.clickedTask?.id)
               props.statusDependency()
@@ -49,11 +48,7 @@ return (
               className={`flex w-5 h-4 ml-2 justify-center items-center self-center ${subtask.subtaskStatus === true ? `bg-[#635FC7]` : `bg-white border`} rounded-sm`}>
             <IconCheck className="text-white object-scale-down"/>
             </div>
-            {props.darkTheme ? (
-              <p className={`pl-1 break-words overflo w-full ml-3 pr-9 font-semibold ${(subtask.subtaskStatus === true) ? `text-gray-500 line-through` : `text-white`}`}>{subtask.subtaskDescription}</p>
-            ) : (
-              <p className={`pl-1 break-words overflo w-full ml-3 pr-9 font-semibold ${(subtask.subtaskStatus === true) ? `text-gray-500 line-through` : `text-black`}`}>{subtask.subtaskDescription}</p>
-            )}
+            <p className={`pl-1 break-words overflow-auto w-full ml-3 pr-9 font-semibold dark:text-white text-black ${(subtask.subtaskStatus === true) && `text-gray-500 dark:text-gray-500 line-through`}`}>{subtask.subtaskDescription}</p>
             
           </div>
           ))}

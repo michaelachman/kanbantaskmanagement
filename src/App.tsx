@@ -20,8 +20,10 @@ import { EditTaskDialog } from "./components/EditTaskDialog";
 import { AddNewTaskDialog } from "./components/AddNewTaskDialog";
 import { NewBoardDialog } from "./components/NewBoardDialog";
 import { DeleteTaskDialog } from "./components/DeleteTaskDialog";
+import { root } from "postcss";
 
 function App() {
+
   const emptyTask: Task = {
     id: 1,
     taskTitle: "",
@@ -168,6 +170,9 @@ function App() {
 
   function changeTheme() {
     setdarkTheme(!darkTheme);
+    if (document.getElementById("html")?.classList.contains("dark")) {
+      document.getElementById("html")?.classList.remove("dark")
+    } else document.getElementById("html")?.classList.add("dark")
   }
 
   function dropdownSidebarToggle() {
@@ -245,7 +250,6 @@ function App() {
           closeAddNewColumn={closeAddNewColumn}
           addNewColumnIsOpen={addNewColumnIsOpen}
           createColumn={createColumn}
-          darkTheme={darkTheme}
           dropdownSidebar={dropdownSidebar}
         />
       </div>
@@ -258,7 +262,6 @@ function App() {
           closeEditBoard={closeEditBoard}
           activeBoardStatusesArray={activeBoardStatusesArray}
           saveEditBoardChanges={saveEditBoardChanges}
-          darkTheme={darkTheme}
         />
       )}
 
@@ -266,7 +269,6 @@ function App() {
         newBoardDialogIsOpen={newBoardDialogIsOpen}
         closeNewBoardDialog={closeNewBoardDialog}
         createNewBoard={createNewBoard}
-        darkTheme={darkTheme}
       />
 
       <ViewTaskDialog
@@ -279,7 +281,6 @@ function App() {
         editTask={editTask}
         taskStatusChange={taskStatusChange}
         statusDependency={statusDependency}
-        darkTheme={darkTheme}
       />
 
       <EditTaskDialog
@@ -289,14 +290,12 @@ function App() {
         clickedTaskSubtasks={clickedTaskSubtasks}
         activeBoardStatusesArray={activeBoardStatusesArray}
         deleteTaskButton={deleteTaskButton}
-        darkTheme={darkTheme}
       />
 
       <DeleteTaskDialog
         deleteTaskDialogIsOpen={deleteTaskDialogIsOpen}
         closeDeleteTaskDialog={closeDeleteTaskDialog}
         clickedTask={clickedTask}
-        darkTheme={darkTheme}
       />
 
       <AddNewTaskDialog
@@ -304,7 +303,6 @@ function App() {
         newTaskDialogIsOpen={newTaskDialogIsOpen}
         closeNewTask={closeNewTask}
         activeBoardStatusesArray={activeBoardStatusesArray}
-        darkTheme={darkTheme}
       />
 
       <div className="max-sm:hidden md:fixed md:left-0 md:bottom-8">
@@ -332,8 +330,6 @@ export default App;
 
 // zrobic required inputy
 
-// poprawic darkmode na samego tailwinda
+// poprawki kosmetyczne w desktopowej wersji tego co sie z dropdownem dzieje (biale bordery po prawej)
 
 // sprawdzic jak sie sprawy maja jak nie ma boardow zadnych zeby ostylowac tez ten wariant
-
-// zrobic na elementach interaktywnych zeby sie lapka pojawiala z palcem a nie sam kursor

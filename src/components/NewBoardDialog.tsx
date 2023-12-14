@@ -12,7 +12,6 @@ export type NewBoardDialogProps = {
     newBoardDialogIsOpen: boolean,
     closeNewBoardDialog: () => void,
     createNewBoard: (localNewBoardForm: BoardForm) => void;
-    darkTheme: boolean;
 }
 
 export const NewBoardDialog = (props: NewBoardDialogProps) => {
@@ -63,14 +62,14 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
         >
           <div className="fixed inset-0 bg-black/70" aria-hidden="true">
           <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
-            <Dialog.Panel className={`${props.darkTheme ? `bg-[#2B2C37] text-white` : `bg-white`} p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]`}>
+            <Dialog.Panel className="dark:bg-[#2B2C37] dark:text-white bg-white p-4 rounded-md shadow-lg max-sm:w-[90%] md:min-w-[50%] lg:min-w-[33%]">
               <Dialog.Title className="text-2xl">Add New Board</Dialog.Title>
               <div className="mt-3">
                 <label className="text-gray-500 w-full font-semibold">
                   Board Name
                 </label>
                 <input
-                  className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`} border w-full rounded-md p-1`}
+                  className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white border border-gray-300 border w-full rounded-md p-1"
                   type="text"
                   onChange={(event) => handleBoardNameInput(event)}
                   value={localNewBoardForm.boardName}
@@ -84,7 +83,7 @@ export const NewBoardDialog = (props: NewBoardDialogProps) => {
               {localNewBoardForm.statusesArray.map((column, index) => (
                 <div key={index} className="flex">
                   <input
-                    className={`${props.darkTheme ? `bg-[#2B2C37] text-white border-2 border-gray-700` : `bg-white border border-gray-300`} w-full border rounded-md p-1 mt-2`}
+                    className="dark:bg-[#2B2C37] dark:text-white dark:border-2 dark:border-gray-700 bg-white border border-gray-300 w-full rounded-md p-1 mt-2"
                     type="text"
                     value={column.statusName}
                     onChange={(event) => handleColumnNameInput(event, index)}
