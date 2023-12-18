@@ -31,22 +31,22 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
   const imgSrcDependingOnTheme = props.darkTheme ? "./assets/logo-light.svg" : "./assets/logo-dark.svg"
 
   return (
-    <div className="fixed top-0 h-16 w-full flex flex-row dark:bg-[#2B2C37] dark:text-white bg-white">
+    <div className="fixed top-0 h-16 w-[100%] flex flex-row dark:bg-[#2B2C37] dark:text-white bg-white md:border-b-2 md:border-gray-100 md:dark:border-gray-600">
       <div className="flex p-4 pr-3 justify-center place-self-center md:hidden">
       <img src="./assets/logo-mobile.svg" className="flex h-[75%] w-[100%]"></img>
       </div>
-      <div className="hidden md:flex md:w-[21%] md:place-self-center md:pl-4">
+      <div className="hidden md:flex md:w-[21%] md:place-self-center md:ml-4">
       <img className="md:w-36 md:h-6" src={imgSrcDependingOnTheme}></img>
       </div>
       {props.boardsArray === null && props.activeBoard === null ? (
         <div
-          className="flex flex-row md:border-l-2 md:border-gray-100"
+          className="flex flex-row md:border-l-2 md:border-gray-100 md:dark:border-gray-600"
           onClick={() => props.openCreateNewBoardDialog()}
         >
           <h1 className="pr-1 self-center">+ Create New Board</h1>
         </div>
       ) : (
-        <div className="flex flex-row md:border-l-2 md:border-gray-100">
+        <div className="flex flex-row md:border-l-2 md:border-gray-100 md:dark:border-gray-600">
           <Dropdown
             boardsArray={props.boardsArray}
             activeBoard={props.activeBoard}
@@ -71,7 +71,7 @@ export const BoardsNavbar = (props: BoardsNavbarProps) => {
       <button
         onClick={() => props.openNewTaskDialog()}
         disabled={buttonDisabled}
-        className={`hidden md:flex ml-auto mr-4 rounded-3xl w-48 h-11 text-white font-bold text-base justify-center place-self-center items-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7] hover:bg-[#A8A4FF]`}`}
+        className={`hidden md:flex ml-auto mr-4 rounded-3xl w-48 h-10 text-white font-bold text-base justify-center place-self-center items-center ${buttonDisabled ? `bg-purple-300` : `bg-[#635FC7] hover:bg-[#A8A4FF]`}`}
       > 
         + Add New Task
       </button>

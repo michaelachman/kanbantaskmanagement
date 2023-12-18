@@ -50,7 +50,7 @@ export const Dropdown = (props: DropdownProps) => {
         </div>
       </Menu.Button>
       {props.dropdownSidebar && (
-        <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[25%] md:h-[95%]">
+        <div className="fixed top-20 left-20 w-9/12 mb-4 md:flex md:top-16 md:left-0 md:w-[26%] md:h-[95%]">
         <Menu.Items static className="dark:bg-[#2B2C37] bg-white rounded-md md:rounded-none shadow-lg pr-4 w-10/12 pb-1">
           <h1 className="flex text-xs text-[#828FA3] pl-4 py-3 font-semibold">
             ALL BOARDS ({props.boardsArray?.length})

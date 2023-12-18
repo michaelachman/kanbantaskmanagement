@@ -40,7 +40,7 @@ export const Statuses = (props: StatusesProps) => {
       
     </div>
   ) : (
-    <div className={`md:flex min-h-full w-full flex flex-row ${props.dropdownSidebar ? `md:ml-[21%] md:border-l-4 border-gray-100` : ``} pt-6 pl-4 text-left overflow-x-scroll flex-nowrap dark:bg-[#20212C] bg-gray-100`}>
+    <div className={`md:flex min-h-full w-full flex flex-row ${props.dropdownSidebar && `md:ml-[21%] md:border-l-4 border-gray-100 `} pt-6 pl-4 text-left overflow-x-scroll flex-nowrap dark:bg-[#20212C] bg-gray-100`}>
       {props.activeBoardStatusesArray?.map((status) => (
         <div className="column min-w-[75%] md:min-w-[35%] min-h-[88px] mr-6 mb-5">
           <h1 className="column-title pb-6 text-base text-gray-400 font-semibold">
