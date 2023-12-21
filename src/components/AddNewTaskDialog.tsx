@@ -1,5 +1,5 @@
 import { Dialog, Listbox } from "@headlessui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Status, Subtask, Task } from "../crud";
 import { addNewTaskToBoard } from "../db";
 
@@ -15,10 +15,20 @@ export type AddTaskForm = {
   localTaskProps: Partial<Task>;
 };
 
-export type Errors = {
-  taskTitle: string | null;
-  subtaskTitle: string | null;
+// type Errors = {
+//   taskTitle: string | null;
+//   subtaskTitle: string | null;
+// };
+
+type Inputs = {
+  taskTitle: string;
+  subtaskTitle: string;
 };
+
+type Errors = Partial<Record<keyof Inputs, string>>
+
+type Touched = Partial<Record<keyof Inputs, boolean>>
+
 
 export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
   const initialLocalForm: AddTaskForm = {
@@ -31,15 +41,30 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
     },
   };
 
-  const emptyErrors: Errors = {
-    taskTitle: null,
-    subtaskTitle: null,
-  };
+  // const emptyErrors: Errors = {
+  //   taskTitle: null,
+  //   subtaskTitle: null,
+  // };
+
+  const validate = (newInputs: Inputs): Errors => {
+    const newErrors: Errors = {}
+
+    if (newInputs.taskTitle === "") {
+      newErrors.taskTitle = "Task title is required."
+    }
+    return newErrors
+  }
 
   const [localAddTaskForm, setLocalAddTaskForm] =
     useState<AddTaskForm>(initialLocalForm);
+  const [inputs, setInputs] = useState<Inputs>({
+    taskTitle: "",
+    subtaskTitle: "",
+  });
+  const [errors, setErrors] = useState<Errors>(validate(inputs))
+  const [touched, setTouched] = useState<Touched>({})
   // const [validation, setValidation] = useState(true)
-  const [errors, setErrors] = useState<Errors>(emptyErrors);
+  // const [errors, setErrors] = useState<Errors>(emptyErrors);
   // const [submitting, setSubmitting] = useState(false)
 
   // useEffect(() => {
@@ -47,7 +72,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
   // }, [localAddTaskForm.subtasksArray, localAddTaskForm]);
 
   function newSubtask(event: React.MouseEvent<HTMLElement>) {
-    event.preventDefault()
+    event.preventDefault();
     setLocalAddTaskForm((previousState) => {
       const newSubtask = {
         subtaskDescription: "",
@@ -61,6 +86,10 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
   }
 
   function handleTaskTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
+
+    setInputs({...inputs, taskTitle: event.target.value})
+    setErrors(validate({...inputs, taskTitle: event.target.value}))
+
     setLocalAddTaskForm((previousState) => {
       return {
         ...previousState,
@@ -133,47 +162,50 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
     props.closeNewTask();
   }
 
+ 
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const taskTitleEmpty =
-      localAddTaskForm.localTaskProps.taskTitle?.length === 0;
-    const subtaskTitleEmpty = localAddTaskForm.subtasksArray?.find(
-      (subtask) => {
-        subtask.subtaskDescription?.length === 0;
-      }
-    );
-    if (taskTitleEmpty) {
-      setErrors((previousState) => {
-        return { ...previousState, taskTitle: "Task title is required" };
-      });
-    }
-    if (subtaskTitleEmpty === undefined) {
-      setErrors((previousState) => {
-        return {
-          ...previousState,
-          subtaskTitle: "Any of subtask/subtasks name can't be empty",
-        };
-      });
-    } else {
-      closeAndSaveTask(localAddTaskForm);
-    }
-  }
+  // function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+  //   setErrors(emptyErrors);
+  //   const taskTitleEmpty =
+  //     localAddTaskForm.localTaskProps.taskTitle?.length === 0;
+  //   const subtaskTitleEmpty = localAddTaskForm.subtasksArray?.find(
+  //     (subtask) => {
+  //       subtask.subtaskDescription?.length === 0;
+  //     }
+  //   );
+  //   if (taskTitleEmpty) {
+  //     setErrors((previousState) => {
+  //       return { ...previousState, taskTitle: "Task title is required" };
+  //     });
+  //   }
+  //   if (subtaskTitleEmpty === undefined) {
+  //     setErrors((previousState) => {
+  //       return {
+  //         ...previousState,
+  //         subtaskTitle: "Any of subtask/subtasks name can't be empty",
+  //       };
+  //     });
+  //   } else {
+  //     closeAndSaveTask(localAddTaskForm);
+  //   }
+  // }
 
+  // ${errors.taskTitle && `border-red-500`}
 
   return (
     <Dialog
       className="relative z-1"
       open={props.newTaskDialogIsOpen}
       onClose={() => {
-        setErrors(emptyErrors);
+        // setErrors(emptyErrors);
         props.closeNewTask();
       }}
     >
       <div className="fixed inset-0 bg-black/70" aria-hidden="true">
         <div className="fixed inset-0 flex items-center justify-center mx-4 px-6">
           <Dialog.Panel className="dark:bg-[#2B2C37] bg-white max-sm:w-[95%] max-md:w-[75%] max-lg:w-[33%] lg:w-[33%] p-4 rounded-md shadow-lg overflow-hidden">
-            <form onSubmit={(event) => handleSubmit(event)}>
+            <form noValidate>
               <Dialog.Title className="dark:text-white text-black text-base font-semibold">
                 Add New Task
               </Dialog.Title>
@@ -184,12 +216,14 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
                 </label>
                 <input
                   type="text"
-                  className={`dark:bg-[#2B2C37] dark:border-2 dark:border-gray-700 ${
-                    errors.taskTitle && `border-red-500`
-                  } bg-white px-2 py-1 border rounded-md pl-2 text-xs`}
+                  className={`dark:bg-[#2B2C37] dark:border-2 dark:border-gray-700
+                   
+                   bg-white px-2 py-1 border rounded-md pl-2 text-xs`}
                   placeholder="e.g. Take coffee break"
+                  onBlur={() => setTouched({...touched, taskTitle: true})}
                   onChange={(event) => handleTaskTitleChange(event)}
                 ></input>
+                {errors.taskTitle && touched.taskTitle ? <p>required yoooo</p> : null}
               </div>
               <div className="flex flex-col mt-3">
                 <label className={`text-gray-500 text-xs font-semibold`}>
@@ -221,7 +255,7 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
                     </button>
                   </div>
                 ))}
-                {errors.subtaskTitle && <span>{errors.subtaskTitle}</span>}
+                {/* {errors.subtaskTitle && <span>{errors.subtaskTitle}</span>} */}
                 <button
                   onClick={(event) => newSubtask(event)}
                   className="mt-2 py-1 rounded-2xl h-8 bg-[#635FC7]/10 hover:bg-[#635FC7]/25 text-[#635FC7] font-semibold text-xs"
@@ -271,15 +305,19 @@ export const AddNewTaskDialog = (props: AddNewTaskDialogProps) => {
               </div>
               <div>
                 <button
-                  type="submit"
-                  // onClick={() => validationCheck(localAddTaskForm)}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    if (Object.keys(errors).length === 0) {
+                        closeAndSaveTask(localAddTaskForm)
+                    }
+                  }}
                   className="mt-4 py-1 rounded-2xl bg-[#635FC7] hover:bg-[#A8A4FF] w-full text-white text-xs h-8 font-semibold"
                 >
                   Create Task
                 </button>
                 <button
                   onClick={() => {
-                    setErrors(emptyErrors);
+                    // setErrors(emptyErrors);
                     props.closeNewTask();
                   }}
                   className="mt-4 py-1 rounded-2xl bg-[#635FC7]/10 hover:bg-[#635FC7]/25 w-full text-[#635FC7] text-xs h-8 font-bold"
